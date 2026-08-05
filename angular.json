@@ -6,5 +6,47 @@
   },
   "newProjectRoot": "projects",
   "projects": {
+    "balinaui-components": {
+      "projectType": "library",
+      "root": "projects/balinaui-components",
+      "sourceRoot": "projects/balinaui-components/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/balinaui-components/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/balinaui-components/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/balinaui-components/tsconfig.spec.json"
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular-vite:start-storybook",
+          "options": {
+            "configDir": "projects/balinaui-components/.storybook",
+            "browserTarget": "balinaui-components:build",
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular-vite:build-storybook",
+          "options": {
+            "configDir": "projects/balinaui-components/.storybook",
+            "browserTarget": "balinaui-components:build",
+            "outputDir": "storybook-static"
+          }
+        }
+      }
+    }
   }
 }

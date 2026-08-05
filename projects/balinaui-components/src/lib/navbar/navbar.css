@@ -1,0 +1,250 @@
+.anv-navbar {
+  width: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.anv-topbar {
+  height: 6px;
+  background: #2740a8;
+  width: 100%;
+}
+
+.anv-stripes {
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.anv-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  gap: 24px;
+}
+
+.anv-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.anv-brand-icon {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+
+.anv-brand-name {
+  font-weight: 700;
+  font-size: 20px;
+  color: #1f4d4a;
+  letter-spacing: 0.3px;
+}
+
+.anv-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-left: auto;
+  margin-right: 28px;
+}
+
+.anv-link {
+  color: #4a4a4a;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.15s ease;
+}
+
+.anv-link:hover {
+  opacity: 0.7;
+}
+
+.anv-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.anv-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  transition: opacity 0.15s ease;
+}
+
+.anv-icon-btn:hover {
+  opacity: 0.7;
+}
+
+.anv-divider {
+  width: 1px;
+  height: 26px;
+  background: #d9d9d9;
+}
+
+.anv-login-btn {
+  background: #1f4d4a;
+  color: #ffffff;
+  border: none;
+  padding: 9px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.anv-login-btn:hover {
+  background: #163836;
+}
+
+.anv-login-btn:active {
+  transform: scale(0.97);
+}
+
+.anv-profile-wrap {
+  position: relative;
+}
+
+.anv-profile-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #111111;
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.anv-profile-btn:hover {
+  transform: scale(1.05);
+}
+
+.anv-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  min-width: 220px;
+  padding: 8px;
+  z-index: 50;
+  animation: anv-dropdown-in 0.15s ease;
+}
+
+@keyframes anv-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anv-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 8px;
+}
+
+.anv-dropdown-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #111111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.anv-dropdown-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.anv-dropdown-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.anv-dropdown-email {
+  font-size: 12px;
+  color: #888888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.anv-dropdown-sep {
+  border: none;
+  border-top: 1px solid #eeeeee;
+  margin: 4px 0;
+}
+
+.anv-dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  padding: 10px 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.anv-dropdown-item:hover {
+  background: #f5f5f5;
+}
+
+.anv-logout {
+  color: #c0392b;
+}
+
+@media (max-width: 640px) {
+  .anv-content {
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  .anv-links {
+    gap: 16px;
+    margin-right: 12px;
+  }
+  .anv-link {
+    font-size: 13px;
+  }
+  .anv-brand-name {
+    font-size: 17px;
+  }
+}
