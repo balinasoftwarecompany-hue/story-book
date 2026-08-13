@@ -1,0 +1,17 @@
+<button
+  [type]="type"
+  [disabled]="disabled"
+
+  [ngClass]="[
+    'lib-button',
+    'lib-button-' + variant,
+    'lib-button-' + color,
+    'lib-button-' + size
+  ]"
+
+  [ngStyle]="buttonStyles"
+
+  (click)="handleClick($event)"
+>
+  {{ text }}
+</button>

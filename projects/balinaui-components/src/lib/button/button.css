@@ -1,0 +1,400 @@
+/* =====================================================
+   BASE
+===================================================== */
+
+.lib-button {
+  --button-default-color: #2563eb;
+  --button-default-hover-color: #1d4ed8;
+  --button-default-active-color: #1e40af;
+
+  --button-custom-color: var(--button-default-color);
+  --button-hover-color: var(--button-default-hover-color);
+  --button-active-color: var(--button-default-active-color);
+
+  --button-text-color: #ffffff;
+  --button-border-color: var(--button-custom-color);
+
+  --button-hover-text-color: var(--button-text-color);
+  --button-active-text-color: var(--button-text-color);
+
+  --button-disabled-color: #e5e7eb;
+  --button-disabled-text-color: #9ca3af;
+  --button-disabled-border-color: #d1d5db;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 1px solid var(--button-border-color);
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  font-weight: 600;
+  line-height: 1;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+
+  outline: none;
+}
+
+
+/* =====================================================
+   SIZES
+===================================================== */
+
+.lib-button-xs {
+  min-height: 28px;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+.lib-button-sm {
+  min-height: 34px;
+  padding: 7px 14px;
+  font-size: 13px;
+  border-radius: 7px;
+}
+
+.lib-button-md {
+  min-height: 40px;
+  padding: 9px 18px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.lib-button-lg {
+  min-height: 46px;
+  padding: 11px 22px;
+  font-size: 16px;
+  border-radius: 9px;
+}
+
+.lib-button-xl {
+  min-height: 54px;
+  padding: 13px 28px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+
+/* =====================================================
+   SOLID
+===================================================== */
+
+.lib-button-solid {
+  background: var(--button-custom-color);
+  border-color: var(--button-border-color);
+  color: var(--button-text-color);
+}
+
+
+/* HOVER */
+
+.lib-button-solid:hover:not(:disabled) {
+  background: var(--button-hover-color);
+  border-color: var(--button-hover-color);
+  color: var(--button-hover-text-color);
+}
+
+
+/* ACTIVE */
+
+.lib-button-solid:active:not(:disabled) {
+  background: var(--button-active-color);
+  border-color: var(--button-active-color);
+  color: var(--button-active-text-color);
+
+  transform: translateY(1px);
+}
+
+
+/* =====================================================
+   OUTLINE
+===================================================== */
+
+.lib-button-outline {
+  background: transparent;
+
+  border-color: var(--button-border-color);
+
+  color: var(--button-custom-color);
+}
+
+
+/* HOVER */
+
+.lib-button-outline:hover:not(:disabled) {
+  background: var(--button-hover-color);
+
+  border-color: var(--button-hover-color);
+
+  color: var(--button-hover-text-color);
+}
+
+
+/* ACTIVE */
+
+.lib-button-outline:active:not(:disabled) {
+  background: var(--button-active-color);
+
+  border-color: var(--button-active-color);
+
+  color: var(--button-active-text-color);
+
+  transform: translateY(1px);
+}
+
+
+/* =====================================================
+   GHOST
+===================================================== */
+
+.lib-button-ghost {
+  background: transparent;
+
+  border-color: transparent;
+
+  color: var(--button-custom-color);
+}
+
+
+/* HOVER */
+
+.lib-button-ghost:hover:not(:disabled) {
+  background: var(--button-hover-color);
+
+  border-color: transparent;
+
+  color: var(--button-hover-text-color);
+}
+
+
+/* ACTIVE */
+
+.lib-button-ghost:active:not(:disabled) {
+  background: var(--button-active-color);
+
+  border-color: transparent;
+
+  color: var(--button-active-text-color);
+
+  transform: translateY(1px);
+}
+
+
+/* =====================================================
+   STANDARD COLORS
+===================================================== */
+
+
+/* PRIMARY */
+
+.lib-button-primary {
+  --button-default-color: #2563eb;
+  --button-default-hover-color: #1d4ed8;
+  --button-default-active-color: #1e40af;
+}
+
+
+/* SECONDARY */
+
+.lib-button-secondary {
+  --button-default-color: #64748b;
+  --button-default-hover-color: #475569;
+  --button-default-active-color: #334155;
+}
+
+
+/* SUCCESS */
+
+.lib-button-success {
+  --button-default-color: #16a34a;
+  --button-default-hover-color: #15803d;
+  --button-default-active-color: #166534;
+}
+
+
+/* DANGER */
+
+.lib-button-danger {
+  --button-default-color: #dc2626;
+  --button-default-hover-color: #b91c1c;
+  --button-default-active-color: #991b1b;
+}
+
+
+/* WARNING */
+
+.lib-button-warning {
+  --button-default-color: #f59e0b;
+  --button-default-hover-color: #d97706;
+  --button-default-active-color: #b45309;
+}
+
+
+/* INFO */
+
+.lib-button-info {
+  --button-default-color: #0891b2;
+  --button-default-hover-color: #0e7490;
+  --button-default-active-color: #155e75;
+}
+
+
+/* NEUTRAL */
+
+.lib-button-neutral {
+  --button-default-color: #374151;
+  --button-default-hover-color: #1f2937;
+  --button-default-active-color: #111827;
+}
+
+
+/* LIGHT */
+
+.lib-button-light {
+  --button-default-color: #f8fafc;
+  --button-default-hover-color: #e2e8f0;
+  --button-default-active-color: #cbd5e1;
+
+  --button-text-color: #1e293b;
+}
+
+
+/* DARK */
+
+.lib-button-dark {
+  --button-default-color: #1e293b;
+  --button-default-hover-color: #0f172a;
+  --button-default-active-color: #020617;
+
+  --button-text-color: #ffffff;
+}
+
+
+/* LINK */
+
+.lib-button-link {
+  --button-default-color: #2563eb;
+  --button-default-hover-color: #1d4ed8;
+  --button-default-active-color: #1e40af;
+
+  background: transparent;
+  border-color: transparent;
+
+  color: var(--button-custom-color);
+
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+
+/* LINK HOVER */
+
+.lib-button-link:hover:not(:disabled) {
+  background: transparent;
+
+  border-color: transparent;
+
+  color: var(--button-hover-color);
+
+  text-decoration: underline;
+}
+
+
+/* LINK ACTIVE */
+
+.lib-button-link:active:not(:disabled) {
+  background: transparent;
+
+  border-color: transparent;
+
+  color: var(--button-active-color);
+
+  transform: none;
+}
+
+
+/* =====================================================
+   FOCUS
+===================================================== */
+
+.lib-button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.25);
+  outline-offset: 2px;
+}
+
+
+/* =====================================================
+   DISABLED
+===================================================== */
+
+.lib-button:disabled {
+  background: var(--button-disabled-color) !important;
+
+  border-color: var(--button-disabled-border-color) !important;
+
+  color: var(--button-disabled-text-color) !important;
+
+  cursor: not-allowed;
+
+  opacity: 0.8;
+
+  transform: none !important;
+
+  box-shadow: none !important;
+}
+
+
+/* LINK DISABLED */
+
+.lib-button-link:disabled {
+  background: transparent !important;
+
+  border-color: transparent !important;
+
+  color: var(--button-disabled-text-color) !important;
+
+  text-decoration: none;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+  .lib-button-xl {
+    min-height: 50px;
+    padding: 11px 22px;
+    font-size: 16px;
+  }
+
+  .lib-button-lg {
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: 15px;
+  }
+
+  .lib-button-md {
+    min-height: 38px;
+    padding: 8px 16px;
+  }
+}

@@ -1,18 +1,25 @@
-import { Meta, StoryObj, moduleMetadata } from '@storybook/angular-vite';
+import { Meta, StoryObj, moduleMetadata ,applicationConfig} from '@storybook/angular-vite';
+import { provideRouter } from '@angular/router';
 import { Navbar } from './navbar';
 
 const meta: Meta<Navbar> = {
   title: 'Components/Navbar',
   component: Navbar,
   parameters: {
-    layout: 'fullscreen',
-  },
+      layout: 'fullscreen',
+    },
+  decorators: [
+    applicationConfig({
+      providers: [
+        provideRouter([])
+      ]
+    })
+  ]
+,
   argTypes: {
     brand: { control: 'text' },
     links: { control: 'object' },
     initiallyLoggedIn: { control: 'boolean' },
-    userName: { control: 'text' },
-    userEmail: { control: 'text' },
     login: { action: 'logged in' },
     logout: { action: 'logged out' },
   },
@@ -25,8 +32,14 @@ type Story = StoryObj<Navbar>;
 export const LoggedOut: Story = {
   args: {
     brand: 'Aero',
-    links: ['Contact Us', 'Parameter'],
+    links: [
+      { label: 'Home', url: '/' },
+      { label: 'Products', url: '/products' },
+      { label: 'Services', url: '/services' },
+      { label: 'Contact', url: '/contact' }
+    ],
     initiallyLoggedIn: false,
+    image: 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg',
   },
 };
 
@@ -35,17 +48,28 @@ export const LoggedOut: Story = {
 export const LoggedIn: Story = {
   args: {
     brand: 'Aero',
-    links: ['Contact Us', 'Parameter'],
+    links: [
+      { label: 'Home', url: '/' },
+      { label: 'Products', url: '/products' },
+      { label: 'Services', url: '/services' },
+      { label: 'Contact', url: '/contact' }
+    ],
     initiallyLoggedIn: true,
-    userName: 'Abebe Alemu',
-    userEmail: 'Abebe@example.com',
+    // username and email were removed because they are not defined on the Navbar component's props
+    image: 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg',
   },
 };
 
 export const CustomLinks: Story = {
   args: {
     brand: 'Aero',
-    links: ['Contact Us', 'Parameter', 'About', 'Support'],
+    links: [
+      { label: 'Home', url: '/' },
+      { label: 'Products', url: '/products' },
+      { label: 'Services', url: '/services' },
+      { label: 'Contact', url: '/contact' }
+    ],
     initiallyLoggedIn: false,
+    image: 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg',
   },
 };

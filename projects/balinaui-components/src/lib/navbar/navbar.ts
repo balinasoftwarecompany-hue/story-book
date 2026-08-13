@@ -1,53 +1,97 @@
-import { Component,ElementRef,HostListener,Input,Output,ViewEncapsulation, } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+export interface NavLink {
+  label: string;
+  url: string;
+}
+
+export interface UserProfile {
+  name: any;
+  username: string;
+  email: string;
+  image?: string;
+  role?: string;
+  initials?: string;
+}
 @Component({
   selector: 'lib-navbar',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule, MatIconModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
 export class Navbar {
-  @Input() brand = 'Aero';
-  @Input() links: string[] = ['Contact Us', 'Parameter'];
-  @Input() initiallyLoggedIn = false;
-  @Input() userName = 'Guest User';
-  @Input() userEmail = 'guest@example.com';
-  
-  @Input()image = 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg';
 
-  @Output() login = new EventEmitter();
-  @Output() logout = new EventEmitter();
+  // Brand
+  @Input() brand = 'Aero';
+
+  @Input() logoAlt = 'Aero logo';
+
+  @Input() image = '';
+
+  // Navigation
+  @Input() links: NavLink[] = [];
+
+  // Authentication
+  @Input() initiallyLoggedIn = false;
+
+  // User profile
+  @Input() user: UserProfile = {
+    username: 'Guest User',
+    email: 'guest@example.com',
+    image: '',
+    role: 'Guest',
+    name: undefined
+  };
+
+  // Icons
+  @Input() notificationIcon = 'notifications';
+
+  @Input() profileIcon = 'account_circle';
+
+  @Input() userIcon = 'person';
+
+  @Input() logoutIcon = 'logout';
+
+  // Events
+  @Output() login = new EventEmitter<void>();
+
+  @Output() logout = new EventEmitter<void>();
 
   isLoggedIn = false;
   isDropdownOpen = false;
-Aerologo: any;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isLoggedIn = this.initiallyLoggedIn;
   }
 
-  handleLoginClick() {
+  handleLoginClick(): void {
     this.isLoggedIn = true;
     this.login.emit();
   }
 
-  handleProfileClick() {
+  handleProfileClick(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  handleLogoutClick() {
+  handleLogoutClick(): void {
     this.isLoggedIn = false;
     this.isDropdownOpen = false;
     this.logout.emit();
   }
 
-  // Close the dropdown when clicking outside of it
   @HostListener('document:mousedown', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    if (this.isDropdownOpen && !this.elementRef.nativeElement.contains(event.target)) {
+  onDocumentClick(event: MouseEvent): void {
+
+    if (
+      this.isDropdownOpen &&
+      !this.elementRef.nativeElement.contains(event.target)
+    ) {
       this.isDropdownOpen = false;
     }
   }

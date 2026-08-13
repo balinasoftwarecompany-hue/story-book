@@ -2,6 +2,50 @@
     "pipes": [],
     "interfaces": [
         {
+            "name": "NavLink",
+            "id": "interface-NavLink-cf6bda6f0964930d96da6d815bc53d71c1b48e8a0af26b719dac9a9441d6c3d7ba8b11bfd821b953279018075973b9dd3e5a4eab3f810cced1716dbd9ca13d94",
+            "file": "projects/balinaui-components/src/lib/navbar/navbar.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, ElementRef, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';\nimport { EventEmitter } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { RouterModule } from '@angular/router';\nimport { MatIconModule } from '@angular/material/icon';\nexport interface NavLink {\n  label: string;\n  url: string;\n}\n\nexport interface UserProfile {\n  name: any;\n  username: string;\n  email: string;\n  image?: string;\n  role?: string;\n  initials?: string;\n}\n@Component({\n  selector: 'lib-navbar',\n  standalone: true,\n  imports: [CommonModule, RouterModule, MatIconModule],\n  templateUrl: './navbar.html',\n  styleUrl: './navbar.css',\n})\nexport class Navbar {\n\n  // Brand\n  @Input() brand = 'Aero';\n\n  @Input() logoAlt = 'Aero logo';\n\n  @Input() image = '';\n\n  // Navigation\n  @Input() links: NavLink[] = [];\n\n  // Authentication\n  @Input() initiallyLoggedIn = false;\n\n  // User profile\n  @Input() user: UserProfile = {\n    username: 'Guest User',\n    email: 'guest@example.com',\n    image: '',\n    role: 'Guest',\n    name: undefined\n  };\n\n  // Icons\n  @Input() notificationIcon = 'notifications';\n\n  @Input() profileIcon = 'account_circle';\n\n  @Input() userIcon = 'person';\n\n  @Input() logoutIcon = 'logout';\n\n  // Events\n  @Output() login = new EventEmitter<void>();\n\n  @Output() logout = new EventEmitter<void>();\n\n  isLoggedIn = false;\n  isDropdownOpen = false;\n\n  constructor(private elementRef: ElementRef) { }\n\n  ngOnInit(): void {\n    this.isLoggedIn = this.initiallyLoggedIn;\n  }\n\n  handleLoginClick(): void {\n    this.isLoggedIn = true;\n    this.login.emit();\n  }\n\n  handleProfileClick(): void {\n    this.isDropdownOpen = !this.isDropdownOpen;\n  }\n\n  handleLogoutClick(): void {\n    this.isLoggedIn = false;\n    this.isDropdownOpen = false;\n    this.logout.emit();\n  }\n\n  @HostListener('document:mousedown', ['$event'])\n  onDocumentClick(event: MouseEvent): void {\n\n    if (\n      this.isDropdownOpen &&\n      !this.elementRef.nativeElement.contains(event.target)\n    ) {\n      this.isDropdownOpen = false;\n    }\n  }\n}\n",
+            "displayName": "NavLink",
+            "properties": [
+                {
+                    "name": "label",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 7,
+                    "rawdescription": "\n"
+                },
+                {
+                    "name": "url",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 8,
+                    "rawdescription": "\n"
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 172,
+            "methods": [],
+            "extends": [],
+            "relationships": {
+                "incoming": [],
+                "outgoing": []
+            }
+        },
+        {
             "name": "User",
             "id": "interface-User-d4821beac0e4a852e513391b7470981c4353fdd95a18628bb68136c8695b489ee15b926e2e5031bc26cf30e1508e0a362c3ee13a06734702b4d15af140e485d5",
             "file": "projects/balinaui-components/src/stories/user.ts",
@@ -21,6 +65,98 @@
                     "optional": false,
                     "description": "",
                     "line": 2,
+                    "rawdescription": "\n"
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 172,
+            "methods": [],
+            "extends": [],
+            "relationships": {
+                "incoming": [],
+                "outgoing": []
+            }
+        },
+        {
+            "name": "UserProfile",
+            "id": "interface-UserProfile-cf6bda6f0964930d96da6d815bc53d71c1b48e8a0af26b719dac9a9441d6c3d7ba8b11bfd821b953279018075973b9dd3e5a4eab3f810cced1716dbd9ca13d94",
+            "file": "projects/balinaui-components/src/lib/navbar/navbar.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, ElementRef, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';\nimport { EventEmitter } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { RouterModule } from '@angular/router';\nimport { MatIconModule } from '@angular/material/icon';\nexport interface NavLink {\n  label: string;\n  url: string;\n}\n\nexport interface UserProfile {\n  name: any;\n  username: string;\n  email: string;\n  image?: string;\n  role?: string;\n  initials?: string;\n}\n@Component({\n  selector: 'lib-navbar',\n  standalone: true,\n  imports: [CommonModule, RouterModule, MatIconModule],\n  templateUrl: './navbar.html',\n  styleUrl: './navbar.css',\n})\nexport class Navbar {\n\n  // Brand\n  @Input() brand = 'Aero';\n\n  @Input() logoAlt = 'Aero logo';\n\n  @Input() image = '';\n\n  // Navigation\n  @Input() links: NavLink[] = [];\n\n  // Authentication\n  @Input() initiallyLoggedIn = false;\n\n  // User profile\n  @Input() user: UserProfile = {\n    username: 'Guest User',\n    email: 'guest@example.com',\n    image: '',\n    role: 'Guest',\n    name: undefined\n  };\n\n  // Icons\n  @Input() notificationIcon = 'notifications';\n\n  @Input() profileIcon = 'account_circle';\n\n  @Input() userIcon = 'person';\n\n  @Input() logoutIcon = 'logout';\n\n  // Events\n  @Output() login = new EventEmitter<void>();\n\n  @Output() logout = new EventEmitter<void>();\n\n  isLoggedIn = false;\n  isDropdownOpen = false;\n\n  constructor(private elementRef: ElementRef) { }\n\n  ngOnInit(): void {\n    this.isLoggedIn = this.initiallyLoggedIn;\n  }\n\n  handleLoginClick(): void {\n    this.isLoggedIn = true;\n    this.login.emit();\n  }\n\n  handleProfileClick(): void {\n    this.isDropdownOpen = !this.isDropdownOpen;\n  }\n\n  handleLogoutClick(): void {\n    this.isLoggedIn = false;\n    this.isDropdownOpen = false;\n    this.logout.emit();\n  }\n\n  @HostListener('document:mousedown', ['$event'])\n  onDocumentClick(event: MouseEvent): void {\n\n    if (\n      this.isDropdownOpen &&\n      !this.elementRef.nativeElement.contains(event.target)\n    ) {\n      this.isDropdownOpen = false;\n    }\n  }\n}\n",
+            "displayName": "UserProfile",
+            "properties": [
+                {
+                    "name": "email",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14,
+                    "rawdescription": "\n"
+                },
+                {
+                    "name": "image",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 15,
+                    "rawdescription": "\n"
+                },
+                {
+                    "name": "initials",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 17,
+                    "rawdescription": "\n"
+                },
+                {
+                    "name": "name",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 12,
+                    "rawdescription": "\n"
+                },
+                {
+                    "name": "role",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 16,
+                    "rawdescription": "\n"
+                },
+                {
+                    "name": "username",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 13,
                     "rawdescription": "\n"
                 }
             ],
@@ -83,6 +219,310 @@
                 "incoming": [],
                 "outgoing": []
             }
+        },
+        {
+            "name": "Button",
+            "id": "component-Button-2e172992af2f21b23ca5342a23b0b43064256f4fcc3fbbb0953a123fad155d29be89e1afb3ef3d2f29cab4046549e49594d65488bc8bd36478cc94e12a879fdf",
+            "file": "projects/balinaui-components/src/lib/button/button.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "lib-button",
+            "styleUrls": [
+                "./button.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./button.html"
+            ],
+            "templateVariables": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "coverageIgnore": false,
+                    "name": "activeColor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 46,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "activeTextColor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 50,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "borderColor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 48,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "color",
+                    "defaultValue": "'primary'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 42,
+                    "type": "ButtonColor",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "customColor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 44,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "disabled",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 57,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "disabledBorderColor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 53,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "disabledColor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 51,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "disabledTextColor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 52,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "hoverColor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 45,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "hoverTextColor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 49,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "size",
+                    "defaultValue": "'md'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 55,
+                    "type": "ButtonSize",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "text",
+                    "defaultValue": "'Button'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 36,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "textColor",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 47,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "type",
+                    "defaultValue": "'button'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 38,
+                    "type": "\"button\" | \"submit\" | \"reset\"",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "variant",
+                    "defaultValue": "'solid'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 40,
+                    "type": "ButtonVariant",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "buttonClick",
+                    "coverageIgnore": false,
+                    "defaultValue": "new EventEmitter<MouseEvent>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 60,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "handleClick",
+                    "coverageIgnore": false,
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "MouseEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 62,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "MouseEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "coverageIgnore": false,
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nexport type ButtonVariant =\n  | 'solid'\n  | 'outline'\n  | 'ghost';\n\nexport type ButtonColor =\n  | 'primary'\n  | 'secondary'\n  | 'success'\n  | 'danger'\n  | 'warning'\n  | 'info'\n  | 'neutral'\n  | 'light'\n  | 'dark'\n  | 'link';\n\nexport type ButtonSize =\n  | 'xs'\n  | 'sm'\n  | 'md'\n  | 'lg'\n  | 'xl';\n\n@Component({\n  selector: 'lib-button',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './button.html',\n  styleUrl: './button.css',\n})\nexport class Button {\n  // CONTENT\n  @Input() text = 'Button';\n  // BUTTON TYPE\n  @Input() type: 'button' | 'submit' | 'reset' = 'button';\n  // VARIANT\n  @Input() variant: ButtonVariant = 'solid';\n  // STANDARD COLOR\n  @Input() color: ButtonColor = 'primary';\n  // CUSTOM COLORS\n  @Input() customColor?: string;\n  @Input() hoverColor?: string;\n  @Input() activeColor?: string;\n  @Input() textColor?: string;\n  @Input() borderColor?: string;\n  @Input() hoverTextColor?: string;\n  @Input() activeTextColor?: string;\n  @Input() disabledColor?: string;\n  @Input() disabledTextColor?: string;\n  @Input() disabledBorderColor?: string;\n  // SIZE\n  @Input() size: ButtonSize = 'md';\n  // DISABLED\n  @Input() disabled = false;\n  // CLICK EVENT\n  \n  @Output() buttonClick = new EventEmitter<MouseEvent>();\n  // CLICK HANDLER\n  handleClick(event: MouseEvent): void {\n\n    if (this.disabled) {\n      event.preventDefault();\n      return;\n    }\n\n    this.buttonClick.emit(event);\n  }\n\n  // CSS VARIABLES\n\n  get buttonStyles(): Record<string, string> {\n\n    const styles: Record<string, string> = {};\n\n    if (this.customColor) {\n      styles['--button-custom-color'] = this.customColor;\n    }\n\n    if (this.hoverColor) {\n      styles['--button-hover-color'] = this.hoverColor;\n    }\n\n    if (this.activeColor) {\n      styles['--button-active-color'] = this.activeColor;\n    }\n\n    if (this.textColor) {\n      styles['--button-text-color'] = this.textColor;\n    }\n\n    if (this.borderColor) {\n      styles['--button-border-color'] = this.borderColor;\n    }\n\n    if (this.hoverTextColor) {\n      styles['--button-hover-text-color'] = this.hoverTextColor;\n    }\n\n    if (this.activeTextColor) {\n      styles['--button-active-text-color'] = this.activeTextColor;\n    }\n\n    if (this.disabledColor) {\n      styles['--button-disabled-color'] = this.disabledColor;\n    }\n\n    if (this.disabledTextColor) {\n      styles['--button-disabled-text-color'] =\n        this.disabledTextColor;\n    }\n\n    if (this.disabledBorderColor) {\n      styles['--button-disabled-border-color'] =\n        this.disabledBorderColor;\n    }\n\n    return styles;\n  }\n}",
+            "styleUrl": "./button.css",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "/* =====================================================\n   BASE\n===================================================== */\n\n.lib-button {\n  --button-default-color: #2563eb;\n  --button-default-hover-color: #1d4ed8;\n  --button-default-active-color: #1e40af;\n\n  --button-custom-color: var(--button-default-color);\n  --button-hover-color: var(--button-default-hover-color);\n  --button-active-color: var(--button-default-active-color);\n\n  --button-text-color: #ffffff;\n  --button-border-color: var(--button-custom-color);\n\n  --button-hover-text-color: var(--button-text-color);\n  --button-active-text-color: var(--button-text-color);\n\n  --button-disabled-color: #e5e7eb;\n  --button-disabled-text-color: #9ca3af;\n  --button-disabled-border-color: #d1d5db;\n\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n\n  gap: 8px;\n\n  border: 1px solid var(--button-border-color);\n\n  font-family:\n    Inter,\n    -apple-system,\n    BlinkMacSystemFont,\n    \"Segoe UI\",\n    sans-serif;\n\n  font-weight: 600;\n  line-height: 1;\n\n  cursor: pointer;\n  user-select: none;\n\n  transition:\n    background-color 0.2s ease,\n    border-color 0.2s ease,\n    color 0.2s ease,\n    box-shadow 0.2s ease,\n    transform 0.1s ease;\n\n  outline: none;\n}\n\n\n/* =====================================================\n   SIZES\n===================================================== */\n\n.lib-button-xs {\n  min-height: 28px;\n  padding: 5px 10px;\n  font-size: 12px;\n  border-radius: 6px;\n}\n\n.lib-button-sm {\n  min-height: 34px;\n  padding: 7px 14px;\n  font-size: 13px;\n  border-radius: 7px;\n}\n\n.lib-button-md {\n  min-height: 40px;\n  padding: 9px 18px;\n  font-size: 14px;\n  border-radius: 8px;\n}\n\n.lib-button-lg {\n  min-height: 46px;\n  padding: 11px 22px;\n  font-size: 16px;\n  border-radius: 9px;\n}\n\n.lib-button-xl {\n  min-height: 54px;\n  padding: 13px 28px;\n  font-size: 18px;\n  border-radius: 10px;\n}\n\n\n/* =====================================================\n   SOLID\n===================================================== */\n\n.lib-button-solid {\n  background: var(--button-custom-color);\n  border-color: var(--button-border-color);\n  color: var(--button-text-color);\n}\n\n\n/* HOVER */\n\n.lib-button-solid:hover:not(:disabled) {\n  background: var(--button-hover-color);\n  border-color: var(--button-hover-color);\n  color: var(--button-hover-text-color);\n}\n\n\n/* ACTIVE */\n\n.lib-button-solid:active:not(:disabled) {\n  background: var(--button-active-color);\n  border-color: var(--button-active-color);\n  color: var(--button-active-text-color);\n\n  transform: translateY(1px);\n}\n\n\n/* =====================================================\n   OUTLINE\n===================================================== */\n\n.lib-button-outline {\n  background: transparent;\n\n  border-color: var(--button-border-color);\n\n  color: var(--button-custom-color);\n}\n\n\n/* HOVER */\n\n.lib-button-outline:hover:not(:disabled) {\n  background: var(--button-hover-color);\n\n  border-color: var(--button-hover-color);\n\n  color: var(--button-hover-text-color);\n}\n\n\n/* ACTIVE */\n\n.lib-button-outline:active:not(:disabled) {\n  background: var(--button-active-color);\n\n  border-color: var(--button-active-color);\n\n  color: var(--button-active-text-color);\n\n  transform: translateY(1px);\n}\n\n\n/* =====================================================\n   GHOST\n===================================================== */\n\n.lib-button-ghost {\n  background: transparent;\n\n  border-color: transparent;\n\n  color: var(--button-custom-color);\n}\n\n\n/* HOVER */\n\n.lib-button-ghost:hover:not(:disabled) {\n  background: var(--button-hover-color);\n\n  border-color: transparent;\n\n  color: var(--button-hover-text-color);\n}\n\n\n/* ACTIVE */\n\n.lib-button-ghost:active:not(:disabled) {\n  background: var(--button-active-color);\n\n  border-color: transparent;\n\n  color: var(--button-active-text-color);\n\n  transform: translateY(1px);\n}\n\n\n/* =====================================================\n   STANDARD COLORS\n===================================================== */\n\n\n/* PRIMARY */\n\n.lib-button-primary {\n  --button-default-color: #2563eb;\n  --button-default-hover-color: #1d4ed8;\n  --button-default-active-color: #1e40af;\n}\n\n\n/* SECONDARY */\n\n.lib-button-secondary {\n  --button-default-color: #64748b;\n  --button-default-hover-color: #475569;\n  --button-default-active-color: #334155;\n}\n\n\n/* SUCCESS */\n\n.lib-button-success {\n  --button-default-color: #16a34a;\n  --button-default-hover-color: #15803d;\n  --button-default-active-color: #166534;\n}\n\n\n/* DANGER */\n\n.lib-button-danger {\n  --button-default-color: #dc2626;\n  --button-default-hover-color: #b91c1c;\n  --button-default-active-color: #991b1b;\n}\n\n\n/* WARNING */\n\n.lib-button-warning {\n  --button-default-color: #f59e0b;\n  --button-default-hover-color: #d97706;\n  --button-default-active-color: #b45309;\n}\n\n\n/* INFO */\n\n.lib-button-info {\n  --button-default-color: #0891b2;\n  --button-default-hover-color: #0e7490;\n  --button-default-active-color: #155e75;\n}\n\n\n/* NEUTRAL */\n\n.lib-button-neutral {\n  --button-default-color: #374151;\n  --button-default-hover-color: #1f2937;\n  --button-default-active-color: #111827;\n}\n\n\n/* LIGHT */\n\n.lib-button-light {\n  --button-default-color: #f8fafc;\n  --button-default-hover-color: #e2e8f0;\n  --button-default-active-color: #cbd5e1;\n\n  --button-text-color: #1e293b;\n}\n\n\n/* DARK */\n\n.lib-button-dark {\n  --button-default-color: #1e293b;\n  --button-default-hover-color: #0f172a;\n  --button-default-active-color: #020617;\n\n  --button-text-color: #ffffff;\n}\n\n\n/* LINK */\n\n.lib-button-link {\n  --button-default-color: #2563eb;\n  --button-default-hover-color: #1d4ed8;\n  --button-default-active-color: #1e40af;\n\n  background: transparent;\n  border-color: transparent;\n\n  color: var(--button-custom-color);\n\n  padding-left: 4px;\n  padding-right: 4px;\n}\n\n\n/* LINK HOVER */\n\n.lib-button-link:hover:not(:disabled) {\n  background: transparent;\n\n  border-color: transparent;\n\n  color: var(--button-hover-color);\n\n  text-decoration: underline;\n}\n\n\n/* LINK ACTIVE */\n\n.lib-button-link:active:not(:disabled) {\n  background: transparent;\n\n  border-color: transparent;\n\n  color: var(--button-active-color);\n\n  transform: none;\n}\n\n\n/* =====================================================\n   FOCUS\n===================================================== */\n\n.lib-button:focus-visible {\n  outline: 3px solid rgba(37, 99, 235, 0.25);\n  outline-offset: 2px;\n}\n\n\n/* =====================================================\n   DISABLED\n===================================================== */\n\n.lib-button:disabled {\n  background: var(--button-disabled-color) !important;\n\n  border-color: var(--button-disabled-border-color) !important;\n\n  color: var(--button-disabled-text-color) !important;\n\n  cursor: not-allowed;\n\n  opacity: 0.8;\n\n  transform: none !important;\n\n  box-shadow: none !important;\n}\n\n\n/* LINK DISABLED */\n\n.lib-button-link:disabled {\n  background: transparent !important;\n\n  border-color: transparent !important;\n\n  color: var(--button-disabled-text-color) !important;\n\n  text-decoration: none;\n}\n\n\n/* =====================================================\n   MOBILE\n===================================================== */\n\n@media (max-width: 480px) {\n\n  .lib-button-xl {\n    min-height: 50px;\n    padding: 11px 22px;\n    font-size: 16px;\n  }\n\n  .lib-button-lg {\n    min-height: 44px;\n    padding: 10px 18px;\n    font-size: 15px;\n  }\n\n  .lib-button-md {\n    min-height: 38px;\n    padding: 8px 16px;\n  }\n}",
+                    "styleUrl": "./button.css"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "accessors": {
+                "buttonStyles": {
+                    "name": "buttonStyles",
+                    "getSignature": {
+                        "name": "buttonStyles",
+                        "type": "unknown",
+                        "returnType": "Record<string, string>",
+                        "line": 74,
+                        "rawdescription": "\n",
+                        "description": ""
+                    }
+                }
+            },
+            "relationships": {
+                "incoming": [],
+                "outgoing": [
+                    {
+                        "name": "CommonModule",
+                        "type": "module"
+                    }
+                ]
+            },
+            "templateData": "<button\n  [type]=\"type\"\n  [disabled]=\"disabled\"\n\n  [ngClass]=\"[\n    'lib-button',\n    'lib-button-' + variant,\n    'lib-button-' + color,\n    'lib-button-' + size\n  ]\"\n\n  [ngStyle]=\"buttonStyles\"\n\n  (click)=\"handleClick($event)\"\n>\n  {{ text }}\n</button>"
         },
         {
             "name": "ButtonComponent",
@@ -243,6 +683,131 @@
             }
         },
         {
+            "name": "Card",
+            "id": "component-Card-8e6afcc533216c24b5dac82df2ebe30e990ab28f133cb0831b23ffb2391e4bee004a265be0c2fa239f91570904b5a1a68e8c1c7574cadd53699cc5467be9483a",
+            "file": "projects/balinaui-components/src/lib/card/card.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "lib-card",
+            "styleUrls": [
+                "./card.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./card.html"
+            ],
+            "templateVariables": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "coverageIgnore": false,
+                    "name": "day",
+                    "defaultValue": "9",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 15,
+                    "type": "string | number",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "description",
+                    "defaultValue": "'156 flights were monitored with 96.8% on-time performance. Minor delays occurred due to weather and air traffic.'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 17,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "month",
+                    "defaultValue": "'Jul'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 13,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "title",
+                    "defaultValue": "'Last 24 hours'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 11,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "cardClick",
+                    "coverageIgnore": false,
+                    "defaultValue": "new EventEmitter<void>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 20,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "onCardClick",
+                    "coverageIgnore": false,
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 22,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": ""
+                }
+            ],
+            "coverageIgnore": false,
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component , Input ,Output ,EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'lib-card',\n  standalone: true,\n  imports: [],\n  templateUrl: './card.html',\n  styleUrl: './card.css',\n})\nexport class Card {\n    @Input() title: string = 'Last 24 hours';\n\n  @Input() month: string = 'Jul';\n\n  @Input() day: string | number = 9;\n\n  @Input() description: string =\n    '156 flights were monitored with 96.8% on-time performance. Minor delays occurred due to weather and air traffic.';\n\n  @Output() cardClick = new EventEmitter<void>();\n\n  onCardClick(): void {\n    this.cardClick.emit();\n  }\n}\n",
+            "styleUrl": "./card.css",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "@import url('https://fonts.googleapis.com/icon?family=Material+Icons');\n\n.card {\n  width: 100%;\n  min-height: 180px;\n  box-sizing: border-box;\n  border: 3px solid #dedede;\n  border-radius: 12px;\n  padding: 30px 26px;\n  background: #ffffff;\n  display: flex;\n  flex-direction: column;\n  cursor: pointer;\n  transition:\n    box-shadow 0.2s ease,\n    transform 0.2s ease,\n    border-color 0.2s ease;\n}\n\n/* Hover */\n.card:hover {\n  border-color: #c8c8c8;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);\n  transform: translateY(-2px);\n}\n\n/* Title */\n.card-title {\n  margin: 0 0 34px 0;\n  font-size: 38px;\n  font-weight: 700;\n  line-height: 1.1;\n}\n\n/* Main content */\n.card-content {\n  display: flex;\n  align-items: center;\n  gap: 25px;\n\n  flex: 1;\n  justify-content: center;\n  margin: 0 0 0 37px;\n}\n/* Date box */\n.date-box {\n  width: 92px;\n  min-width: 92px;\n  height: 96px;\n  border-radius: 12px;\n  background: #f3f1ee;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  border: 1px solid #d6d1cc;\n}\n\n/* Month */\n.month {\n  color: #6B1F2B;\n  font-weight: 700;\n  font-size: 24px;\n  line-height: 1;\n}\n\n/* Day */\n.day {\n  color: #000;\n  font-size: 26px;\n  font-weight: 700;\n  line-height: 1;\n  padding-top: 6px;\n}\n\n/* Description */\n.description {\n  max-width: 560px;\n\n  color: #222;\n\n  font-size: 20px;\n  font-weight: 500;\n  line-height: 1.3;\n}\n\n/* Tablet */\n@media (max-width: 768px) {\n\n  .card {\n    padding: 25px 20px;\n  }\n\n  .card-title {\n    font-size: 32px;\n    margin-bottom: 25px;\n  }\n\n  .description {\n    font-size: 18px;\n  }\n\n}\n\n/* Mobile */\n@media (max-width: 500px) {\n\n  .card {\n    min-height: auto;\n    padding: 22px 16px;\n  }\n\n  .card-title {\n    font-size: 28px;\n    margin-bottom: 22px;\n  }\n\n  .card-content {\n    align-items: flex-start;\n    gap: 16px;\n  }\n\n  .date-box {\n    width: 75px;\n    min-width: 75px;\n    height: 85px;\n  }\n\n  .month {\n    font-size: 20px;\n  }\n\n  .date-line {\n    width: 48px;\n  }\n\n  .day {\n    font-size: 23px;\n  }\n\n  .description {\n    font-size: 16px;\n  }\n\n}",
+                    "styleUrl": "./card.css"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "relationships": {
+                "incoming": [],
+                "outgoing": []
+            },
+            "templateData": "<div class=\"card mat-elevation-z1\" (click)=\"onCardClick()\" role=\"button\" tabindex=\"0\">\n\n  <!-- Title -->\n  <h2 class=\"mat-headline-4 card-title\">\n    {{ title }}\n  </h2>\n\n  <!-- Content -->\n  <div class=\"card-content\">\n\n    <!-- Date -->\n    <div class=\"date-box\">\n\n      <div class=\"month mat-title-medium\">\n        {{ month }}\n      </div>\n\n      <div class=\"day mat-headline-5\">\n        {{ day }}\n      </div>\n\n    </div>\n\n    <!-- Description -->\n    <div class=\"description mat-body-large\">\n      {{ description }}\n    </div>\n\n  </div>\n\n</div>"
+        },
+        {
             "name": "HeaderComponent",
             "id": "component-HeaderComponent-d444c967236c860e83de019719be2a91328f65c987ef05b611325c2dd2415ec3ea051e9c269d9765b080f9351330ead4ad258df3f6567d9e51fd0b00893b3e07",
             "file": "projects/balinaui-components/src/stories/header.component.ts",
@@ -357,7 +922,7 @@
         },
         {
             "name": "Navbar",
-            "id": "component-Navbar-568cf355a3b0b820084904e0d29f6433da433e217a01ad7314686cfca0b43f8b71c6a86b5dd43a98791cf9f4e2216f583503d872845029c0a918e23097332e02",
+            "id": "component-Navbar-cf6bda6f0964930d96da6d815bc53d71c1b48e8a0af26b719dac9a9441d6c3d7ba8b11bfd821b953279018075973b9dd3e5a4eab3f810cced1716dbd9ca13d94",
             "file": "projects/balinaui-components/src/lib/navbar/navbar.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -385,19 +950,19 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 11,
+                    "line": 29,
                     "type": "string",
                     "decorators": []
                 },
                 {
                     "coverageIgnore": false,
                     "name": "image",
-                    "defaultValue": "'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg'",
+                    "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 17,
+                    "line": 33,
                     "type": "string",
                     "decorators": []
                 },
@@ -409,43 +974,91 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 13,
+                    "line": 39,
                     "type": "boolean",
                     "decorators": []
                 },
                 {
                     "coverageIgnore": false,
                     "name": "links",
-                    "defaultValue": "['Contact Us', 'Parameter']",
+                    "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 12,
-                    "type": "string[]",
+                    "line": 36,
+                    "type": "NavLink[]",
                     "decorators": []
                 },
                 {
                     "coverageIgnore": false,
-                    "name": "userEmail",
-                    "defaultValue": "'guest@example.com'",
+                    "name": "logoAlt",
+                    "defaultValue": "'Aero logo'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 15,
+                    "line": 31,
                     "type": "string",
                     "decorators": []
                 },
                 {
                     "coverageIgnore": false,
-                    "name": "userName",
-                    "defaultValue": "'Guest User'",
+                    "name": "logoutIcon",
+                    "defaultValue": "'logout'",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 14,
+                    "line": 57,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "notificationIcon",
+                    "defaultValue": "'notifications'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 51,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "profileIcon",
+                    "defaultValue": "'account_circle'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 53,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "user",
+                    "defaultValue": "{\n    username: 'Guest User',\n    email: 'guest@example.com',\n    image: '',\n    role: 'Guest',\n    name: undefined\n  }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 42,
+                    "type": "UserProfile",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "userIcon",
+                    "defaultValue": "'person'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 55,
                     "type": "string",
                     "decorators": []
                 }
@@ -454,35 +1067,23 @@
                 {
                     "name": "login",
                     "coverageIgnore": false,
-                    "defaultValue": "new EventEmitter()",
+                    "defaultValue": "new EventEmitter<void>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 19,
+                    "line": 60,
                     "type": "EventEmitter"
                 },
                 {
                     "name": "logout",
                     "coverageIgnore": false,
-                    "defaultValue": "new EventEmitter()",
+                    "defaultValue": "new EventEmitter<void>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 20,
+                    "line": 62,
                     "type": "EventEmitter"
                 }
             ],
             "propertiesClass": [
-                {
-                    "name": "Aerologo",
-                    "coverageIgnore": false,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "any",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 24,
-                    "rawdescription": "\n"
-                },
                 {
                     "name": "isDropdownOpen",
                     "coverageIgnore": false,
@@ -493,7 +1094,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 23,
+                    "line": 65,
                     "rawdescription": "\n"
                 },
                 {
@@ -506,7 +1107,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 22,
+                    "line": 64,
                     "rawdescription": "\n"
                 }
             ],
@@ -518,7 +1119,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 32,
+                    "line": 73,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
@@ -531,7 +1132,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 82,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
@@ -544,7 +1145,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 78,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
@@ -557,7 +1158,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 28,
+                    "line": 69,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
@@ -579,7 +1180,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 49,
+                    "line": 89,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
@@ -631,7 +1232,7 @@
                     ],
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 49
+                    "line": 89
                 }
             ],
             "standalone": true,
@@ -639,17 +1240,25 @@
                 {
                     "name": "CommonModule",
                     "type": "module"
+                },
+                {
+                    "name": "RouterModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatIconModule",
+                    "type": "module"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component,ElementRef,HostListener,Input,Output,ViewEncapsulation, } from '@angular/core';\nimport { EventEmitter } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n@Component({\n  selector: 'lib-navbar',\n  imports: [CommonModule],\n  templateUrl: './navbar.html',\n  styleUrl: './navbar.css',\n})\nexport class Navbar {\n  @Input() brand = 'Aero';\n  @Input() links: string[] = ['Contact Us', 'Parameter'];\n  @Input() initiallyLoggedIn = false;\n  @Input() userName = 'Guest User';\n  @Input() userEmail = 'guest@example.com';\n  \n  @Input()image = 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg';\n\n  @Output() login = new EventEmitter();\n  @Output() logout = new EventEmitter();\n\n  isLoggedIn = false;\n  isDropdownOpen = false;\nAerologo: any;\n\n  constructor(private elementRef: ElementRef) {}\n\n  ngOnInit() {\n    this.isLoggedIn = this.initiallyLoggedIn;\n  }\n\n  handleLoginClick() {\n    this.isLoggedIn = true;\n    this.login.emit();\n  }\n\n  handleProfileClick() {\n    this.isDropdownOpen = !this.isDropdownOpen;\n  }\n\n  handleLogoutClick() {\n    this.isLoggedIn = false;\n    this.isDropdownOpen = false;\n    this.logout.emit();\n  }\n\n  // Close the dropdown when clicking outside of it\n  @HostListener('document:mousedown', ['$event'])\n  onDocumentClick(event: MouseEvent) {\n    if (this.isDropdownOpen && !this.elementRef.nativeElement.contains(event.target)) {\n      this.isDropdownOpen = false;\n    }\n  }\n}\n",
+            "sourceCode": "import { Component, ElementRef, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';\nimport { EventEmitter } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { RouterModule } from '@angular/router';\nimport { MatIconModule } from '@angular/material/icon';\nexport interface NavLink {\n  label: string;\n  url: string;\n}\n\nexport interface UserProfile {\n  name: any;\n  username: string;\n  email: string;\n  image?: string;\n  role?: string;\n  initials?: string;\n}\n@Component({\n  selector: 'lib-navbar',\n  standalone: true,\n  imports: [CommonModule, RouterModule, MatIconModule],\n  templateUrl: './navbar.html',\n  styleUrl: './navbar.css',\n})\nexport class Navbar {\n\n  // Brand\n  @Input() brand = 'Aero';\n\n  @Input() logoAlt = 'Aero logo';\n\n  @Input() image = '';\n\n  // Navigation\n  @Input() links: NavLink[] = [];\n\n  // Authentication\n  @Input() initiallyLoggedIn = false;\n\n  // User profile\n  @Input() user: UserProfile = {\n    username: 'Guest User',\n    email: 'guest@example.com',\n    image: '',\n    role: 'Guest',\n    name: undefined\n  };\n\n  // Icons\n  @Input() notificationIcon = 'notifications';\n\n  @Input() profileIcon = 'account_circle';\n\n  @Input() userIcon = 'person';\n\n  @Input() logoutIcon = 'logout';\n\n  // Events\n  @Output() login = new EventEmitter<void>();\n\n  @Output() logout = new EventEmitter<void>();\n\n  isLoggedIn = false;\n  isDropdownOpen = false;\n\n  constructor(private elementRef: ElementRef) { }\n\n  ngOnInit(): void {\n    this.isLoggedIn = this.initiallyLoggedIn;\n  }\n\n  handleLoginClick(): void {\n    this.isLoggedIn = true;\n    this.login.emit();\n  }\n\n  handleProfileClick(): void {\n    this.isDropdownOpen = !this.isDropdownOpen;\n  }\n\n  handleLogoutClick(): void {\n    this.isLoggedIn = false;\n    this.isDropdownOpen = false;\n    this.logout.emit();\n  }\n\n  @HostListener('document:mousedown', ['$event'])\n  onDocumentClick(event: MouseEvent): void {\n\n    if (\n      this.isDropdownOpen &&\n      !this.elementRef.nativeElement.contains(event.target)\n    ) {\n      this.isDropdownOpen = false;\n    }\n  }\n}\n",
             "styleUrl": "./navbar.css",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".anv-navbar {\n  width: 100%;\n  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;\n}\n\n.anv-topbar {\n  height: 6px;\n  background: #2740a8;\n  width: 100%;\n}\n\n.anv-stripes {\n  width: 100%;\n  background-color: #ffffff;\n  border-bottom: 1px solid #e5e5e5;\n}\n\n.anv-content {\n  max-width: 1200px;\n  margin: 0 auto;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 18px 32px;\n  gap: 24px;\n}\n\n.anv-brand {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n\n.anv-brand-icon {\n  height: 60px;\n  width: auto;\n  object-fit: contain;\n}\n\n.anv-brand-name {\n  font-weight: 700;\n  font-size: 20px;\n  color: #1f4d4a;\n  letter-spacing: 0.3px;\n}\n\n.anv-links {\n  display: flex;\n  align-items: center;\n  gap: 32px;\n  margin-left: auto;\n  margin-right: 28px;\n}\n\n.anv-link {\n  color: #4a4a4a;\n  font-weight: 700;\n  font-size: 16px;\n  text-decoration: none;\n  white-space: nowrap;\n  transition: opacity 0.15s ease;\n}\n\n.anv-link:hover {\n  opacity: 0.7;\n}\n\n.anv-actions {\n  display: flex;\n  align-items: center;\n  gap: 18px;\n}\n\n.anv-icon-btn {\n  background: none;\n  border: none;\n  cursor: pointer;\n  color: #1a1a1a;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 4px;\n  transition: opacity 0.15s ease;\n}\n\n.anv-icon-btn:hover {\n  opacity: 0.7;\n}\n\n.anv-divider {\n  width: 1px;\n  height: 26px;\n  background: #d9d9d9;\n}\n\n.anv-login-btn {\n  background: #1f4d4a;\n  color: #ffffff;\n  border: none;\n  padding: 9px 22px;\n  border-radius: 999px;\n  font-weight: 600;\n  font-size: 14px;\n  cursor: pointer;\n  transition: background 0.15s ease, transform 0.1s ease;\n}\n\n.anv-login-btn:hover {\n  background: #163836;\n}\n\n.anv-login-btn:active {\n  transform: scale(0.97);\n}\n\n.anv-profile-wrap {\n  position: relative;\n}\n\n.anv-profile-btn {\n  width: 42px;\n  height: 42px;\n  border-radius: 50%;\n  background: #111111;\n  color: #ffffff;\n  border: none;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  transition: transform 0.1s ease;\n}\n\n.anv-profile-btn:hover {\n  transform: scale(1.05);\n}\n\n.anv-dropdown {\n  position: absolute;\n  top: calc(100% + 12px);\n  right: 0;\n  background: #ffffff;\n  border-radius: 12px;\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);\n  min-width: 220px;\n  padding: 8px;\n  z-index: 50;\n  animation: anv-dropdown-in 0.15s ease;\n}\n\n@keyframes anv-dropdown-in {\n  from {\n    opacity: 0;\n    transform: translateY(-6px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n\n.anv-dropdown-header {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 10px 8px;\n}\n\n.anv-dropdown-avatar {\n  width: 38px;\n  height: 38px;\n  border-radius: 50%;\n  background: #111111;\n  color: #fff;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-shrink: 0;\n}\n\n.anv-dropdown-info {\n  display: flex;\n  flex-direction: column;\n  overflow: hidden;\n}\n\n.anv-dropdown-name {\n  font-weight: 600;\n  font-size: 14px;\n  color: #1a1a1a;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n.anv-dropdown-email {\n  font-size: 12px;\n  color: #888888;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n.anv-dropdown-sep {\n  border: none;\n  border-top: 1px solid #eeeeee;\n  margin: 4px 0;\n}\n\n.anv-dropdown-item {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  background: none;\n  border: none;\n  padding: 10px 8px;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 500;\n  color: #1a1a1a;\n  cursor: pointer;\n  text-align: left;\n  transition: background 0.15s ease;\n}\n\n.anv-dropdown-item:hover {\n  background: #f5f5f5;\n}\n\n.anv-logout {\n  color: #c0392b;\n}\n\n@media (max-width: 640px) {\n  .anv-content {\n    padding: 12px 16px;\n    gap: 12px;\n  }\n  .anv-links {\n    gap: 16px;\n    margin-right: 12px;\n  }\n  .anv-link {\n    font-size: 13px;\n  }\n  .anv-brand-name {\n    font-size: 17px;\n  }\n}",
+                    "data": "@import url('https://fonts.googleapis.com/icon?family=Material+Icons');\n*,\n*::before,\n*::after{\n    box-sizing:border-box;\n}\n\n/*\n   NAVBAR\n*/\n\n.anv-navbar {\n  display: flex;\n  font-family: \"Inter\", Arial, sans-serif;\n  background: #fff;\n  position: relative;\n  z-index: 1000;\n}\n/*\n   MAIN CONTAINER\n*/\n.anv-stripes {\n  width: 100%;\n  background: #fff;\n  border-bottom: 1px solid #e6e6e6;\n  box-shadow: 0 2px 12px rgba(0,0,0,.05);\n}\n\n.anv-content {\n  width: min(1350px, 100%);\n  margin: auto;\n\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-right: 20px;\n  gap: 30px;\n\n  padding: 18px clamp(50px,3vw,60px);\n}\n\n/*\n   LOGO\n*/\n\n.anv-brand {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  flex-shrink: 0;\n}\n\n.anv-brand-icon {\n  width: clamp(60px,7vw,100px);\n  height: auto;\n  object-fit: contain;\n  transition: .3s;\n}\n\n.anv-brand-icon:hover{\n  transform: scale(1.08);\n}\n\n.anv-brand-name{\n  font-size:22px;\n  font-weight:700;\n  color:#1f4d4a;\n  white-space: nowrap;\n}\n\n/*\n   NAVIGATION\n*/\n\n.anv-links{\n\n  display:flex;\n  justify-content:right;\n  align-items:center;\n\n  flex:1;\n\n  gap:clamp(18px,3vw,40px);\n\n  min-width:0;\n}\n\n.anv-link{\n\n  position:relative;\n\n  text-decoration:none;\n\n  color:#555;\n\n  font-size:17px;\n\n  font-weight:600;\n\n  transition:.3s;\n\n  white-space:nowrap;\n}\n\n.anv-link:hover{\n\n  color:#1f4d4a;\n}\n\n.anv-link::after{\n\n  content:\"\";\n\n  position:absolute;\n\n  left:0;\n\n  bottom:-8px;\n\n  width:0;\n\n  height:2px;\n\n  background:#1f4d4a;\n\n  transition:.3s;\n}\n\n.anv-link:hover::after{\n\n  width:100%;\n}\n\n/*\n   RIGHT SIDE\n*/\n\n.anv-actions{\n\n  display:flex;\n\n  align-items:center;\n\n  gap:18px;\n\n  flex-shrink:0;\n\n  margin-left:auto;\n}\n\n.anv-icon-btn{\n\n  width:42px;\n\n  height:42px;\n\n  display:flex;\n\n  justify-content:center;\n\n  align-items:center;\n\n  border:none;\n\n  background:none;\n\n  cursor:pointer;\n\n  transition:.3s;\n\n  border-radius:50%;\n}\n\n.anv-icon-btn:hover{\n\n  background:#f4f4f4;\n\n  transform:translateY(-2px);\n}\n\n.anv-divider{\n\n  width:1px;\n\n  height:32px;\n\n  background:#d8d8d8;\n}\n\n/*\n   LOGIN BUTTON\n*/\n\n.anv-login-btn{\n\n  padding:10px 24px;\n\n  border:none;\n\n  border-radius:30px;\n\n  background:#1f4d4a;\n\n  color:#fff;\n\n  font-size:15px;\n\n  font-weight:600;\n\n  cursor:pointer;\n\n  transition:.3s;\n}\n\n.anv-login-btn:hover{\n\n  background:#163836;\n\n  transform:translateY(-2px);\n\n  box-shadow:0 8px 18px rgba(0,0,0,.18);\n}\n\n.anv-login-btn:active{\n\n  transform:scale(.96);\n}\n\n/*\n   PROFILE\n*/\n\n.anv-profile-wrap{\n\n  position:relative;\n}\n\n.anv-profile-btn{\n\n  width:48px;\n\n  height:48px;\n\n  border:none;\n\n  border-radius:50%;\n\n  background:#111;\n\n  color:#fff;\n\n  cursor:pointer;\n\n  display:flex;\n\n  justify-content:center;\n\n  align-items:center;\n\n  transition:.3s;\n}\n\n.anv-profile-btn:hover{\n\n  transform:scale(1.08);\n\n  box-shadow:0 8px 18px rgba(0,0,0,.15);\n}\n\n/*\n   DROPDOWN\n*/\n\n.anv-dropdown{\n\n  position:absolute;\n\n  top:calc(100% + 12px);\n\n  right:0;\n\n  width:260px;\n\n  background:#fff;\n\n  border-radius:14px;\n\n  box-shadow:0 12px 30px rgba(0,0,0,.18);\n\n  overflow:hidden;\n\n  animation:dropdown .25s ease;\n\n  z-index:999;\n}\n\n@keyframes dropdown{\n\nfrom{\n\nopacity:0;\n\ntransform:translateY(-10px);\n\n}\n\nto{\n\nopacity:1;\n\ntransform:translateY(0);\n\n}\n\n}\n\n.anv-dropdown-header{\n\ndisplay:flex;\n\nalign-items:center;\n\ngap:12px;\n\npadding:16px;\n}\n\n.anv-dropdown-avatar{\n\nwidth:45px;\n\nheight:45px;\n\nborder-radius:50%;\n\nbackground:#111;\n\ncolor:#fff;\n\ndisplay:flex;\n\njustify-content:center;\n\nalign-items:center;\n\nfont-weight:bold;\n}\n\n.anv-dropdown-info{\n\ndisplay:flex;\n\nflex-direction:column;\n\noverflow:hidden;\n}\n\n.anv-dropdown-name{\n\nfont-weight:700;\n\nfont-size:15px;\n}\n\n.anv-dropdown-email{\n\nfont-size:13px;\n\ncolor:#777;\n\noverflow:hidden;\n\ntext-overflow:ellipsis;\n}\n\n.anv-dropdown-sep{\n\nborder:none;\n\nborder-top:1px solid #eee;\n\nmargin:0;\n}\n\n.anv-dropdown-item{\n\nwidth:100%;\n\npadding:14px 18px;\n\nbackground:none;\n\nborder:none;\n\ncursor:pointer;\n\ntext-align:left;\n\nfont-size:15px;\n\ntransition:.3s;\n}\n\n.anv-dropdown-item:hover{\n\nbackground:#f7f7f7;\n}\n\n.anv-logout{\n\ncolor:#d32f2f;\n\nfont-weight:600;\n}\n\n/*\n   TABLET\n*/\n@media (max-width: 992px) {\n\n  .anv-content{\n    display:flex;\n    align-items:center;\n    justify-content:space-between;\n\n    width:100%;\n    padding:14px 20px;\n    gap:12px;\n  }\n\n  .anv-brand{\n    flex-shrink:0;\n  }\n\n  .anv-brand-icon{\n    width:90px;\n  }\n\n  .anv-links{\n    flex:1;\n    display:flex;\n    justify-content:center;\n    gap:18px;\n\n    min-width:0;\n    overflow:hidden;\n  }\n\n  .anv-link{\n    font-size:14px;\n  }\n\n  .anv-actions{\n    display:flex;\n    align-items:center;\n    gap:10px;\n\n    flex-shrink:0;\n    margin-left:auto;\n  }\n\n  .anv-login-btn{\n    padding:8px 16px;\n    font-size:13px;\n  }\n\n  .anv-profile-btn{\n    width:40px;\n    height:40px;\n  }\n\n}\n/* \n   MOBILE\n */\n\n/* Phones */\n@media (max-width:768px){\n\n  .anv-content{\n    padding:12px 16px;\n    gap:10px;\n  }\n\n  .anv-brand-icon{\n    width:80px;\n  }\n\n  .anv-link{\n    font-size:13px;\n  }\n\n  .anv-links{\n    gap:10px;\n    overflow-x:auto;\n    scrollbar-width:none;\n  }\n\n  .anv-links::-webkit-scrollbar{\n    display:none;\n  }\n\n  .anv-login-btn{\n    padding:7px 12px;\n    font-size:12px;\n  }\n\n  .anv-profile-btn{\n    width:36px;\n    height:36px;\n  }\n\n}\n\n/* \n   SMALL PHONE\n*/\n.anv-navbar{\n    width:100%;\n    background:#fff;\n}\n\n.anv-stripes{\n    width:100%;\n    background:#fff;\n}\n\n.anv-content{\n    width:100%;\n    box-sizing:border-box;\n}",
                     "styleUrl": "./navbar.css"
                 }
             ],
@@ -669,7 +1278,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 24,
+                "line": 65,
                 "rawdescription": "\n",
                 "jsdoctags": [
                     {
@@ -692,10 +1301,18 @@
                     {
                         "name": "CommonModule",
                         "type": "module"
+                    },
+                    {
+                        "name": "RouterModule",
+                        "type": "module"
+                    },
+                    {
+                        "name": "MatIconModule",
+                        "type": "module"
                     }
                 ]
             },
-            "templateData": "<header class=\"anv-navbar\">\n  <div class=\"anv-topbar\"></div>\n  <div class=\"anv-stripes\">\n    <div class=\"anv-content\">\n      <div class=\"anv-brand\">\n        <img [src]=\"image\"\n         [alt]=\"Aerologo\"\n         class=\"anv-brand-icon\" >\n      </div>\n\n      <nav class=\"anv-links\">\n        <a *ngFor=\"let link of links\" href=\"#\" class=\"anv-link\">{{ link }}</a>\n      </nav>\n\n      <div class=\"anv-actions\">\n        <button class=\"anv-icon-btn\" aria-label=\"Notifications\">\n          <svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n            <path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"/>\n            <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"/>\n          </svg>\n        </button>\n\n        <span class=\"anv-divider\"></span>\n\n        <button *ngIf=\"!isLoggedIn\" class=\"anv-login-btn\" (click)=\"handleLoginClick()\">\n          Login\n        </button>\n\n        <div *ngIf=\"isLoggedIn\" class=\"anv-profile-wrap\">\n          <button\n            class=\"anv-profile-btn\"\n            (click)=\"handleProfileClick()\"\n            [attr.aria-expanded]=\"isDropdownOpen\"\n            aria-haspopup=\"true\"\n          >\n            <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n              <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"/>\n              <circle cx=\"12\" cy=\"7\" r=\"4\"/>\n            </svg>\n          </button>\n\n          <div *ngIf=\"isDropdownOpen\" class=\"anv-dropdown\">\n            <div class=\"anv-dropdown-header\">\n              <div class=\"anv-dropdown-avatar\">\n                <svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                  <path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"/>\n                  <circle cx=\"12\" cy=\"7\" r=\"4\"/>\n                </svg>\n              </div>\n              <div class=\"anv-dropdown-info\">\n                <span class=\"anv-dropdown-name\">{{ userName }}</span>\n                <span class=\"anv-dropdown-email\">{{ userEmail }}</span>\n              </div>\n            </div>\n            <hr class=\"anv-dropdown-sep\" />\n            <button class=\"anv-dropdown-item anv-logout\" (click)=\"handleLogoutClick()\">\n              <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n                <path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"/>\n                <polyline points=\"16 17 21 12 16 7\"/>\n                <line x1=\"21\" y1=\"12\" x2=\"9\" y2=\"12\"/>\n              </svg>\n              Log out\n            </button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</header>"
+            "templateData": "<header class=\"anv-navbar\">\n\n  <!--TOP STRIPE-->\n  <div class=\"anv-topbar\"></div>\n  <!--NAVBAR-->\n  <div class=\"anv-stripes\">\n    <div class=\"anv-content\">\n\n      <!--BRAND / LOGO-->\n        <img *ngIf=\"image\" [src]=\"image\" [alt]=\"logoAlt\" class=\"anv-brand-icon\" />\n        <span *ngIf=\"brand\" class=\"anv-brand-name\">\n          {{ brand }}\n        </span>\n\n      <!--NAVIGATION LINKS-->\n      <nav class=\"anv-links\" aria-label=\"Main navigation\">\n        <a *ngFor=\"let link of links\" [routerLink]=\"link.url\" routerLinkActive=\"anv-link-active\"\n          [routerLinkActiveOptions]=\"{ exact: true }\" class=\"anv-link\">\n          {{ link.label }}\n        </a>\n      </nav>\n\n\n      <!--ACTIONS-->\n      <div class=\"anv-actions\">\n        <!--NOTIFICATION-->\n        <button type=\"button\" class=\"anv-icon-btn\" aria-label=\"Notifications\">\n          <span class=\"material-icons\">\n            {{ notificationIcon }}\n          </span>\n        </button>\n\n        \n        <!--DIVIDER-->\n        <span class=\"anv-divider\"></span>\n\n        <!--LOGIN-->\n        <button *ngIf=\"!isLoggedIn\" type=\"button\" class=\"anv-login-btn\" (click)=\"handleLoginClick()\">\n          Login\n        </button>\n\n        <!--PROFILE-->\n        <div *ngIf=\"isLoggedIn\" class=\"anv-profile-wrap\">\n\n          <!-- PROFILE BUTTON -->\n          <button type=\"button\" class=\"anv-profile-btn\" (click)=\"handleProfileClick()\"\n            [attr.aria-expanded]=\"isDropdownOpen\" aria-haspopup=\"true\" aria-label=\"User profile\">\n            <img *ngIf=\"user.image\" [src]=\"user.image\" [alt]=\"user.name\" class=\"anv-profile-image\" />\n            <span *ngIf=\"!user.image\" class=\"material-icons\">\n              {{ profileIcon }}\n            </span>\n            \n          </button>\n\n          <!-- PROFILE DROPDOWN-->\n\n          <div *ngIf=\"isDropdownOpen\" class=\"anv-dropdown\">\n            <!-- USER INFORMATION -->\n            <div class=\"anv-dropdown-header\">\n              <!-- USER IMAGE -->\n              <div class=\"anv-dropdown-avatar\">\n                <img *ngIf=\"user.image\" [src]=\"user.image\" [alt]=\"user.name\" />\n                <span *ngIf=\"!user.image\" class=\"material-icons\">\n                  {{ userIcon }}\n                </span>\n              </div>\n\n              <!-- USER DETAILS -->\n\n              <div class=\"anv-dropdown-info\">\n                <span class=\"anv-dropdown-name\">\n                  {{ user.name }}\n                </span>\n                <span class=\"anv-dropdown-email\">\n                  {{ user.email }}\n                </span>\n                <span *ngIf=\"user.role\" class=\"anv-dropdown-role\">\n                  {{ user.role }}\n                </span>\n              </div>\n            </div>\n\n            <!-- DIVIDER -->\n            <hr class=\"anv-dropdown-sep\">\n            <!-- LOGOUT -->\n            <button type=\"button\" class=\"anv-dropdown-item anv-logout\" (click)=\"handleLogoutClick()\">\n              <span class=\"material-icons\">\n                {{ logoutIcon }}\n              </span>\n              <span>\n                Log out\n              </span>\n            </button>\n\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</header>"
         },
         {
             "name": "PageComponent",
@@ -817,6 +1434,161 @@
                     }
                 ]
             }
+        },
+        {
+            "name": "TimeFilter",
+            "id": "component-TimeFilter-30f3ec72fb416c507cceb3e3a3eb63e0c1ad2769d086d4d3e5f83d55bbbc62da1c6a2109c41b37d187892973fbfdb81c3bc02b54aaf9765edf2361a17f58f653",
+            "file": "projects/balinaui-components/src/lib/time-filter/time-filter.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "lib-time-filter",
+            "styleUrls": [
+                "./time-filter.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./time-filter.html"
+            ],
+            "templateVariables": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "coverageIgnore": false,
+                    "name": "label",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 13,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "selectedValue",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 17,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "value",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 15,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "clicked",
+                    "coverageIgnore": false,
+                    "defaultValue": "new EventEmitter<MouseEvent>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 21,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "selectedValueChange",
+                    "coverageIgnore": false,
+                    "defaultValue": "new EventEmitter<string>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 19,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "onClick",
+                    "coverageIgnore": false,
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "MouseEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 27,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "MouseEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "coverageIgnore": false,
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'lib-time-filter',\n  standalone: true,\n  imports: [],\n  templateUrl: './time-filter.html',\n  styleUrl: './time-filter.css',\n})\nexport class TimeFilter {\n\n\n  @Input() label: string = '';\n\n  @Input() value!: string;\n\n  @Input() selectedValue!: string;\n\n  @Output() selectedValueChange = new EventEmitter<string>();\n\n  @Output() clicked = new EventEmitter<MouseEvent>();\n\n  get selected(): boolean {\n    return this.value === this.selectedValue;\n  }\n\n  onClick(event: MouseEvent): void {\n    // Tell parent which value was selected\n    this.selectedValueChange.emit(this.value);\n\n    // Allow developer to handle their own click event\n    this.clicked.emit(event);\n  }\n}\n",
+            "styleUrl": "./time-filter.css",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".time-filter {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n\n  width: fit-content;\n\n  cursor: pointer;\n\n  user-select: none;\n}\n\n/* Outer circle */\n.radio-circle {\n  width: 24px;\n  height: 24px;\n\n  border: 2px solid #a6a6a6;\n  border-radius: 50%;\n\n  display: flex;\n  align-items: center;\n  justify-content: center;\n\n  box-sizing: border-box;\n\n  transition: border-color 0.2s ease;\n}\n\n/* Inner circle */\n.radio-dot {\n  width: 12px;\n  height: 12px;\n\n  border-radius: 50%;\n\n  background: transparent;\n\n  transition: background 0.2s ease;\n}\n\n/* Selected */\n.radio-circle.selected {\n  border-color: #1976d2;\n}\n\n.radio-circle.selected .radio-dot {\n  background: #1976d2;\n}\n\n/* Text */\n.label {\n  font-size: 20px;\n  font-weight: 400;\n  color: #000000;\n\n  line-height: 1;\n}\n.label:hover {\n  color: #333333;\n}",
+                    "styleUrl": "./time-filter.css"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "accessors": {
+                "selected": {
+                    "name": "selected",
+                    "getSignature": {
+                        "name": "selected",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 23,
+                        "rawdescription": "\n",
+                        "description": ""
+                    }
+                }
+            },
+            "relationships": {
+                "incoming": [],
+                "outgoing": []
+            },
+            "templateData": "<div class=\"time-filter\" (click)=\"onClick($event)\" role=\"button\" tabindex=\"0\">\n    <div class=\"radio-circle\" [class.selected]=\"selected\">\n        <div class=\"radio-dot\"></div>\n    </div>\n\n    <span class=\"label\">\n        {{ label }}\n    </span>\n</div>"
         }
     ],
     "modules": [],
@@ -831,7 +1603,73 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    brand: 'Aero',\n    links: ['Contact Us', 'Parameter', 'About', 'Support'],\n    initiallyLoggedIn: false,\n  },\n}"
+                "defaultValue": "{\n  args: {\n    brand: 'Aero',\n    links: [\n      { label: 'Home', url: '/' },\n      { label: 'Products', url: '/products' },\n      { label: 'Services', url: '/services' },\n      { label: 'Contact', url: '/contact' }\n    ],\n    initiallyLoggedIn: false,\n    image: 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg',\n  },\n}"
+            },
+            {
+                "name": "Danger",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    text: 'Delete',\n    variant: 'solid',\n    color: 'danger',\n    size: 'md',\n  },\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    title: 'Last 24 hours',\n    month: 'Jul',\n    day: 9,\n    description:\n      '156 flights were monitored with 96.8% on-time performance. Minor delays occurred due to weather and air traffic.'\n  }\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    label: 'Last 24 hours',\n    selected: false\n  }\n}"
+            },
+            {
+                "name": "DifferentDate",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    title: 'Last 24 hours',\n    month: 'Aug',\n    day: 12,\n    description:\n      '184 flights were monitored with 97.4% on-time performance. Minor delays occurred due to weather and air traffic.'\n  }\n}"
+            },
+            {
+                "name": "Disabled",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    text: 'Disabled',\n    variant: 'solid',\n    color: 'primary',\n    size: 'md',\n    disabled: true,\n  },\n}"
+            },
+            {
+                "name": "Ghost",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    text: 'Ghost Button',\n    variant: 'ghost',\n    color: 'primary',\n    size: 'md',\n  },\n}"
             },
             {
                 "name": "Large",
@@ -843,6 +1681,17 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    size: 'large',\n    label: 'Button',\n  },\n}"
+            },
+            {
+                "name": "Large",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    text: 'Large Button',\n    variant: 'solid',\n    color: 'primary',\n    size: 'lg',\n  },\n}"
             },
             {
                 "name": "LoggedIn",
@@ -875,7 +1724,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    brand: 'Aero',\n    links: ['Contact Us', 'Parameter'],\n    initiallyLoggedIn: true,\n    userName: 'Abebe Alemu',\n    userEmail: 'Abebe@example.com',\n  },\n}"
+                "defaultValue": "{\n  args: {\n    brand: 'Aero',\n    links: [\n      { label: 'Home', url: '/' },\n      { label: 'Products', url: '/products' },\n      { label: 'Services', url: '/services' },\n      { label: 'Contact', url: '/contact' }\n    ],\n    initiallyLoggedIn: true,\n    // username and email were removed because they are not defined on the Navbar component's props\n    image: 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg',\n  },\n}"
             },
             {
                 "name": "LoggedOut",
@@ -908,7 +1757,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    brand: 'Aero',\n    links: ['Contact Us', 'Parameter'],\n    initiallyLoggedIn: false,\n  },\n}"
+                "defaultValue": "{\n  args: {\n    brand: 'Aero',\n    links: [\n      { label: 'Home', url: '/' },\n      { label: 'Products', url: '/products' },\n      { label: 'Services', url: '/services' },\n      { label: 'Contact', url: '/contact' }\n    ],\n    initiallyLoggedIn: false,\n    image: 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg',\n  },\n}"
             },
             {
                 "name": "meta",
@@ -947,12 +1796,56 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<Button>",
+                "defaultValue": "{\n  title: 'Components/Button',\n  component: Button,\n\n  parameters: {\n    layout: 'centered',\n  },\n\n  argTypes: {\n\n  text: {\n    control: 'text'\n  },\n\n  variant: {\n    control: 'select',\n    options: [\n      'solid',\n      'outline',\n      'ghost'\n    ]\n  },\n\n  color: {\n    control: 'select',\n    options: [\n      'primary',\n      'secondary',\n      'success',\n      'danger',\n      'warning',\n      'info',\n      'neutral',\n      'light',\n      'dark',\n      'link'\n    ]\n  },\n\n  customColor: {\n    control: 'color'\n  },\n\n  hoverColor: {\n    control: 'color'\n  },\n\n  activeColor: {\n    control: 'color'\n  },\n\n  textColor: {\n    control: 'color'\n  },\n\n  hoverTextColor: {\n    control: 'color'\n  },\n\n  activeTextColor: {\n    control: 'color'\n  },\n\n  disabledColor: {\n    control: 'color'\n  },\n\n  disabledTextColor: {\n    control: 'color'\n  },\n\n  disabledBorderColor: {\n    control: 'color'\n  },\n\n  size: {\n    control: 'select',\n    options: [\n      'xs',\n      'sm',\n      'md',\n      'lg',\n      'xl'\n    ]\n  },\n\n  disabled: {\n    control: 'boolean'\n  },\n\n  buttonClick: {\n    action: 'button clicked'\n  }\n}\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/balinaui-components/src/lib/navbar/navbar.stories.ts",
                 "coverageIgnore": false,
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<Navbar>",
-                "defaultValue": "{\n  title: 'Components/Navbar',\n  component: Navbar,\n  parameters: {\n    layout: 'fullscreen',\n  },\n  argTypes: {\n    brand: { control: 'text' },\n    links: { control: 'object' },\n    initiallyLoggedIn: { control: 'boolean' },\n    userName: { control: 'text' },\n    userEmail: { control: 'text' },\n    login: { action: 'logged in' },\n    logout: { action: 'logged out' },\n  },\n}"
+                "defaultValue": "{\n  title: 'Components/Navbar',\n  component: Navbar,\n  parameters: {\n      layout: 'fullscreen',\n    },\n  decorators: [\n    applicationConfig({\n      providers: [\n        provideRouter([])\n      ]\n    })\n  ]\n,\n  argTypes: {\n    brand: { control: 'text' },\n    links: { control: 'object' },\n    initiallyLoggedIn: { control: 'boolean' },\n    login: { action: 'logged in' },\n    logout: { action: 'logged out' },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<Card>",
+                "defaultValue": "{\n  title: 'Components/Card',\n  component: Card,\n\n  tags: ['autodocs'],\n\n  argTypes: {\n    title: {\n      control: 'text',\n      description: 'Card title'\n    },\n\n    month: {\n      control: 'text',\n      description: 'Month displayed in the date box'\n    },\n\n    day: {\n      control: 'text',\n      description: 'Day displayed in the date box'\n    },\n\n    description: {\n      control: 'text',\n      description: 'Monitoring description'\n    },\n\n    cardClick: {\n      action: 'card clicked'\n    }\n  },\n\n  parameters: {\n    layout: 'centered'\n  }\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<TimeFilter>",
+                "defaultValue": "{\n  title: 'Components/Time Filter',\n  component: TimeFilter,\n\n  tags: ['autodocs'],\n\n  argTypes: {\n    label: {\n      control: 'text'\n    },\n\n    selected: {\n      control: 'boolean'\n    }\n  },\n\n  parameters: {\n    layout: 'centered',\n    actions: {\n      handles: ['selectedChange']\n    }\n  }\n}"
+            },
+            {
+                "name": "Outline",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    text: 'Outline Button',\n    variant: 'outline',\n    color: 'primary',\n    size: 'md',\n  },\n}"
             },
             {
                 "name": "preview",
@@ -988,6 +1881,28 @@
                 "defaultValue": "{\n  args: {\n    label: 'Button',\n  },\n}"
             },
             {
+                "name": "Selected",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    label: 'Last 24 hours',\n    selected: true\n  }\n}"
+            },
+            {
+                "name": "ShortDescription",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    title: 'Last 24 hours',\n    month: 'Aug',\n    day: 12,\n    description:\n      '156 flights were monitored with 96.8% on-time performance.'\n  }\n}"
+            },
+            {
                 "name": "Small",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -997,10 +1912,71 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    size: 'small',\n    label: 'Button',\n  },\n}"
+            },
+            {
+                "name": "Solid",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    text: 'Primary Button',\n    variant: 'solid',\n    color: 'primary',\n    size: 'md',\n  },\n}"
+            },
+            {
+                "name": "Success",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    text: 'Save',\n    variant: 'solid',\n    color: 'success',\n    size: 'md',\n  },\n}"
             }
         ],
         "functions": [],
         "typealiases": [
+            {
+                "name": "ButtonColor",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "coverageIgnore": false,
+                "rawtype": "\"primary\" | \"secondary\" | \"success\" | \"danger\" | \"warning\" | \"info\" | \"neutral\" | \"light\" | \"dark\" | \"link\"",
+                "file": "projects/balinaui-components/src/lib/button/button.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "rawdescription": "",
+                "description": "",
+                "kind": 193
+            },
+            {
+                "name": "ButtonSize",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "coverageIgnore": false,
+                "rawtype": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+                "file": "projects/balinaui-components/src/lib/button/button.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "rawdescription": "",
+                "description": "",
+                "kind": 193
+            },
+            {
+                "name": "ButtonVariant",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "coverageIgnore": false,
+                "rawtype": "\"solid\" | \"outline\" | \"ghost\"",
+                "file": "projects/balinaui-components/src/lib/button/button.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "rawdescription": "",
+                "description": "",
+                "kind": 193
+            },
             {
                 "name": "Story",
                 "ctype": "miscellaneous",
@@ -1045,8 +2021,47 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "coverageIgnore": false,
+                "rawtype": "StoryObj<Button>",
+                "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "rawdescription": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "coverageIgnore": false,
                 "rawtype": "StoryObj<Navbar>",
                 "file": "projects/balinaui-components/src/lib/navbar/navbar.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "rawdescription": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "coverageIgnore": false,
+                "rawtype": "StoryObj<Card>",
+                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "rawdescription": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "coverageIgnore": false,
+                "rawtype": "StoryObj<TimeFilter>",
+                "file": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "rawdescription": "",
@@ -1066,7 +2081,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    brand: 'Aero',\n    links: ['Contact Us', 'Parameter', 'About', 'Support'],\n    initiallyLoggedIn: false,\n  },\n}"
+                    "defaultValue": "{\n  args: {\n    brand: 'Aero',\n    links: [\n      { label: 'Home', url: '/' },\n      { label: 'Products', url: '/products' },\n      { label: 'Services', url: '/services' },\n      { label: 'Contact', url: '/contact' }\n    ],\n    initiallyLoggedIn: false,\n    image: 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg',\n  },\n}"
                 },
                 {
                     "name": "LoggedIn",
@@ -1077,7 +2092,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    brand: 'Aero',\n    links: ['Contact Us', 'Parameter'],\n    initiallyLoggedIn: true,\n    userName: 'Abebe Alemu',\n    userEmail: 'Abebe@example.com',\n  },\n}"
+                    "defaultValue": "{\n  args: {\n    brand: 'Aero',\n    links: [\n      { label: 'Home', url: '/' },\n      { label: 'Products', url: '/products' },\n      { label: 'Services', url: '/services' },\n      { label: 'Contact', url: '/contact' }\n    ],\n    initiallyLoggedIn: true,\n    // username and email were removed because they are not defined on the Navbar component's props\n    image: 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg',\n  },\n}"
                 },
                 {
                     "name": "LoggedOut",
@@ -1088,7 +2103,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    brand: 'Aero',\n    links: ['Contact Us', 'Parameter'],\n    initiallyLoggedIn: false,\n  },\n}"
+                    "defaultValue": "{\n  args: {\n    brand: 'Aero',\n    links: [\n      { label: 'Home', url: '/' },\n      { label: 'Products', url: '/products' },\n      { label: 'Services', url: '/services' },\n      { label: 'Contact', url: '/contact' }\n    ],\n    initiallyLoggedIn: false,\n    image: 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg',\n  },\n}"
                 },
                 {
                     "name": "meta",
@@ -1099,7 +2114,178 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<Navbar>",
-                    "defaultValue": "{\n  title: 'Components/Navbar',\n  component: Navbar,\n  parameters: {\n    layout: 'fullscreen',\n  },\n  argTypes: {\n    brand: { control: 'text' },\n    links: { control: 'object' },\n    initiallyLoggedIn: { control: 'boolean' },\n    userName: { control: 'text' },\n    userEmail: { control: 'text' },\n    login: { action: 'logged in' },\n    logout: { action: 'logged out' },\n  },\n}"
+                    "defaultValue": "{\n  title: 'Components/Navbar',\n  component: Navbar,\n  parameters: {\n      layout: 'fullscreen',\n    },\n  decorators: [\n    applicationConfig({\n      providers: [\n        provideRouter([])\n      ]\n    })\n  ]\n,\n  argTypes: {\n    brand: { control: 'text' },\n    links: { control: 'object' },\n    initiallyLoggedIn: { control: 'boolean' },\n    login: { action: 'logged in' },\n    logout: { action: 'logged out' },\n  },\n}"
+                }
+            ],
+            "projects/balinaui-components/src/lib/button/button.stories.ts": [
+                {
+                    "name": "Danger",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    text: 'Delete',\n    variant: 'solid',\n    color: 'danger',\n    size: 'md',\n  },\n}"
+                },
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    text: 'Disabled',\n    variant: 'solid',\n    color: 'primary',\n    size: 'md',\n    disabled: true,\n  },\n}"
+                },
+                {
+                    "name": "Ghost",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    text: 'Ghost Button',\n    variant: 'ghost',\n    color: 'primary',\n    size: 'md',\n  },\n}"
+                },
+                {
+                    "name": "Large",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    text: 'Large Button',\n    variant: 'solid',\n    color: 'primary',\n    size: 'lg',\n  },\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<Button>",
+                    "defaultValue": "{\n  title: 'Components/Button',\n  component: Button,\n\n  parameters: {\n    layout: 'centered',\n  },\n\n  argTypes: {\n\n  text: {\n    control: 'text'\n  },\n\n  variant: {\n    control: 'select',\n    options: [\n      'solid',\n      'outline',\n      'ghost'\n    ]\n  },\n\n  color: {\n    control: 'select',\n    options: [\n      'primary',\n      'secondary',\n      'success',\n      'danger',\n      'warning',\n      'info',\n      'neutral',\n      'light',\n      'dark',\n      'link'\n    ]\n  },\n\n  customColor: {\n    control: 'color'\n  },\n\n  hoverColor: {\n    control: 'color'\n  },\n\n  activeColor: {\n    control: 'color'\n  },\n\n  textColor: {\n    control: 'color'\n  },\n\n  hoverTextColor: {\n    control: 'color'\n  },\n\n  activeTextColor: {\n    control: 'color'\n  },\n\n  disabledColor: {\n    control: 'color'\n  },\n\n  disabledTextColor: {\n    control: 'color'\n  },\n\n  disabledBorderColor: {\n    control: 'color'\n  },\n\n  size: {\n    control: 'select',\n    options: [\n      'xs',\n      'sm',\n      'md',\n      'lg',\n      'xl'\n    ]\n  },\n\n  disabled: {\n    control: 'boolean'\n  },\n\n  buttonClick: {\n    action: 'button clicked'\n  }\n}\n}"
+                },
+                {
+                    "name": "Outline",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    text: 'Outline Button',\n    variant: 'outline',\n    color: 'primary',\n    size: 'md',\n  },\n}"
+                },
+                {
+                    "name": "Solid",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    text: 'Primary Button',\n    variant: 'solid',\n    color: 'primary',\n    size: 'md',\n  },\n}"
+                },
+                {
+                    "name": "Success",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    text: 'Save',\n    variant: 'solid',\n    color: 'success',\n    size: 'md',\n  },\n}"
+                }
+            ],
+            "projects/balinaui-components/src/lib/card/card.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    title: 'Last 24 hours',\n    month: 'Jul',\n    day: 9,\n    description:\n      '156 flights were monitored with 96.8% on-time performance. Minor delays occurred due to weather and air traffic.'\n  }\n}"
+                },
+                {
+                    "name": "DifferentDate",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    title: 'Last 24 hours',\n    month: 'Aug',\n    day: 12,\n    description:\n      '184 flights were monitored with 97.4% on-time performance. Minor delays occurred due to weather and air traffic.'\n  }\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<Card>",
+                    "defaultValue": "{\n  title: 'Components/Card',\n  component: Card,\n\n  tags: ['autodocs'],\n\n  argTypes: {\n    title: {\n      control: 'text',\n      description: 'Card title'\n    },\n\n    month: {\n      control: 'text',\n      description: 'Month displayed in the date box'\n    },\n\n    day: {\n      control: 'text',\n      description: 'Day displayed in the date box'\n    },\n\n    description: {\n      control: 'text',\n      description: 'Monitoring description'\n    },\n\n    cardClick: {\n      action: 'card clicked'\n    }\n  },\n\n  parameters: {\n    layout: 'centered'\n  }\n}"
+                },
+                {
+                    "name": "ShortDescription",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    title: 'Last 24 hours',\n    month: 'Aug',\n    day: 12,\n    description:\n      '156 flights were monitored with 96.8% on-time performance.'\n  }\n}"
+                }
+            ],
+            "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    label: 'Last 24 hours',\n    selected: false\n  }\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<TimeFilter>",
+                    "defaultValue": "{\n  title: 'Components/Time Filter',\n  component: TimeFilter,\n\n  tags: ['autodocs'],\n\n  argTypes: {\n    label: {\n      control: 'text'\n    },\n\n    selected: {\n      control: 'boolean'\n    }\n  },\n\n  parameters: {\n    layout: 'centered',\n    actions: {\n      handles: ['selectedChange']\n    }\n  }\n}"
+                },
+                {
+                    "name": "Selected",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    label: 'Last 24 hours',\n    selected: true\n  }\n}"
                 }
             ],
             "projects/balinaui-components/src/stories/button.stories.ts": [
@@ -1246,6 +2432,47 @@
         "groupedFunctions": {},
         "groupedEnumerations": {},
         "groupedTypeAliases": {
+            "projects/balinaui-components/src/lib/button/button.ts": [
+                {
+                    "name": "ButtonColor",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "coverageIgnore": false,
+                    "rawtype": "\"primary\" | \"secondary\" | \"success\" | \"danger\" | \"warning\" | \"info\" | \"neutral\" | \"light\" | \"dark\" | \"link\"",
+                    "file": "projects/balinaui-components/src/lib/button/button.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "",
+                    "description": "",
+                    "kind": 193
+                },
+                {
+                    "name": "ButtonSize",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "coverageIgnore": false,
+                    "rawtype": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+                    "file": "projects/balinaui-components/src/lib/button/button.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "",
+                    "description": "",
+                    "kind": 193
+                },
+                {
+                    "name": "ButtonVariant",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "coverageIgnore": false,
+                    "rawtype": "\"solid\" | \"outline\" | \"ghost\"",
+                    "file": "projects/balinaui-components/src/lib/button/button.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "",
+                    "description": "",
+                    "kind": 193
+                }
+            ],
             "projects/balinaui-components/src/stories/button.stories.ts": [
                 {
                     "name": "Story",
@@ -1291,6 +2518,21 @@
                     "kind": 184
                 }
             ],
+            "projects/balinaui-components/src/lib/button/button.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "coverageIgnore": false,
+                    "rawtype": "StoryObj<Button>",
+                    "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
             "projects/balinaui-components/src/lib/navbar/navbar.stories.ts": [
                 {
                     "name": "Story",
@@ -1299,6 +2541,36 @@
                     "coverageIgnore": false,
                     "rawtype": "StoryObj<Navbar>",
                     "file": "projects/balinaui-components/src/lib/navbar/navbar.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/balinaui-components/src/lib/card/card.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "coverageIgnore": false,
+                    "rawtype": "StoryObj<Card>",
+                    "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "coverageIgnore": false,
+                    "rawtype": "StoryObj<TimeFilter>",
+                    "file": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "",
@@ -1314,7 +2586,7 @@
         "children": []
     },
     "coverage": {
-        "count": 3,
+        "count": 1,
         "status": "low",
         "files": [
             {
@@ -1334,6 +2606,194 @@
                 "name": "BalinauiComponents",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Danger",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Disabled",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Ghost",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Large",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Outline",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Solid",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Success",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "Button",
+                "coveragePercent": 0,
+                "coverageCount": "0/19",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "ButtonColor",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "ButtonSize",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/button/button.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "ButtonVariant",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "DifferentDate",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ShortDescription",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/card/card.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "Card",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -1392,7 +2852,74 @@
                 "linktype": "component",
                 "name": "Navbar",
                 "coveragePercent": 0,
-                "coverageCount": "0/19",
+                "coverageCount": "0/22",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/navbar/navbar.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "NavLink",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/navbar/navbar.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "UserProfile",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Selected",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/time-filter/time-filter.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "TimeFilter",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {

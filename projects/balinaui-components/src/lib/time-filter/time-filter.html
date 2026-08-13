@@ -1,0 +1,9 @@
+<div class="time-filter" (click)="onClick($event)" role="button" tabindex="0">
+    <div class="radio-circle" [class.selected]="selected">
+        <div class="radio-dot"></div>
+    </div>
+
+    <span class="label">
+        {{ label }}
+    </span>
+</div>
