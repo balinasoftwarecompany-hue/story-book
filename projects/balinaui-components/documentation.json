@@ -1636,7 +1636,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    label: 'Last 24 hours',\n    selected: false\n  }\n}"
+                "defaultValue": "{\n  args: {\n    label: 'Last 24 hours',\n    value: '24h',\n    selectedValue: '24h'\n  }\n}"
             },
             {
                 "name": "DifferentDate",
@@ -1807,17 +1807,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/balinaui-components/src/lib/navbar/navbar.stories.ts",
-                "coverageIgnore": false,
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<Navbar>",
-                "defaultValue": "{\n  title: 'Components/Navbar',\n  component: Navbar,\n  parameters: {\n      layout: 'fullscreen',\n    },\n  decorators: [\n    applicationConfig({\n      providers: [\n        provideRouter([])\n      ]\n    })\n  ]\n,\n  argTypes: {\n    brand: { control: 'text' },\n    links: { control: 'object' },\n    initiallyLoggedIn: { control: 'boolean' },\n    login: { action: 'logged in' },\n    logout: { action: 'logged out' },\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
                 "coverageIgnore": false,
                 "deprecated": false,
@@ -1829,12 +1818,34 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/navbar/navbar.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<Navbar>",
+                "defaultValue": "{\n  title: 'Components/Navbar',\n  component: Navbar,\n  parameters: {\n      layout: 'fullscreen',\n    },\n  decorators: [\n    applicationConfig({\n      providers: [\n        provideRouter([])\n      ]\n    })\n  ]\n,\n  argTypes: {\n    brand: { control: 'text' },\n    links: { control: 'object' },\n    initiallyLoggedIn: { control: 'boolean' },\n    login: { action: 'logged in' },\n    logout: { action: 'logged out' },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
                 "coverageIgnore": false,
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<TimeFilter>",
-                "defaultValue": "{\n  title: 'Components/Time Filter',\n  component: TimeFilter,\n\n  tags: ['autodocs'],\n\n  argTypes: {\n    label: {\n      control: 'text'\n    },\n\n    selected: {\n      control: 'boolean'\n    }\n  },\n\n  parameters: {\n    layout: 'centered',\n    actions: {\n      handles: ['selectedChange']\n    }\n  }\n}"
+                "defaultValue": "{\n  title: 'Components/Time Filter',\n  component: TimeFilter,\n\n  tags: ['autodocs'],\n\n  argTypes: {\n    label: {\n      control: 'text',\n      description: 'Text displayed next to the radio button'\n    },\n\n    value: {\n      control: 'text',\n      description: 'Unique value of this filter'\n    },\n\n    selectedValue: {\n      control: 'text',\n      description: 'Currently selected filter value'\n    },\n\n    selectedValueChange: {\n      action: 'selectedValueChange'\n    },\n\n    clicked: {\n      action: 'clicked'\n    }\n  },\n\n  parameters: {\n    layout: 'centered'\n  }\n}"
+            },
+            {
+                "name": "NotSelected",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  args: {\n    label: 'Last 7 days',\n    value: '7d',\n    selectedValue: '24h'\n  }\n}"
             },
             {
                 "name": "Outline",
@@ -1889,7 +1900,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n  args: {\n    label: 'Last 24 hours',\n    selected: true\n  }\n}"
+                "defaultValue": "{\n  args: {\n    label: 'Last 24 hours',\n    value: '24h',\n    selectedValue: '24h'\n  }\n}"
             },
             {
                 "name": "ShortDescription",
@@ -2034,8 +2045,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "coverageIgnore": false,
-                "rawtype": "StoryObj<Navbar>",
-                "file": "projects/balinaui-components/src/lib/navbar/navbar.stories.ts",
+                "rawtype": "StoryObj<Card>",
+                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "rawdescription": "",
@@ -2047,8 +2058,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "coverageIgnore": false,
-                "rawtype": "StoryObj<Card>",
-                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "rawtype": "StoryObj<Navbar>",
+                "file": "projects/balinaui-components/src/lib/navbar/navbar.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "rawdescription": "",
@@ -2263,7 +2274,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    label: 'Last 24 hours',\n    selected: false\n  }\n}"
+                    "defaultValue": "{\n  args: {\n    label: 'Last 24 hours',\n    value: '24h',\n    selectedValue: '24h'\n  }\n}"
                 },
                 {
                     "name": "meta",
@@ -2274,7 +2285,18 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<TimeFilter>",
-                    "defaultValue": "{\n  title: 'Components/Time Filter',\n  component: TimeFilter,\n\n  tags: ['autodocs'],\n\n  argTypes: {\n    label: {\n      control: 'text'\n    },\n\n    selected: {\n      control: 'boolean'\n    }\n  },\n\n  parameters: {\n    layout: 'centered',\n    actions: {\n      handles: ['selectedChange']\n    }\n  }\n}"
+                    "defaultValue": "{\n  title: 'Components/Time Filter',\n  component: TimeFilter,\n\n  tags: ['autodocs'],\n\n  argTypes: {\n    label: {\n      control: 'text',\n      description: 'Text displayed next to the radio button'\n    },\n\n    value: {\n      control: 'text',\n      description: 'Unique value of this filter'\n    },\n\n    selectedValue: {\n      control: 'text',\n      description: 'Currently selected filter value'\n    },\n\n    selectedValueChange: {\n      action: 'selectedValueChange'\n    },\n\n    clicked: {\n      action: 'clicked'\n    }\n  },\n\n  parameters: {\n    layout: 'centered'\n  }\n}"
+                },
+                {
+                    "name": "NotSelected",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    label: 'Last 7 days',\n    value: '7d',\n    selectedValue: '24h'\n  }\n}"
                 },
                 {
                     "name": "Selected",
@@ -2285,7 +2307,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\n  args: {\n    label: 'Last 24 hours',\n    selected: true\n  }\n}"
+                    "defaultValue": "{\n  args: {\n    label: 'Last 24 hours',\n    value: '24h',\n    selectedValue: '24h'\n  }\n}"
                 }
             ],
             "projects/balinaui-components/src/stories/button.stories.ts": [
@@ -2533,21 +2555,6 @@
                     "kind": 184
                 }
             ],
-            "projects/balinaui-components/src/lib/navbar/navbar.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "coverageIgnore": false,
-                    "rawtype": "StoryObj<Navbar>",
-                    "file": "projects/balinaui-components/src/lib/navbar/navbar.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "rawdescription": "",
-                    "description": "",
-                    "kind": 184
-                }
-            ],
             "projects/balinaui-components/src/lib/card/card.stories.ts": [
                 {
                     "name": "Story",
@@ -2556,6 +2563,21 @@
                     "coverageIgnore": false,
                     "rawtype": "StoryObj<Card>",
                     "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/balinaui-components/src/lib/navbar/navbar.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "coverageIgnore": false,
+                    "rawtype": "StoryObj<Navbar>",
+                    "file": "projects/balinaui-components/src/lib/navbar/navbar.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "",
@@ -2889,6 +2911,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/time-filter/time-filter.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "NotSelected",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
