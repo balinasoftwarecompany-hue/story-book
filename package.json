@@ -10,7 +10,6 @@
     "storybook": "ng run balinaui-components:storybook",
     "build-storybook": "ng run balinaui-components:build-storybook"
   },
-  "private": true,
   "packageManager": "npm@10.9.8",
   "dependencies": {
     "@angular/cdk": "^21.2.14",
