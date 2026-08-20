@@ -1,146 +1,483 @@
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+/* =========================================
+   BALINA CARD
+   ========================================= */
 
-.card {
-  width: 100%;
-  min-height: 180px;
-  box-sizing: border-box;
-  border: 3px solid #dedede;
-  border-radius: 12px;
-  padding: 30px 26px;
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
+.balina-card {
+
+  /* =======================================
+     BALINA UI DESIGN TOKENS
+     ======================================= */
+
+  --card-width:
+    100%;
+
+  --card-height:
+    280px;
+
+  --card-padding:
+    28px;
+
+  --card-background:
+    #ffffff;
+
+  --card-border:
+    3px solid #dddddd;
+
+  --card-radius:
+    12px;
+
+  --card-title-color:
+    #000000;
+
+  --card-description-color:
+    #222222;
+
+  --card-date-background:
+    #eef5ff;
+
+  --card-month-color:
+    #2962ff;
+
+  --card-day-color:
+    #000000;
+
+  --card-line-color:
+    #b7b7b7;
+
+  --card-title-size:
+    38px;
+
+  --card-description-size:
+    20px;
+
+  --card-month-size:
+    24px;
+
+  --card-day-size:
+    24px;
+
+  --card-font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  --card-font-weight:
+    600;
+
+  --card-hover-shadow:
+    0 4px 12px
+    rgba(0, 0, 0, 0.08);
+
+  --card-hover-transform:
+    translateY(-1px);
+
+  --card-disabled-background:
+    #f5f5f5;
+
+  --card-disabled-border:
+    #d0d0d0;
+
+  --card-disabled-text:
+    #999999;
+
+
+  /* =======================================
+     CARD
+     ======================================= */
+
+  width:
+    var(--card-width);
+
+  min-height:
+    var(--card-height);
+
+  box-sizing:
+    border-box;
+
+  padding:
+    var(--card-padding);
+
+  background:
+    var(--card-background);
+
+  border:
+    var(--card-border);
+
+  border-radius:
+    var(--card-radius);
+
+  font-family:
+    var(--card-font-family);
+
+  font-weight:
+    var(--card-font-weight);
+
   transition:
     box-shadow 0.2s ease,
     transform 0.2s ease,
+    background-color 0.2s ease,
     border-color 0.2s ease;
+
+  box-sizing:
+    border-box;
 }
 
-/* Hover */
-.card:hover {
-  border-color: #c8c8c8;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
+
+/* =========================================
+   CLICKABLE
+   ========================================= */
+
+.balina-card.card-clickable {
+
+  cursor:
+    pointer;
 }
 
-/* Title */
+
+/* =========================================
+   NOT CLICKABLE
+   ========================================= */
+
+.balina-card:not(.card-clickable) {
+
+  cursor:
+    default;
+}
+
+
+/* =========================================
+   HOVER
+   ========================================= */
+
+.balina-card.card-clickable:hover {
+
+  box-shadow:
+    var(--card-hover-shadow);
+
+  transform:
+    var(--card-hover-transform);
+}
+
+
+/* =========================================
+   ACTIVE
+   ========================================= */
+
+.balina-card.card-clickable:active {
+
+  transform:
+    translateY(0);
+}
+
+
+/* =========================================
+   TITLE
+   ========================================= */
+
 .card-title {
-  margin: 0 0 34px 0;
-  font-size: 38px;
-  font-weight: 700;
-  line-height: 1.1;
+
+  margin:
+    0;
+
+  color:
+    var(--card-title-color);
+
+  font-size:
+    var(--card-title-size);
+
+  font-weight:
+    700;
+
+  line-height:
+    1.2;
 }
 
-/* Main content */
+
+/* =========================================
+   CONTENT
+   ========================================= */
+
 .card-content {
-  display: flex;
-  align-items: center;
-  gap: 25px;
 
-  flex: 1;
-  justify-content: center;
-  margin: 0 0 0 37px;
-}
-/* Date box */
-.date-box {
-  width: 92px;
-  min-width: 92px;
-  height: 96px;
-  border-radius: 12px;
-  background: #f3f1ee;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border: 1px solid #d6d1cc;
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    28px;
+
+  margin-top:
+    36px;
 }
 
-/* Month */
-.month {
-  color: #6B1F2B;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 1;
+
+/* =========================================
+   DATE
+   ========================================= */
+
+.card-date {
+
+  width:
+    92px;
+
+  height:
+    96px;
+
+  flex-shrink:
+    0;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  box-sizing:
+    border-box;
+
+  padding:
+    8px;
+
+  background:
+    var(--card-date-background);
+
+  border-radius:
+    10px;
 }
 
-/* Day */
-.day {
-  color: #000;
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 1;
-  padding-top: 6px;
+
+/* =========================================
+   MONTH
+   ========================================= */
+
+.card-month {
+
+  color:
+    var(--card-month-color);
+
+  font-size:
+    var(--card-month-size);
+
+  font-weight:
+    700;
+
+  line-height:
+    1;
 }
 
-/* Description */
-.description {
-  max-width: 560px;
 
-  color: #222;
+/* =========================================
+   LINE
+   ========================================= */
 
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.3;
+.card-line {
+
+  width:
+    80%;
+
+  height:
+    2px;
+
+  margin:
+    7px 0;
+
+  background:
+    var(--card-line-color);
 }
 
-/* Tablet */
+
+/* =========================================
+   DAY
+   ========================================= */
+
+.card-day {
+
+  color:
+    var(--card-day-color);
+
+  font-size:
+    var(--card-day-size);
+
+  font-weight:
+    600;
+
+  line-height:
+    1;
+}
+
+
+/* =========================================
+   DESCRIPTION
+   ========================================= */
+
+.card-description {
+
+  flex:
+    1;
+
+  color:
+    var(--card-description-color);
+
+  font-size:
+    var(--card-description-size);
+
+  font-weight:
+    600;
+
+  line-height:
+    1.4;
+}
+
+
+/* =========================================
+   DISABLED
+   ========================================= */
+
+.balina-card.card-disabled {
+
+  background:
+    var(--card-disabled-background);
+
+  border-color:
+    var(--card-disabled-border);
+
+  color:
+    var(--card-disabled-text);
+
+  cursor:
+    not-allowed;
+
+  box-shadow:
+    none;
+
+  transform:
+    none;
+}
+
+
+/* Prevent hover when disabled */
+
+.balina-card.card-disabled:hover {
+
+  box-shadow:
+    none;
+
+  transform:
+    none;
+}
+
+
+/* =========================================
+   DISABLED CONTENT
+   ========================================= */
+
+.balina-card.card-disabled
+.card-title,
+
+.balina-card.card-disabled
+.card-description {
+
+  color:
+    var(--card-disabled-text);
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
 @media (max-width: 768px) {
 
-  .card {
-    padding: 25px 20px;
+  .balina-card {
+
+    --card-title-size:
+      30px;
+
+    --card-description-size:
+      17px;
+
+    --card-height:
+      auto;
+
+    padding:
+      22px;
   }
 
-  .card-title {
-    font-size: 32px;
-    margin-bottom: 25px;
-  }
-
-  .description {
-    font-size: 18px;
-  }
-
-}
-
-/* Mobile */
-@media (max-width: 500px) {
-
-  .card {
-    min-height: auto;
-    padding: 22px 16px;
-  }
-
-  .card-title {
-    font-size: 28px;
-    margin-bottom: 22px;
-  }
 
   .card-content {
-    align-items: flex-start;
-    gap: 16px;
+
+    gap:
+      18px;
+
+    margin-top:
+      28px;
   }
 
-  .date-box {
-    width: 75px;
-    min-width: 75px;
-    height: 85px;
+
+  .card-date {
+
+    width:
+      80px;
+
+    height:
+      88px;
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .balina-card {
+
+    --card-title-size:
+      26px;
+
+    --card-description-size:
+      15px;
+
+    padding:
+      18px;
   }
 
-  .month {
-    font-size: 20px;
+
+  .card-content {
+
+    align-items:
+      flex-start;
+
+    gap:
+      14px;
   }
 
-  .date-line {
-    width: 48px;
+
+  .card-date {
+
+    width:
+      70px;
+
+    height:
+      80px;
   }
 
-  .day {
-    font-size: 23px;
+
+  .card-month {
+
+    font-size:
+      20px;
   }
 
-  .description {
-    font-size: 16px;
-  }
 
+  .card-day {
+
+    font-size:
+      20px;
+  }
 }

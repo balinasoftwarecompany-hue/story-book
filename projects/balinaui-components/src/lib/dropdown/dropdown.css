@@ -1,0 +1,542 @@
+/* =========================================
+   HOST
+   ========================================= */
+
+:host {
+
+  /* =======================================
+     BALINA UI DESIGN TOKENS
+     ======================================= */
+
+  --dropdown-width: 300px;
+
+  --dropdown-height: 44px;
+
+  --dropdown-background: #ffffff;
+
+  --dropdown-border:
+    1px solid #a9a9a9;
+
+  --dropdown-border-hover:
+    #777777;
+
+  --dropdown-border-focus:
+    #68479b;
+
+  --dropdown-radius: 6px;
+
+  --dropdown-text-color:
+    #222222;
+
+  --dropdown-placeholder-color:
+    #777777;
+
+  --dropdown-menu-background:
+    #ffffff;
+
+  --dropdown-option-hover:
+    #f3f0f7;
+
+  --dropdown-option-selected:
+    #eee8f5;
+
+  --dropdown-disabled:
+    #f5f5f5;
+
+  --dropdown-font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  --dropdown-font-size:
+    14px;
+
+  --dropdown-font-weight:
+    600;
+
+  --dropdown-shadow:
+    0 4px 12px
+    rgba(0, 0, 0, 0.12);
+
+  --dropdown-label-color:
+    #68479b;
+
+  --dropdown-arrow-color:
+    #555555;
+
+  --dropdown-search-border:
+    #cfcfcf;
+
+
+  /* =======================================
+     HOST
+     ======================================= */
+
+  display: block;
+
+  position: relative;
+
+  width:
+    var(--dropdown-width);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   CONTAINER
+   ========================================= */
+
+.dropdown-container {
+
+  position: relative;
+
+  width: 100%;
+
+  font-family:
+    var(--dropdown-font-family);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   FIELD
+   ========================================= */
+
+.dropdown-field {
+
+  position: relative;
+
+  width: 100%;
+
+  height:
+    var(--dropdown-height);
+
+  display: flex;
+
+  align-items: center;
+
+  box-sizing: border-box;
+
+  padding:
+    0 48px 0 18px;
+
+  border:
+    var(--dropdown-border);
+
+  border-radius:
+    var(--dropdown-radius);
+
+  background:
+    var(--dropdown-background);
+
+  color:
+    var(--dropdown-text-color);
+
+  font-size:
+    var(--dropdown-font-size);
+
+  font-weight:
+    var(--dropdown-font-weight);
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* =========================================
+   HOVER
+   ========================================= */
+
+.dropdown-field:hover {
+
+  border-color:
+    var(--dropdown-border-hover);
+}
+
+
+/* =========================================
+   OPEN
+   ========================================= */
+
+.dropdown-open
+.dropdown-field {
+
+  border-color:
+    var(--dropdown-border-focus);
+
+  box-shadow:
+    0 0 0 1px
+    rgba(104, 71, 155, 0.12);
+}
+
+
+/* =========================================
+   LABEL
+   ========================================= */
+
+.dropdown-label {
+
+  position: absolute;
+
+  top: 0;
+
+  left: 14px;
+
+  transform:
+    translateY(-50%);
+
+  padding:
+    0 6px;
+
+  background:
+    var(--dropdown-background);
+
+  color:
+    var(--dropdown-label-color);
+
+  font-size:
+    13px;
+
+  font-weight:
+    500;
+
+  line-height: 1;
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   VALUE
+   ========================================= */
+
+.dropdown-value {
+
+  overflow: hidden;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+
+  color:
+    var(--dropdown-text-color);
+}
+
+
+/* =========================================
+   PLACEHOLDER
+   ========================================= */
+
+.dropdown-placeholder {
+
+  color:
+    var(--dropdown-placeholder-color);
+}
+
+
+/* =========================================
+   ARROW
+   ========================================= */
+
+.dropdown-arrow {
+
+  position: absolute;
+
+  right: 18px;
+
+  top: 50%;
+
+  width: 9px;
+
+  height: 9px;
+
+  border-right:
+    2px solid
+    var(--dropdown-arrow-color);
+
+  border-bottom:
+    2px solid
+    var(--dropdown-arrow-color);
+
+  transform:
+    translateY(-65%)
+    rotate(45deg);
+
+  transition:
+    transform 0.2s ease;
+}
+
+
+/* =========================================
+   ARROW UP
+   ========================================= */
+
+.dropdown-arrow.arrow-up {
+
+  transform:
+    translateY(-25%)
+    rotate(225deg);
+}
+
+
+/* =========================================
+   MENU
+   ========================================= */
+
+.dropdown-menu {
+
+  position: absolute;
+
+  top:
+    calc(
+      100% + 6px
+    );
+
+  left: 0;
+
+  width: 100%;
+
+  z-index: 1000;
+
+  overflow: hidden;
+
+  background:
+    var(--dropdown-menu-background);
+
+  border:
+    1px solid #d0d0d0;
+
+  border-radius:
+    var(--dropdown-radius);
+
+  box-shadow:
+    var(--dropdown-shadow);
+}
+
+
+/* =========================================
+   SEARCH
+   ========================================= */
+
+.dropdown-search {
+
+  padding: 8px;
+
+  border-bottom:
+    1px solid #eeeeee;
+}
+
+
+/* =========================================
+   SEARCH INPUT
+   ========================================= */
+
+.dropdown-search-input {
+
+  width: 100%;
+
+  height: 38px;
+
+  box-sizing: border-box;
+
+  padding:
+    0 12px;
+
+  border:
+    1px solid
+    var(--dropdown-search-border);
+
+  border-radius: 5px;
+
+  outline: none;
+
+  background:
+    #ffffff;
+
+  color:
+    var(--dropdown-text-color);
+
+  font-family:
+    var(--dropdown-font-family);
+
+  font-size:
+    14px;
+}
+
+
+/* =========================================
+   SEARCH FOCUS
+   ========================================= */
+
+.dropdown-search-input:focus {
+
+  border-color:
+    var(--dropdown-border-focus);
+}
+
+
+/* =========================================
+   OPTIONS
+   ========================================= */
+
+.dropdown-options {
+
+  max-height: 240px;
+
+  overflow-y: auto;
+}
+
+
+/* =========================================
+   OPTION
+   ========================================= */
+
+.dropdown-option {
+
+  min-height: 42px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding:
+    0 14px;
+
+  box-sizing: border-box;
+
+  color:
+    var(--dropdown-text-color);
+
+  font-size:
+    var(--dropdown-font-size);
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s ease;
+}
+
+
+/* =========================================
+   OPTION HOVER
+   ========================================= */
+
+.dropdown-option:hover {
+
+  background:
+    var(--dropdown-option-hover);
+}
+
+
+/* =========================================
+   SELECTED OPTION
+   ========================================= */
+
+.dropdown-option.option-selected {
+
+  background:
+    var(--dropdown-option-selected);
+
+  color:
+    var(--dropdown-border-focus);
+
+  font-weight: 600;
+}
+
+
+/* =========================================
+   DISABLED OPTION
+   ========================================= */
+
+.dropdown-option.option-disabled {
+
+  color: #aaa;
+
+  cursor: not-allowed;
+
+  background:
+    transparent;
+}
+
+
+/* =========================================
+   NO RESULTS
+   ========================================= */
+
+.dropdown-no-result {
+
+  min-height: 50px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding:
+    0 15px;
+
+  color: #888;
+
+  font-size: 13px;
+}
+
+
+/* =========================================
+   DISABLED DROPDOWN
+   ========================================= */
+
+.dropdown-disabled
+.dropdown-field {
+
+  background:
+    var(--dropdown-disabled);
+
+  color: #999;
+
+  border-color: #d0d0d0;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   SCROLLBAR
+   ========================================= */
+
+.dropdown-options::-webkit-scrollbar {
+
+  width: 6px;
+}
+
+
+.dropdown-options::-webkit-scrollbar-thumb {
+
+  background: #c5c5c5;
+
+  border-radius: 10px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  :host {
+
+    width: 100%;
+  }
+
+  .dropdown-field {
+
+    height:
+      var(--dropdown-height);
+  }
+}

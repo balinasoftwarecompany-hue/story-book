@@ -1,0 +1,14 @@
+image: node:22
+
+pipelines:
+  branches:
+    main:
+      - step:
+          name: Build Storybook
+          caches:
+            - node
+          script:
+            - npm ci
+            - npm run build-storybook
+          artifacts:
+            - storybook-static/**

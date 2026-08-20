@@ -1,17 +1,52 @@
 <button
+  class="balina-button"
+
   [type]="type"
-  [disabled]="disabled"
 
-  [ngClass]="[
-    'lib-button',
-    'lib-button-' + variant,
-    'lib-button-' + color,
-    'lib-button-' + size
-  ]"
+  [disabled]="
+    disabled ||
+    loading ||
+    !clickable
+  "
 
-  [ngStyle]="buttonStyles"
+  [attr.aria-disabled]="
+    disabled ||
+    loading ||
+    !clickable
+  "
 
-  (click)="handleClick($event)"
+  [attr.aria-busy]="loading"
+
+  (click)="onClick($event)"
 >
-  {{ text }}
+
+  <!-- =====================================
+       LOADING
+       ===================================== -->
+
+  @if (loading) {
+
+    <span
+      class="button-spinner"
+      aria-hidden="true"
+    ></span>
+
+    <span class="button-loading-text">
+      Loading...
+    </span>
+
+  }
+
+  <!-- =====================================
+       NORMAL
+       ===================================== -->
+
+  @else {
+
+    <span class="button-label">
+      {{ label }}
+    </span>
+
+  }
+
 </button>

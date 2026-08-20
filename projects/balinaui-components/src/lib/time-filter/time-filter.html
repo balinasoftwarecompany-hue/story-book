@@ -1,9 +1,40 @@
-<div class="time-filter" (click)="onClick($event)" role="button" tabindex="0">
-    <div class="radio-circle" [class.selected]="selected">
-        <div class="radio-dot"></div>
-    </div>
+<div
+  class="time-filter"
+  [class]="customClass"
 
-    <span class="label">
-        {{ label }}
-    </span>
+  [class.time-filter-clickable]="clickable"
+
+  [class.time-filter-disabled]="disabled"
+
+  [class.time-filter-selected]="selected"
+
+  (click)="onClick($event)"
+
+  role="button"
+
+  tabindex="0"
+>
+
+  <!-- =====================================
+       RADIO
+       ===================================== -->
+
+  <div
+    class="radio-circle"
+    [class.selected]="selected"
+  >
+
+    <div class="radio-dot"></div>
+
+  </div>
+
+
+  <!-- =====================================
+       LABEL
+       ===================================== -->
+
+  <span class="label">
+    {{ label }}
+  </span>
+
 </div>

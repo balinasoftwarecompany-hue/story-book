@@ -2,39 +2,38 @@ import { Meta, StoryObj } from '@storybook/angular-vite';
 import { Card } from './card';
 
 const meta: Meta<Card> = {
+
   title: 'Components/Card',
+
   component: Card,
 
   tags: ['autodocs'],
 
+  parameters: {
+    layout: 'centered'
+  },
+
   argTypes: {
+
     title: {
-      control: 'text',
-      description: 'Card title'
+      control: 'text'
     },
 
     month: {
-      control: 'text',
-      description: 'Month displayed in the date box'
+      control: 'text'
     },
 
     day: {
-      control: 'text',
-      description: 'Day displayed in the date box'
+      control: 'text'
     },
 
     description: {
-      control: 'text',
-      description: 'Monitoring description'
+      control: 'text'
     },
 
     cardClick: {
-      action: 'card clicked'
+      action: 'cardClick'
     }
-  },
-
-  parameters: {
-    layout: 'centered'
   }
 };
 
@@ -42,32 +41,42 @@ export default meta;
 
 type Story = StoryObj<Card>;
 
+
+// =========================================
+// DEFAULT
+// =========================================
+
 export const Default: Story = {
+
   args: {
+
     title: 'Last 24 hours',
+
     month: 'Jul',
+
     day: 9,
+
     description:
       '156 flights were monitored with 96.8% on-time performance. Minor delays occurred due to weather and air traffic.'
   }
 };
 
-export const DifferentDate: Story = {
-  args: {
-    title: 'Last 24 hours',
-    month: 'Aug',
-    day: 12,
-    description:
-      '184 flights were monitored with 97.4% on-time performance. Minor delays occurred due to weather and air traffic.'
-  }
-};
 
-export const ShortDescription: Story = {
+// =========================================
+// CUSTOM DATA
+// =========================================
+
+export const CustomData: Story = {
+
   args: {
-    title: 'Last 24 hours',
+
+    title: 'Last 7 days',
+
     month: 'Aug',
-    day: 12,
+
+    day: 18,
+
     description:
-      '156 flights were monitored with 96.8% on-time performance.'
+      '1,245 flights were monitored with 97.4% on-time performance. Minor delays occurred due to weather and air traffic.'
   }
 };

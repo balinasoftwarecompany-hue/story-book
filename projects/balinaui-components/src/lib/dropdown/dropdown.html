@@ -1,0 +1,139 @@
+<div
+  class="dropdown-container"
+  [class.dropdown-disabled]="disabled"
+  [class.dropdown-open]="isOpen"
+>
+
+  <!-- =====================================
+       FIELD
+       ===================================== -->
+
+  <div
+    class="dropdown-field"
+    (click)="toggleDropdown($event)"
+  >
+
+    <!-- Label -->
+
+    @if (label) {
+
+      <label class="dropdown-label">
+        {{ label }}
+      </label>
+
+    }
+
+
+    <!-- Selected Value -->
+
+    <span
+      class="dropdown-value"
+      [class.dropdown-placeholder]="
+        !selectedOption
+      "
+    >
+
+      {{
+        selectedOption?.label ||
+        placeholder
+      }}
+
+    </span>
+
+
+    <!-- Arrow -->
+
+    <span
+      class="dropdown-arrow"
+      [class.arrow-up]="isOpen"
+    ></span>
+
+  </div>
+
+
+  <!-- =====================================
+       MENU
+       ===================================== -->
+
+  @if (isOpen) {
+
+    <div
+      class="dropdown-menu"
+      (click)="$event.stopPropagation()"
+    >
+
+      <!-- SEARCH -->
+
+      @if (searchable) {
+
+        <div class="dropdown-search">
+
+          <input
+            type="text"
+            class="dropdown-search-input"
+
+            placeholder="Search..."
+
+            [value]="searchText"
+
+            (input)="onSearch($event)"
+          />
+
+        </div>
+
+      }
+
+
+      <!-- OPTIONS -->
+
+      <div class="dropdown-options">
+
+        @for (
+          option of filteredOptions;
+          track option.value
+        ) {
+
+          <div
+            class="dropdown-option"
+
+            [class.option-disabled]="
+              option.disabled
+            "
+
+            [class.option-selected]="
+              option.value === value
+            "
+
+            (click)="
+              selectOption(option, $event)
+            "
+          >
+
+            {{ option.label }}
+
+          </div>
+
+        }
+
+
+        <!-- NO RESULTS -->
+
+        @if (
+          filteredOptions.length === 0
+        ) {
+
+          <div class="dropdown-no-result">
+
+            No results found
+
+          </div>
+
+        }
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

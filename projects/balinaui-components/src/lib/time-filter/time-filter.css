@@ -1,61 +1,276 @@
+/* =========================================
+   BALINA TIME FILTER
+   ========================================= */
+
 .time-filter {
+
+  /* =====================================
+     BALINA UI DESIGN TOKENS
+     ===================================== */
+
+  --time-filter-gap: 16px;
+
+  --time-filter-circle-size: 24px;
+
+  --time-filter-circle-border-width: 2px;
+
+  --time-filter-dot-size: 12px;
+
+  --time-filter-border-color: #a6a6a6;
+
+  --time-filter-selected-color: #1976d2;
+
+  --time-filter-text-color: #000000;
+
+  --time-filter-text-hover: #333333;
+
+  --time-filter-font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  --time-filter-font-size: 20px;
+
+  --time-filter-font-weight: 400;
+
+  --time-filter-disabled-color: #aaaaaa;
+
+
+  /* =====================================
+     CONTAINER
+     ===================================== */
+
   display: flex;
+
   align-items: center;
-  gap: 16px;
+
+  gap: var(--time-filter-gap);
 
   width: fit-content;
 
-  cursor: pointer;
+  box-sizing: border-box;
+
+  font-family:
+    var(--time-filter-font-family);
 
   user-select: none;
+
+  transition:
+    opacity 0.2s ease;
 }
 
-/* Outer circle */
-.radio-circle {
-  width: 24px;
-  height: 24px;
 
-  border: 2px solid #a6a6a6;
-  border-radius: 50%;
+/* =========================================
+   CLICKABLE
+   ========================================= */
+
+.time-filter-clickable {
+
+  cursor: pointer;
+}
+
+
+/* =========================================
+   RADIO CIRCLE
+   ========================================= */
+
+.radio-circle {
+
+  width:
+    var(--time-filter-circle-size);
+
+  height:
+    var(--time-filter-circle-size);
+
+  flex-shrink: 0;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
   box-sizing: border-box;
 
-  transition: border-color 0.2s ease;
+  border:
+    var(--time-filter-circle-border-width)
+    solid
+    var(--time-filter-border-color);
+
+  border-radius: 50%;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 }
 
-/* Inner circle */
+
+/* =========================================
+   RADIO DOT
+   ========================================= */
+
 .radio-dot {
-  width: 12px;
-  height: 12px;
+
+  width:
+    var(--time-filter-dot-size);
+
+  height:
+    var(--time-filter-dot-size);
 
   border-radius: 50%;
 
   background: transparent;
 
-  transition: background 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-/* Selected */
+
+/* =========================================
+   SELECTED
+   ========================================= */
+
 .radio-circle.selected {
-  border-color: #1976d2;
+
+  border-color:
+    var(--time-filter-selected-color);
 }
+
 
 .radio-circle.selected .radio-dot {
-  background: #1976d2;
+
+  background:
+    var(--time-filter-selected-color);
+
+  transform: scale(1);
 }
 
-/* Text */
+
+/* =========================================
+   LABEL
+   ========================================= */
+
 .label {
-  font-size: 20px;
-  font-weight: 400;
-  color: #000000;
+
+  color:
+    var(--time-filter-text-color);
+
+  font-size:
+    var(--time-filter-font-size);
+
+  font-weight:
+    var(--time-filter-font-weight);
 
   line-height: 1;
+
+  transition:
+    color 0.2s ease;
 }
-.label:hover {
-  color: #333333;
+
+
+/* =========================================
+   HOVER
+   ========================================= */
+
+.time-filter-clickable:hover
+.label {
+
+  color:
+    var(--time-filter-text-hover);
+}
+
+
+/* =========================================
+   SELECTED HOVER
+   ========================================= */
+
+.time-filter-clickable:hover
+.radio-circle {
+
+  border-color:
+    var(--time-filter-selected-color);
+}
+
+
+/* =========================================
+   DISABLED
+   ========================================= */
+
+.time-filter-disabled {
+
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+
+.time-filter-disabled
+.radio-circle {
+
+  border-color:
+    var(--time-filter-disabled-color);
+}
+
+
+.time-filter-disabled
+.label {
+
+  color:
+    var(--time-filter-disabled-color);
+}
+
+
+/* =========================================
+   DISABLED SELECTED
+   ========================================= */
+
+.time-filter-disabled
+.radio-circle.selected {
+
+  border-color:
+    var(--time-filter-disabled-color);
+}
+
+
+.time-filter-disabled
+.radio-circle.selected
+.radio-dot {
+
+  background:
+    var(--time-filter-disabled-color);
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  .time-filter {
+
+    --time-filter-font-size: 18px;
+
+    --time-filter-circle-size: 22px;
+
+    --time-filter-dot-size: 10px;
+
+    --time-filter-gap: 12px;
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .time-filter {
+
+    --time-filter-font-size: 16px;
+
+    --time-filter-circle-size: 20px;
+
+    --time-filter-dot-size: 9px;
+
+    --time-filter-gap: 10px;
+  }
 }

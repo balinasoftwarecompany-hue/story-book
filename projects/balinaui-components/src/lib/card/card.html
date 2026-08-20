@@ -1,29 +1,57 @@
-<div class="card mat-elevation-z1" (click)="onCardClick()" role="button" tabindex="0">
+<div
+  class="balina-card"
 
-  <!-- Title -->
-  <h2 class="mat-headline-4 card-title">
+  [class]="customClass"
+
+  [class.card-clickable]="clickable"
+
+  [class.card-disabled]="disabled"
+
+  (click)="onClick($event)"
+>
+
+  <!-- =====================================
+       TITLE
+       ===================================== -->
+
+  <h2 class="card-title">
     {{ title }}
   </h2>
 
-  <!-- Content -->
+
+  <!-- =====================================
+       CONTENT
+       ===================================== -->
+
   <div class="card-content">
 
-    <!-- Date -->
-    <div class="date-box">
+    <!-- ===================================
+         DATE
+         =================================== -->
 
-      <div class="month mat-title-medium">
+    <div class="card-date">
+
+      <div class="card-month">
         {{ month }}
       </div>
 
-      <div class="day mat-headline-5">
+      <div class="card-line"></div>
+
+      <div class="card-day">
         {{ day }}
       </div>
 
     </div>
 
-    <!-- Description -->
-    <div class="description mat-body-large">
+
+    <!-- ===================================
+         DESCRIPTION
+         =================================== -->
+
+    <div class="card-description">
+
       {{ description }}
+
     </div>
 
   </div>

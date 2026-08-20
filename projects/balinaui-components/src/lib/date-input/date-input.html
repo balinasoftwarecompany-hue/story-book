@@ -1,0 +1,176 @@
+<div
+  class="date-input-container"
+  [class.date-input-disabled]="disabled"
+  [class.date-input-open]="isOpen"
+>
+
+  <!-- =====================================
+       INPUT FIELD
+       ===================================== -->
+
+  <div
+    class="date-input-field"
+    (click)="toggleCalendar($event)"
+  >
+
+    <!-- LABEL -->
+
+    @if (label) {
+
+      <label class="date-input-label">
+
+        {{ label }}
+
+      </label>
+
+    }
+
+
+    <!-- VALUE -->
+
+    <span
+      class="date-input-value"
+      [class.date-input-placeholder]="!value"
+    >
+
+      {{ value || placeholder }}
+
+    </span>
+
+
+    <!-- CALENDAR ICON -->
+
+    <span class="calendar-icon">
+
+      <span class="calendar-top"></span>
+
+      <span class="calendar-body"></span>
+
+    </span>
+
+  </div>
+
+
+  <!-- =====================================
+       DATE PICKER
+       ===================================== -->
+
+  @if (isOpen) {
+
+    <div
+      class="date-picker"
+      (click)="$event.stopPropagation()"
+    >
+
+      <!-- =================================
+           HEADER
+           ================================= -->
+
+      <div class="date-picker-header">
+
+        <button
+          type="button"
+          class="month-button"
+
+          aria-label="Previous month"
+
+          (click)="previousMonth($event)"
+        >
+
+          ‹
+
+        </button>
+
+
+        <span class="month-title">
+
+          {{ monthName }} {{ year }}
+
+        </span>
+
+
+        <button
+          type="button"
+          class="month-button"
+
+          aria-label="Next month"
+
+          (click)="nextMonth($event)"
+        >
+
+          ›
+
+        </button>
+
+      </div>
+
+
+      <!-- =================================
+           WEEK DAYS
+           ================================= -->
+
+      <div class="week-days">
+
+        <span>Sun</span>
+
+        <span>Mon</span>
+
+        <span>Tue</span>
+
+        <span>Wed</span>
+
+        <span>Thu</span>
+
+        <span>Fri</span>
+
+        <span>Sat</span>
+
+      </div>
+
+
+      <!-- =================================
+           CALENDAR DAYS
+           ================================= -->
+
+      <div class="calendar-days">
+
+        @for (
+          date of calendarDays;
+          track date.getTime()
+        ) {
+
+          <button
+            type="button"
+
+            class="calendar-day"
+
+            [class.other-month]="
+              !isCurrentMonth(date)
+            "
+
+            [class.today]="
+              isToday(date)
+            "
+
+            [class.selected]="
+              isSelected(date)
+            "
+
+            (click)="
+              selectDate(date, $event)
+            "
+          >
+
+            {{ date.getDate() }}
+
+          </button>
+
+        }
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

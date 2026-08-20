@@ -2,165 +2,266 @@ import { Meta, StoryObj } from '@storybook/angular-vite';
 import { Button } from './button';
 
 const meta: Meta<Button> = {
-  title: 'Components/Button',
-  component: Button,
+
+  title:
+    'Balina UI/Button',
+
+  component:
+    Button,
+
+  tags:
+    ['autodocs'],
 
   parameters: {
-    layout: 'centered',
+
+    layout:
+      'centered'
   },
+
+
+  // =======================================
+  // CONTROLS
+  // =======================================
 
   argTypes: {
 
-  text: {
-    control: 'text'
-  },
+    label: {
 
-  variant: {
-    control: 'select',
-    options: [
-      'solid',
-      'outline',
-      'ghost'
-    ]
-  },
+      control:
+        'text',
 
-  color: {
-    control: 'select',
-    options: [
-      'primary',
-      'secondary',
-      'success',
-      'danger',
-      'warning',
-      'info',
-      'neutral',
-      'light',
-      'dark',
-      'link'
-    ]
-  },
+      description:
+        'Text displayed inside the button.'
+    },
 
-  customColor: {
-    control: 'color'
-  },
+    type: {
 
-  hoverColor: {
-    control: 'color'
-  },
+      control:
+        'select',
 
-  activeColor: {
-    control: 'color'
-  },
+      options: [
+        'button',
+        'submit',
+        'reset'
+      ]
+    },
 
-  textColor: {
-    control: 'color'
-  },
+    disabled: {
 
-  hoverTextColor: {
-    control: 'color'
-  },
+      control:
+        'boolean'
+    },
 
-  activeTextColor: {
-    control: 'color'
-  },
+    loading: {
 
-  disabledColor: {
-    control: 'color'
-  },
+      control:
+        'boolean'
+    },
 
-  disabledTextColor: {
-    control: 'color'
-  },
+    clickable: {
 
-  disabledBorderColor: {
-    control: 'color'
-  },
+      control:
+        'boolean',
 
-  size: {
-    control: 'select',
-    options: [
-      'xs',
-      'sm',
-      'md',
-      'lg',
-      'xl'
-    ]
-  },
+      description:
+        'Controls whether the button can be clicked.'
+    },
 
-  disabled: {
-    control: 'boolean'
-  },
+    customClass: {
 
-  buttonClick: {
-    action: 'button clicked'
+      control:
+        'text',
+
+      description:
+        'Developer custom CSS class.'
+    },
+
+    clicked: {
+
+      action:
+        'clicked',
+
+      description:
+        'Emitted when the button is clicked.'
+    }
   }
-}
 };
 
 export default meta;
 
-type Story = StoryObj<Button>;
+type Story =
+  StoryObj<Button>;
 
-export const Solid: Story = {
+
+// =========================================
+// DEFAULT
+// =========================================
+
+export const Default: Story = {
+
   args: {
-    text: 'Primary Button',
-    variant: 'solid',
-    color: 'primary',
-    size: 'md',
-  },
+
+    label:
+      'Button',
+
+    type:
+      'button',
+
+    disabled:
+      false,
+
+    loading:
+      false,
+
+    clickable:
+      true,
+
+    customClass:
+      ''
+  }
 };
 
-export const Outline: Story = {
+
+// =========================================
+// PRIMARY
+// =========================================
+
+export const Primary: Story = {
+
   args: {
-    text: 'Outline Button',
-    variant: 'outline',
-    color: 'primary',
-    size: 'md',
-  },
+
+    label:
+      'Submit',
+
+    type:
+      'submit',
+
+    disabled:
+      false,
+
+    loading:
+      false,
+
+    clickable:
+      true,
+
+    customClass:
+      ''
+  }
 };
 
-export const Ghost: Story = {
+
+// =========================================
+// NOT CLICKABLE
+// =========================================
+
+export const NotClickable: Story = {
+
   args: {
-    text: 'Ghost Button',
-    variant: 'ghost',
-    color: 'primary',
-    size: 'md',
-  },
+
+    label:
+      'Not Clickable',
+
+    type:
+      'button',
+
+    disabled:
+      false,
+
+    loading:
+      false,
+
+    clickable:
+      false,
+
+    customClass:
+      ''
+  }
 };
 
-export const Danger: Story = {
+
+// =========================================
+// LOADING
+// =========================================
+
+export const Loading: Story = {
+
   args: {
-    text: 'Delete',
-    variant: 'solid',
-    color: 'danger',
-    size: 'md',
-  },
+
+    label:
+      'Submit',
+
+    type:
+      'button',
+
+    disabled:
+      false,
+
+    loading:
+      true,
+
+    clickable:
+      true,
+
+    customClass:
+      ''
+  }
 };
 
-export const Success: Story = {
-  args: {
-    text: 'Save',
-    variant: 'solid',
-    color: 'success',
-    size: 'md',
-  },
-};
 
-export const Large: Story = {
-  args: {
-    text: 'Large Button',
-    variant: 'solid',
-    color: 'primary',
-    size: 'lg',
-  },
-};
+// =========================================
+// DISABLED
+// =========================================
 
 export const Disabled: Story = {
+
   args: {
-    text: 'Disabled',
-    variant: 'solid',
-    color: 'primary',
-    size: 'md',
-    disabled: true,
-  },
+
+    label:
+      'Disabled',
+
+    type:
+      'button',
+
+    disabled:
+      true,
+
+    loading:
+      false,
+
+    clickable:
+      true,
+
+    customClass:
+      ''
+  }
+};
+
+
+// =========================================
+// CUSTOM STYLE
+// =========================================
+
+export const CustomStyle: Story = {
+
+  args: {
+
+    label:
+      'Custom Button',
+
+    type:
+      'button',
+
+    disabled:
+      false,
+
+    loading:
+      false,
+
+    clickable:
+      true,
+
+    customClass:
+      'custom-balina-button'
+  }
 };
