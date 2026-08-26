@@ -43,9 +43,7 @@ const meta: Meta<Dropdown> = {
 
   argTypes: {
 
-    // =====================================
     // INPUTS
-    // =====================================
 
     label: {
       control: 'text',
@@ -81,9 +79,7 @@ const meta: Meta<Dropdown> = {
     },
 
 
-    // =====================================
     // EVENTS
-    // =====================================
 
     valueChange: {
       action: 'valueChange'
@@ -109,9 +105,7 @@ export default meta;
 type Story = StoryObj<Dropdown>;
 
 
-// =========================================
 // DEFAULT
-// =========================================
 
 export const Default: Story = {
 
@@ -134,9 +128,7 @@ export const Default: Story = {
 };
 
 
-// =========================================
 // WITH VALUE
-// =========================================
 
 export const WithValue: Story = {
 
@@ -159,9 +151,7 @@ export const WithValue: Story = {
 };
 
 
-// =========================================
 // WITHOUT SEARCH
-// =========================================
 
 export const WithoutSearch: Story = {
 
@@ -184,9 +174,7 @@ export const WithoutSearch: Story = {
 };
 
 
-// =========================================
 // DISABLED
-// =========================================
 
 export const Disabled: Story = {
 
@@ -209,9 +197,7 @@ export const Disabled: Story = {
 };
 
 
-// =========================================
 // CUSTOM STYLE
-// =========================================
 
 export const CustomStyle: Story = {
 

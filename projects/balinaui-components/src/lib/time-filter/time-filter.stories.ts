@@ -15,9 +15,7 @@ const meta: Meta<TimeFilter> = {
 
   argTypes: {
 
-    // =====================================
     // INPUTS
-    // =====================================
 
     label: {
       control: 'text',
@@ -62,9 +60,7 @@ const meta: Meta<TimeFilter> = {
     },
 
 
-    // =====================================
     // OUTPUTS
-    // =====================================
 
     selectedValueChange: {
       action: 'selectedValueChange',
@@ -88,9 +84,7 @@ export default meta;
 type Story = StoryObj<TimeFilter>;
 
 
-// =========================================
 // DEFAULT
-// =========================================
 
 export const Default: Story = {
 
@@ -111,9 +105,7 @@ export const Default: Story = {
 };
 
 
-// =========================================
 // SELECTED
-// =========================================
 
 export const Selected: Story = {
 
@@ -134,9 +126,7 @@ export const Selected: Story = {
 };
 
 
-// =========================================
 // DISABLED
-// =========================================
 
 export const Disabled: Story = {
 
@@ -157,9 +147,7 @@ export const Disabled: Story = {
 };
 
 
-// =========================================
 // NOT CLICKABLE
-// =========================================
 
 export const NotClickable: Story = {
 
@@ -180,9 +168,7 @@ export const NotClickable: Story = {
 };
 
 
-// =========================================
 // CUSTOM STYLE
-// =========================================
 
 export const CustomStyle: Story = {
 

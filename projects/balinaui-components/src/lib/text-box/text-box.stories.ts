@@ -14,9 +14,7 @@ const meta: Meta<TextBox> = {
 
   argTypes: {
 
-    // =========================================
     // INPUTS
-    // =========================================
 
     placeholder: {
       control: 'text',
@@ -57,9 +55,7 @@ const meta: Meta<TextBox> = {
     },
 
 
-    // =========================================
     // EVENTS
-    // =========================================
 
     valueChange: {
       action: 'valueChange',
@@ -83,9 +79,7 @@ export default meta;
 type Story = StoryObj<TextBox>;
 
 
-// =========================================
 // DEFAULT
-// =========================================
 
 export const Default: Story = {
   args: {
@@ -99,9 +93,7 @@ export const Default: Story = {
 };
 
 
-// =========================================
 // WITH VALUE
-// =========================================
 
 export const WithValue: Story = {
   args: {
@@ -115,9 +107,7 @@ export const WithValue: Story = {
 };
 
 
-// =========================================
 // PASSWORD
-// =========================================
 
 export const Password: Story = {
   args: {
@@ -131,9 +121,7 @@ export const Password: Story = {
 };
 
 
-// =========================================
 // EMAIL
-// =========================================
 
 export const Email: Story = {
   args: {
@@ -147,9 +135,7 @@ export const Email: Story = {
 };
 
 
-// =========================================
 // NUMBER
-// =========================================
 
 export const Number: Story = {
   args: {
@@ -163,9 +149,7 @@ export const Number: Story = {
 };
 
 
-// =========================================
 // DISABLED
-// =========================================
 
 export const Disabled: Story = {
   args: {
@@ -179,9 +163,7 @@ export const Disabled: Story = {
 };
 
 
-// =========================================
 // READ ONLY
-// =========================================
 
 export const Readonly: Story = {
   args: {
@@ -195,9 +177,7 @@ export const Readonly: Story = {
 };
 
 
-// =========================================
 // CUSTOM CLASS
-// =========================================
 
 export const CustomStyle: Story = {
   args: {

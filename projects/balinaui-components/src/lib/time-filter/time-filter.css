@@ -1,12 +1,11 @@
-/* =========================================
+/*
    BALINA TIME FILTER
-   ========================================= */
+ */
 
-.time-filter {
-
-  /* =====================================
+:host {
+  /*
      BALINA UI DESIGN TOKENS
-     ===================================== */
+ */
 
   --time-filter-gap: 16px;
 
@@ -24,10 +23,7 @@
 
   --time-filter-text-hover: #333333;
 
-  --time-filter-font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  --time-filter-font-family: Arial, Helvetica, sans-serif;
 
   --time-filter-font-size: 20px;
 
@@ -35,10 +31,13 @@
 
   --time-filter-disabled-color: #aaaaaa;
 
-
-  /* =====================================
+  /*
      CONTAINER
-     ===================================== */
+ */
+
+}
+
+:host .time-filter {
 
   display: flex;
 
@@ -50,37 +49,29 @@
 
   box-sizing: border-box;
 
-  font-family:
-    var(--time-filter-font-family);
+  font-family: var(--time-filter-font-family);
 
   user-select: none;
 
-  transition:
-    opacity 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
-
-/* =========================================
+/*
    CLICKABLE
-   ========================================= */
+ */
 
-.time-filter-clickable {
-
+:host(.time-filter-clickable) .time-filter {
   cursor: pointer;
 }
 
-
-/* =========================================
+/*
    RADIO CIRCLE
-   ========================================= */
+ */
 
-.radio-circle {
+:host .radio-circle {
+  width: var(--time-filter-circle-size);
 
-  width:
-    var(--time-filter-circle-size);
-
-  height:
-    var(--time-filter-circle-size);
+  height: var(--time-filter-circle-size);
 
   flex-shrink: 0;
 
@@ -92,10 +83,7 @@
 
   box-sizing: border-box;
 
-  border:
-    var(--time-filter-circle-border-width)
-    solid
-    var(--time-filter-border-color);
+  border: var(--time-filter-circle-border-width) solid var(--time-filter-border-color);
 
   border-radius: 50%;
 
@@ -104,18 +92,14 @@
     background-color 0.2s ease;
 }
 
-
-/* =========================================
+/*
    RADIO DOT
-   ========================================= */
+ */
 
-.radio-dot {
+:host .radio-dot {
+  width: var(--time-filter-dot-size);
 
-  width:
-    var(--time-filter-dot-size);
-
-  height:
-    var(--time-filter-dot-size);
+  height: var(--time-filter-dot-size);
 
   border-radius: 50%;
 
@@ -126,130 +110,88 @@
     transform 0.2s ease;
 }
 
-
-/* =========================================
+/*
    SELECTED
-   ========================================= */
+ */
 
-.radio-circle.selected {
-
-  border-color:
-    var(--time-filter-selected-color);
+:host .radio-circle.selected {
+  border-color: var(--time-filter-selected-color);
 }
 
-
-.radio-circle.selected .radio-dot {
-
-  background:
-    var(--time-filter-selected-color);
+:host .radio-circle.selected .radio-dot {
+  background: var(--time-filter-selected-color);
 
   transform: scale(1);
 }
 
-
-/* =========================================
+/*
    LABEL
-   ========================================= */
+ */
 
-.label {
+:host .label {
+  color: var(--time-filter-text-color);
 
-  color:
-    var(--time-filter-text-color);
+  font-size: var(--time-filter-font-size);
 
-  font-size:
-    var(--time-filter-font-size);
-
-  font-weight:
-    var(--time-filter-font-weight);
+  font-weight: var(--time-filter-font-weight);
 
   line-height: 1;
 
-  transition:
-    color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
-
-/* =========================================
+/*
    HOVER
-   ========================================= */
+ */
 
-.time-filter-clickable:hover
-.label {
-
-  color:
-    var(--time-filter-text-hover);
+:host(.time-filter-clickable) .time-filter:hover .label {
+  color: var(--time-filter-text-hover);
 }
 
-
-/* =========================================
+/*
    SELECTED HOVER
-   ========================================= */
+ */
 
-.time-filter-clickable:hover
-.radio-circle {
-
-  border-color:
-    var(--time-filter-selected-color);
+:host(.time-filter-clickable) .time-filter:hover .radio-circle {
+  border-color: var(--time-filter-selected-color);
 }
 
-
-/* =========================================
+/*
    DISABLED
-   ========================================= */
+ */
 
-.time-filter-disabled {
-
+:host(.time-filter-disabled) .time-filter {
   opacity: 0.6;
 
   cursor: not-allowed;
 }
 
-
-.time-filter-disabled
-.radio-circle {
-
-  border-color:
-    var(--time-filter-disabled-color);
+:host(.time-filter-disabled) .time-filter .radio-circle {
+  border-color: var(--time-filter-disabled-color);
 }
 
-
-.time-filter-disabled
-.label {
-
-  color:
-    var(--time-filter-disabled-color);
+:host(.time-filter-disabled) .time-filter .label {
+  color: var(--time-filter-disabled-color);
 }
 
-
-/* =========================================
+/*
    DISABLED SELECTED
-   ========================================= */
+ */
 
-.time-filter-disabled
-.radio-circle.selected {
-
-  border-color:
-    var(--time-filter-disabled-color);
+:host(.time-filter-disabled) .time-filter .radio-circle.selected {
+  border-color: var(--time-filter-disabled-color);
 }
 
-
-.time-filter-disabled
-.radio-circle.selected
-.radio-dot {
-
-  background:
-    var(--time-filter-disabled-color);
+:host(.time-filter-disabled) .time-filter .radio-circle.selected .radio-dot {
+  background: var(--time-filter-disabled-color);
 }
 
-
-/* =========================================
+/*
    RESPONSIVE
-   ========================================= */
+ */
 
 @media (max-width: 768px) {
-
-  .time-filter {
-
+  :host .time-filter {
     --time-filter-font-size: 18px;
 
     --time-filter-circle-size: 22px;
@@ -260,11 +202,8 @@
   }
 }
 
-
 @media (max-width: 480px) {
-
-  .time-filter {
-
+  :host .time-filter {
     --time-filter-font-size: 16px;
 
     --time-filter-circle-size: 20px;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-balinaui-components',
+  selector: 'brb-balinaui-components',
   imports: [],
   template: ` <p>balinaui-components works!</p> `,
   styles: ``,

@@ -1,7 +1,7 @@
 import {Component,EventEmitter,HostBinding,Input,Output} from '@angular/core';
 
 @Component({
-  selector: 'lib-button',
+  selector: 'brb-button',
   standalone: true,
   imports: [],
   templateUrl: './button.html',
@@ -9,12 +9,10 @@ import {Component,EventEmitter,HostBinding,Input,Output} from '@angular/core';
 })
 export class Button {
 
-  // =========================================
   // INPUTS
-  // =========================================
 
   @Input()
-  label: string = 'Button';
+  label: string = '';
 
   @Input()
   type:
@@ -26,23 +24,15 @@ export class Button {
   @Input()
   loading: boolean = false;
 
-  /**
-   * Controls whether the button is clickable.
-   */
   @Input()
   clickable: boolean = true;
-
-  /**
-   * Developer custom CSS class.
-   */
+  
   @Input()
   @HostBinding('class')
   customClass: string = '';
 
 
-  // =========================================
   // HOST CLASSES
-  // =========================================
 
   @HostBinding('class.button-clickable')
   get buttonClickable(): boolean {
@@ -63,21 +53,14 @@ export class Button {
   }
 
 
-  // =========================================
   // OUTPUTS
-  // =========================================
 
-  /**
-   * Developer click event.
-   */
   @Output()
   clicked =
     new EventEmitter<MouseEvent>();
 
 
-  // =========================================
   // CLICK HANDLER
-  // =========================================
 
   onClick(
     event: MouseEvent

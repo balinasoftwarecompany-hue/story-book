@@ -1,51 +1,28 @@
-<button
-  class="balina-button"
-
-  [type]="type"
-
-  [disabled]="
+<button class="balina-button" [type]="type" [disabled]="
     disabled ||
     loading ||
     !clickable
-  "
-
-  [attr.aria-disabled]="
+  " [attr.aria-disabled]="
     disabled ||
     loading ||
     !clickable
-  "
+  " [attr.aria-busy]="loading" (click)="onClick($event)">
 
-  [attr.aria-busy]="loading"
-
-  (click)="onClick($event)"
->
-
-  <!-- =====================================
-       LOADING
-       ===================================== -->
 
   @if (loading) {
 
-    <span
-      class="button-spinner"
-      aria-hidden="true"
-    ></span>
+  <span class="button-spinner" aria-hidden="true"></span>
 
-    <span class="button-loading-text">
-      Loading...
-    </span>
+  <span class="button-loading-text">
+    Loading...
+  </span>
 
   }
-
-  <!-- =====================================
-       NORMAL
-       ===================================== -->
-
   @else {
 
-    <span class="button-label">
-      {{ label }}
-    </span>
+  <span class="button-label">
+    {{ label }}
+  </span>
 
   }
 

@@ -40,6 +40,18 @@ export const LoggedOut: Story = {
     ],
     initiallyLoggedIn: false,
     image: 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg',
+    logoAlt: 'Aero logo',
+    notificationIcon: 'notifications',
+    profileIcon: 'account_circle',
+    userIcon: 'person',
+    logoutIcon: 'logout',
+    user: {
+      name: 'Guest User',
+      username: 'Guest User',
+      email: 'guest@example.com',
+      image: '',
+      role: 'Guest'
+    },
   },
 };
 
@@ -55,8 +67,19 @@ export const LoggedIn: Story = {
       { label: 'Contact', url: '/contact' }
     ],
     initiallyLoggedIn: true,
-    // username and email were removed because they are not defined on the Navbar component's props
     image: 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg',
+    logoAlt: 'Aero logo',
+    notificationIcon: 'notifications',
+    profileIcon: 'account_circle',
+    userIcon: 'person',
+    logoutIcon: 'logout',
+    user: {
+      name: 'Guest User',
+      username: 'Guest User',
+      email: 'guest@example.com',
+      image: '',
+      role: 'Guest'
+    },
   },
 };
 
@@ -71,5 +94,17 @@ export const CustomLinks: Story = {
     ],
     initiallyLoggedIn: false,
     image: 'https://i.pinimg.com/1200x/4a/57/0c/4a570c4e8dbb4729567848eb69c19055.jpg',
+    logoAlt: 'Aero logo',
+    notificationIcon: 'notifications',
+    profileIcon: 'account_circle',
+    userIcon: 'person',
+    logoutIcon: 'logout',
+    user: {
+      name: 'Guest User',
+      username: 'Guest User',
+      email: 'guest@example.com',
+      image: '',
+      role: 'Guest'
+    },
   },
 };

@@ -1,0 +1,39 @@
+<div class="flight-card" [class.card-clickable]="clickable" [class.card-disabled]="disabled"
+    (click)="onClick($event)">
+
+    <div class="flight-header">
+
+        <div class="flight-icon">
+            ✈
+        </div>
+
+        <h2 class="flight-title">
+            Flight : {{ flightNumber }}
+        </h2>
+
+    </div>
+
+    <div class="flight-info">
+
+        <div class="flight-route">
+            {{ route }}
+        </div>
+
+        <div class="flight-date">
+            {{ date }}
+        </div>
+
+        <div class="flight-air-time">
+            Air Time&nbsp; : &nbsp;{{ airTime }}
+        </div>
+
+    </div>
+
+
+    <div class="flight-divider"></div>
+
+    <div class="flight-description">
+        {{ description }}
+    </div>
+
+</div>

@@ -1,12 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  HostBinding,
-  HostListener,
-  Input,
-  Output
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 
 export interface DropdownOption {
   label: string;
@@ -15,7 +7,7 @@ export interface DropdownOption {
 }
 
 @Component({
-  selector: 'lib-dropdown',
+  selector: 'brb-dropdown',
   standalone: true,
   imports: [],
   templateUrl: './dropdown.html',
@@ -23,13 +15,11 @@ export interface DropdownOption {
 })
 export class Dropdown {
 
-  // =========================================
   // INPUTS
-  // =========================================
 
   @Input() label: string = '';
 
-  @Input() placeholder: string = 'Select';
+  @Input() placeholder: string = '';
 
   @Input() options: DropdownOption[] = [];
 
@@ -44,9 +34,7 @@ export class Dropdown {
   customClass: string = '';
 
 
-  // =========================================
   // OUTPUTS
-  // =========================================
 
   @Output()
   valueChange =
@@ -65,9 +53,7 @@ export class Dropdown {
     new EventEmitter<MouseEvent>();
 
 
-  // =========================================
   // STATE
-  // =========================================
 
   isOpen: boolean = false;
 
@@ -76,12 +62,10 @@ export class Dropdown {
 
   constructor(
     private elementRef: ElementRef<HTMLElement>
-  ) {}
+  ) { }
 
 
-  // =========================================
   // FILTERED OPTIONS
-  // =========================================
 
   get filteredOptions(): DropdownOption[] {
 
@@ -103,9 +87,7 @@ export class Dropdown {
   }
 
 
-  // =========================================
   // SELECTED OPTION
-  // =========================================
 
   get selectedOption():
     DropdownOption | undefined {
@@ -117,9 +99,7 @@ export class Dropdown {
   }
 
 
-  // =========================================
   // TOGGLE
-  // =========================================
 
   toggleDropdown(
     event?: MouseEvent
@@ -146,9 +126,7 @@ export class Dropdown {
   }
 
 
-  // =========================================
   // DOCUMENT CLICK
-  // =========================================
 
   @HostListener(
     'document:click',
@@ -174,9 +152,7 @@ export class Dropdown {
   }
 
 
-  // =========================================
   // CLOSE
-  // =========================================
 
   closeDropdown(): void {
 
@@ -192,9 +168,7 @@ export class Dropdown {
   }
 
 
-  // =========================================
   // SELECT
-  // =========================================
 
   selectOption(
     option: DropdownOption,
@@ -226,9 +200,7 @@ export class Dropdown {
   }
 
 
-  // =========================================
   // SEARCH
-  // =========================================
 
   onSearch(event: Event): void {
 

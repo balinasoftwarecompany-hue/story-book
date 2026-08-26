@@ -1,0 +1,587 @@
+/* =========================================
+   FLIGHT CARD HOST
+   ========================================= */
+
+:host {
+
+  /* =====================================
+     SIZE
+     ===================================== */
+
+  --flight-card-width: 100%;
+
+  --flight-card-min-height: 420px;
+
+  --flight-card-max-width: none;
+
+
+  /* =====================================
+     SPACING
+     ===================================== */
+
+  --flight-card-padding: 35px 40px;
+
+  --flight-header-gap: 20px;
+
+  --flight-info-gap: 20px;
+
+  --flight-description-gap: 28px;
+
+  --flight-title-info-gap: 40px;
+
+
+  /* =====================================
+     COLORS
+     ===================================== */
+
+  --flight-card-background: #ffffff;
+
+  --flight-card-border: 2px solid #d9d9d9;
+
+  --flight-card-text: #111111;
+
+  --flight-card-icon: #3478f6;
+
+  --flight-card-divider: #eeeeee;
+
+
+  /* =====================================
+     BORDER
+     ===================================== */
+
+  --flight-card-radius: 12px;
+
+
+  /* =====================================
+     TITLE
+     ===================================== */
+
+  --flight-title-size: 30px;
+
+  --flight-title-weight: 700;
+
+  --flight-title-line-height: 1.2;
+
+
+  /* =====================================
+     FLIGHT INFORMATION
+     ===================================== */
+
+  --flight-route-size: 25px;
+
+  --flight-route-weight: 500;
+
+  --flight-date-size: 23px;
+
+  --flight-date-weight: 500;
+
+  --flight-air-time-size: 23px;
+
+  --flight-air-time-weight: 500;
+
+
+  /* =====================================
+     DESCRIPTION
+     ===================================== */
+
+  --flight-description-size: 18px;
+
+  --flight-description-weight: 400;
+
+  --flight-description-line-height: 1.5;
+
+
+  /* =====================================
+     ICON
+     ===================================== */
+
+  --flight-icon-size: 40px;
+
+
+  /* =====================================
+     DIVIDER
+     ===================================== */
+
+  --flight-divider-height: 4px;
+
+
+  /* =====================================
+     FONT
+     ===================================== */
+
+  --flight-font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+
+  /* =====================================
+     HOST LAYOUT
+     ===================================== */
+
+  display: block;
+
+  width: var(--flight-card-width);
+
+  max-width: var(--flight-card-max-width);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   MAIN CARD
+   ========================================= */
+
+.flight-card {
+
+  width: 100%;
+
+  min-height:
+    var(--flight-card-min-height);
+
+  height: auto;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  padding:
+    var(--flight-card-padding);
+
+  background:
+    var(--flight-card-background);
+
+  border:
+    var(--flight-card-border);
+
+  border-radius:
+    var(--flight-card-radius);
+
+  color:
+    var(--flight-card-text);
+
+  font-family:
+    var(--flight-font-family);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.flight-header {
+
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap:
+    var(--flight-header-gap);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   ICON
+   ========================================= */
+
+.flight-icon {
+
+  flex: 0 0 auto;
+
+  width: var(--flight-icon-size);
+
+  height: var(--flight-icon-size);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color:
+    var(--flight-card-icon);
+
+  font-size:
+    var(--flight-icon-size);
+
+  line-height: 1;
+
+  transform: rotate(-8deg);
+}
+
+
+/* =========================================
+   TITLE
+   ========================================= */
+
+.flight-title {
+
+  flex: 1;
+
+  min-width: 0;
+
+  margin: 0;
+
+  padding: 0;
+
+  color:
+    var(--flight-card-text);
+
+  font-size:
+    var(--flight-title-size);
+
+  font-weight:
+    var(--flight-title-weight);
+
+  line-height:
+    var(--flight-title-line-height);
+
+  word-break: break-word;
+}
+
+
+/* =========================================
+   FLIGHT INFORMATION
+   ========================================= */
+
+.flight-info {
+
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap:
+    var(--flight-info-gap);
+
+  margin-top:
+    var(--flight-title-info-gap);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   ROUTE
+   ========================================= */
+
+.flight-route {
+
+  color:
+    var(--flight-card-text);
+
+  font-size:
+    var(--flight-route-size);
+
+  font-weight:
+    var(--flight-route-weight);
+
+  line-height: 1.3;
+
+  word-break: break-word;
+}
+
+
+/* =========================================
+   DATE
+   ========================================= */
+
+.flight-date {
+
+  color:
+    var(--flight-card-text);
+
+  font-size:
+    var(--flight-date-size);
+
+  font-weight:
+    var(--flight-date-weight);
+
+  line-height: 1.3;
+
+  word-break: break-word;
+}
+
+
+/* =========================================
+   AIR TIME
+   ========================================= */
+
+.flight-air-time {
+
+  color:
+    var(--flight-card-text);
+
+  font-size:
+    var(--flight-air-time-size);
+
+  font-weight:
+    var(--flight-air-time-weight);
+
+  line-height: 1.3;
+
+  word-break: break-word;
+}
+
+
+/* =========================================
+   DIVIDER
+   ========================================= */
+
+.flight-divider {
+
+  width: 100%;
+
+  height:
+    var(--flight-divider-height);
+
+  flex-shrink: 0;
+
+  margin-top: 25px;
+
+  background:
+    var(--flight-card-divider);
+
+  border-radius: 999px;
+}
+
+
+/* =========================================
+   DESCRIPTION
+   ========================================= */
+
+.flight-description {
+
+  width: 100%;
+
+  margin-top:
+    var(--flight-description-gap);
+
+  color:
+    var(--flight-card-text);
+
+  font-size:
+    var(--flight-description-size);
+
+  font-weight:
+    var(--flight-description-weight);
+
+  line-height:
+    var(--flight-description-line-height);
+
+  word-break: break-word;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* =========================================
+   CLICKABLE
+   ========================================= */
+
+:host(.flight-card-clickable) {
+
+  cursor: pointer;
+}
+
+
+:host(.flight-card-clickable) .flight-card {
+
+  cursor: pointer;
+}
+
+
+:host(.flight-card-clickable) .flight-card:hover {
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 6px 18px
+    rgba(0, 0, 0, 0.12);
+}
+
+
+:host(.flight-card-clickable) .flight-card:active {
+
+  transform:
+    translateY(0);
+
+  box-shadow:
+    0 2px 6px
+    rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================
+   DISABLED
+   ========================================= */
+
+:host(.flight-card-disabled) {
+
+  opacity: 0.55;
+
+  cursor: not-allowed;
+
+  pointer-events: none;
+}
+
+
+:host(.flight-card-disabled) .flight-card {
+
+  box-shadow: none;
+
+  transform: none;
+}
+
+
+/* =========================================
+   CUSTOM CONTENT SAFETY
+   ========================================= */
+
+.flight-card img {
+
+  display: block;
+
+  max-width: 100%;
+
+  height: auto;
+}
+
+
+.flight-card canvas {
+
+  display: block;
+
+  max-width: 100%;
+
+  height: auto;
+}
+
+
+.flight-card svg {
+
+  max-width: 100%;
+
+  height: auto;
+}
+
+
+.flight-card > * {
+
+  max-width: 100%;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  :host {
+
+    --flight-card-min-height: 350px;
+
+    --flight-card-padding: 28px;
+
+    --flight-header-gap: 16px;
+
+    --flight-info-gap: 18px;
+
+    --flight-title-info-gap: 32px;
+
+    --flight-title-size: 26px;
+
+    --flight-route-size: 21px;
+
+    --flight-date-size: 20px;
+
+    --flight-air-time-size: 20px;
+
+    --flight-description-size: 17px;
+
+    --flight-icon-size: 34px;
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE - MOBILE
+   ========================================= */
+
+@media (max-width: 480px) {
+
+  :host {
+
+    --flight-card-min-height: 300px;
+
+    --flight-card-padding: 20px;
+
+    --flight-header-gap: 12px;
+
+    --flight-info-gap: 14px;
+
+    --flight-title-info-gap: 25px;
+
+    --flight-title-size: 22px;
+
+    --flight-route-size: 18px;
+
+    --flight-date-size: 17px;
+
+    --flight-air-time-size: 17px;
+
+    --flight-description-size: 15px;
+
+    --flight-description-line-height: 1.45;
+
+    --flight-icon-size: 28px;
+
+    --flight-card-radius: 10px;
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE - SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 360px) {
+
+  :host {
+
+    --flight-card-padding: 16px;
+
+    --flight-header-gap: 10px;
+
+    --flight-title-size: 20px;
+
+    --flight-route-size: 17px;
+
+    --flight-date-size: 16px;
+
+    --flight-air-time-size: 16px;
+
+    --flight-description-size: 14px;
+
+    --flight-icon-size: 25px;
+  }
+}

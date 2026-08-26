@@ -42,9 +42,7 @@ export default meta;
 type Story = StoryObj<Card>;
 
 
-// =========================================
 // DEFAULT
-// =========================================
 
 export const Default: Story = {
 
@@ -57,14 +55,16 @@ export const Default: Story = {
     day: 9,
 
     description:
-      '156 flights were monitored with 96.8% on-time performance. Minor delays occurred due to weather and air traffic.'
+      '156 flights were monitored with 96.8% on-time performance. Minor delays occurred due to weather and air traffic.',
+
+    customClass: '',
+    clickable: true,
+    disabled: false
   }
 };
 
 
-// =========================================
 // CUSTOM DATA
-// =========================================
 
 export const CustomData: Story = {
 
@@ -77,6 +77,10 @@ export const CustomData: Story = {
     day: 18,
 
     description:
-      '1,245 flights were monitored with 97.4% on-time performance. Minor delays occurred due to weather and air traffic.'
+      '1,245 flights were monitored with 97.4% on-time performance. Minor delays occurred due to weather and air traffic.',
+
+    customClass: '',
+    clickable: true,
+    disabled: false
   }
 };

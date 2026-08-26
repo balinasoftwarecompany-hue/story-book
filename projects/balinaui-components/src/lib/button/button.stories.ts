@@ -19,9 +19,7 @@ const meta: Meta<Button> = {
   },
 
 
-  // =======================================
   // CONTROLS
-  // =======================================
 
   argTypes: {
 
@@ -93,9 +91,7 @@ type Story =
   StoryObj<Button>;
 
 
-// =========================================
 // DEFAULT
-// =========================================
 
 export const Default: Story = {
 
@@ -122,9 +118,7 @@ export const Default: Story = {
 };
 
 
-// =========================================
 // PRIMARY
-// =========================================
 
 export const Primary: Story = {
 
@@ -151,9 +145,7 @@ export const Primary: Story = {
 };
 
 
-// =========================================
 // NOT CLICKABLE
-// =========================================
 
 export const NotClickable: Story = {
 
@@ -180,9 +172,7 @@ export const NotClickable: Story = {
 };
 
 
-// =========================================
 // LOADING
-// =========================================
 
 export const Loading: Story = {
 
@@ -209,9 +199,7 @@ export const Loading: Story = {
 };
 
 
-// =========================================
 // DISABLED
-// =========================================
 
 export const Disabled: Story = {
 
@@ -238,9 +226,7 @@ export const Disabled: Story = {
 };
 
 
-// =========================================
 // CUSTOM STYLE
-// =========================================
 
 export const CustomStyle: Story = {
 

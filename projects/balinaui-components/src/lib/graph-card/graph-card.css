@@ -1,0 +1,339 @@
+/*CARD HOST*/
+
+:host {
+
+  /* SIZE*/
+
+  --graph-card-width: 100%;
+
+  --graph-card-min-height: 300px;
+
+  --graph-card-max-width: none;
+
+
+  /* SPACING*/
+
+  --graph-card-padding: 30px;
+
+  --graph-card-content-gap: 20px;
+
+  --graph-card-title-content-gap: 25px;
+
+
+  /*COLORS*/
+
+  --graph-card-background: #ffffff;
+
+  --graph-card-border: 2px solid #d9d9d9;
+
+  --graph-card-title-color: #111111;
+
+  --graph-card-content-color: #333333;
+
+
+  /* BORDER*/
+
+  --graph-card-radius: 12px;
+
+
+  /*TITLE*/
+
+  --graph-card-title-size: 32px;
+
+  --graph-card-title-weight: 700;
+
+  --graph-card-title-line-height: 1.2;
+
+
+  /*FONT*/
+
+  --graph-card-font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+
+  /*HOST*/
+
+  display: block;
+
+  width: var(--graph-card-width);
+
+  max-width: var(--graph-card-max-width);
+
+  box-sizing: border-box;
+}
+
+
+/*MAIN CARD*/
+
+.balina-graph-card {
+
+  width: 100%;
+
+  min-height:
+    var(--graph-card-min-height);
+
+  height: auto;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  padding:
+    var(--graph-card-padding);
+
+  background:
+    var(--graph-card-background);
+
+  border:
+    var(--graph-card-border);
+
+  border-radius:
+    var(--graph-card-radius);
+
+  color:
+    var(--graph-card-content-color);
+
+  font-family:
+    var(--graph-card-font-family);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+/*TITLE*/
+
+.graph-card-title {
+
+  flex: 0 0 auto;
+
+  margin: 0;
+
+  padding: 0;
+
+  color:
+    var(--graph-card-title-color);
+
+  font-size:
+    var(--graph-card-title-size);
+
+  font-weight:
+    var(--graph-card-title-weight);
+
+  line-height:
+    var(--graph-card-title-line-height);
+
+  word-break: break-word;
+}
+
+
+/*CONTENT*/
+
+.graph-card-content {
+
+  width: 100%;
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap:
+    var(--graph-card-content-gap);
+
+  margin-top:
+    var(--graph-card-title-content-gap);
+
+  box-sizing: border-box;
+}
+
+
+/*DEVELOPER CONTENT*/
+
+.graph-card-content > * {
+
+  max-width: 100%;
+
+  box-sizing: border-box;
+}
+
+
+/*IMAGES*/
+
+.graph-card-content img {
+
+  display: block;
+
+  max-width: 100%;
+
+  width: auto;
+
+  height: auto;
+
+  object-fit: contain;
+
+  border-radius: 8px;
+}
+
+
+/*GRAPHS / CANVAS*/
+
+.graph-card-content canvas {
+
+  display: block;
+
+  max-width: 100%;
+
+  height: auto;
+}
+
+
+/* SVG*/
+
+.graph-card-content svg {
+
+  display: block;
+
+  max-width: 100%;
+
+  height: auto;
+}
+
+
+/*TEXT*/
+
+.graph-card-content p {
+
+  margin: 0;
+
+  color:
+    var(--graph-card-content-color);
+
+  line-height: 1.5;
+
+  word-break: break-word;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* BUTTONS*/
+
+.graph-card-content button {
+
+  box-sizing: border-box;
+
+  cursor: pointer;
+}
+
+
+/*CLICKABLE*/
+
+:host(.graph-card-clickable) {
+
+  cursor: pointer;
+}
+
+
+:host(.graph-card-clickable) .balina-graph-card:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 18px
+    rgba(0, 0, 0, 0.12);
+}
+
+
+:host(.graph-card-clickable) .balina-graph-card:active {
+
+  transform: translateY(0);
+
+  box-shadow:
+    0 2px 6px
+    rgba(0, 0, 0, 0.10);
+}
+
+
+/*DISABLED*/
+
+:host(.graph-card-disabled) {
+
+  opacity: 0.55;
+
+  pointer-events: none;
+
+  cursor: not-allowed;
+}
+
+
+:host(.graph-card-disabled) .balina-graph-card {
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+
+/*RESPONSIVE - TABLET*/
+
+@media (max-width: 768px) {
+
+  :host {
+
+    --graph-card-min-height: 250px;
+
+    --graph-card-padding: 24px;
+
+    --graph-card-title-size: 28px;
+
+    --graph-card-content-gap: 16px;
+
+    --graph-card-title-content-gap: 20px;
+  }
+}
+
+
+/*RESPONSIVE - MOBILE*/
+
+@media (max-width: 480px) {
+
+  :host {
+
+    --graph-card-min-height: 220px;
+
+    --graph-card-padding: 18px;
+
+    --graph-card-title-size: 24px;
+
+    --graph-card-content-gap: 14px;
+
+    --graph-card-title-content-gap: 18px;
+
+    --graph-card-radius: 10px;
+  }
+}
+
+
+/*SMALL MOBILE*/
+
+@media (max-width: 360px) {
+
+  :host {
+
+    --graph-card-padding: 14px;
+
+    --graph-card-title-size: 21px;
+
+    --graph-card-content-gap: 12px;
+  }
+}

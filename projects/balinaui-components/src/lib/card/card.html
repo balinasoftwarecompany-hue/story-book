@@ -1,33 +1,13 @@
-<div
-  class="balina-card"
+<div class="balina-card"
+  (click)="onClick($event)">
 
-  [class]="customClass"
-
-  [class.card-clickable]="clickable"
-
-  [class.card-disabled]="disabled"
-
-  (click)="onClick($event)"
->
-
-  <!-- =====================================
-       TITLE
-       ===================================== -->
 
   <h2 class="card-title">
     {{ title }}
   </h2>
 
 
-  <!-- =====================================
-       CONTENT
-       ===================================== -->
-
   <div class="card-content">
-
-    <!-- ===================================
-         DATE
-         =================================== -->
 
     <div class="card-date">
 
@@ -43,10 +23,6 @@
 
     </div>
 
-
-    <!-- ===================================
-         DESCRIPTION
-         =================================== -->
 
     <div class="card-description">
 

@@ -92,4 +92,4 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
-storybook-static/
+storybook-static/storybook-static/

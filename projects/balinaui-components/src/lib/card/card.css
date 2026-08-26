@@ -1,116 +1,82 @@
-/* =========================================
+/*
    BALINA CARD
-   ========================================= */
+ */
 
-.balina-card {
-
-  /* =======================================
+:host {
+  /*
      BALINA UI DESIGN TOKENS
-     ======================================= */
+ */
 
-  --card-width:
-    100%;
+  --card-width: 100%;
 
-  --card-height:
-    280px;
+  --card-height: 280px;
 
-  --card-padding:
-    28px;
+  --card-padding: 28px;
 
-  --card-background:
-    #ffffff;
+  --card-background: #ffffff;
 
-  --card-border:
-    3px solid #dddddd;
+  --card-border: 3px solid #dddddd;
 
-  --card-radius:
-    12px;
+  --card-radius: 12px;
 
-  --card-title-color:
-    #000000;
+  --card-title-color: #000000;
 
-  --card-description-color:
-    #222222;
+  --card-description-color: #222222;
 
-  --card-date-background:
-    #eef5ff;
+  --card-date-background: #eef5ff;
 
-  --card-month-color:
-    #2962ff;
+  --card-month-color: #2962ff;
 
-  --card-day-color:
-    #000000;
+  --card-day-color: #000000;
 
-  --card-line-color:
-    #b7b7b7;
+  --card-line-color: #b7b7b7;
 
-  --card-title-size:
-    38px;
+  --card-title-size: 38px;
 
-  --card-description-size:
-    20px;
+  --card-description-size: 20px;
 
-  --card-month-size:
-    24px;
+  --card-month-size: 24px;
 
-  --card-day-size:
-    24px;
+  --card-day-size: 24px;
 
-  --card-font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  --card-font-family: Arial, Helvetica, sans-serif;
 
-  --card-font-weight:
-    600;
+  --card-font-weight: 600;
 
-  --card-hover-shadow:
-    0 4px 12px
-    rgba(0, 0, 0, 0.08);
+  --card-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 
-  --card-hover-transform:
-    translateY(-1px);
+  --card-hover-transform: translateY(-1px);
 
-  --card-disabled-background:
-    #f5f5f5;
+  --card-disabled-background: #f5f5f5;
 
-  --card-disabled-border:
-    #d0d0d0;
+  --card-disabled-border: #d0d0d0;
 
-  --card-disabled-text:
-    #999999;
+  --card-disabled-text: #999999;
 
+}
 
-  /* =======================================
+:host .balina-card {
+  /*
      CARD
-     ======================================= */
+ */
 
-  width:
-    var(--card-width);
+  width: var(--card-width);
 
-  min-height:
-    var(--card-height);
+  min-height: var(--card-height);
 
-  box-sizing:
-    border-box;
+  box-sizing: border-box;
 
-  padding:
-    var(--card-padding);
+  padding: var(--card-padding);
 
-  background:
-    var(--card-background);
+  background: var(--card-background);
 
-  border:
-    var(--card-border);
+  border: var(--card-border);
 
-  border-radius:
-    var(--card-radius);
+  border-radius: var(--card-radius);
 
-  font-family:
-    var(--card-font-family);
+  font-family: var(--card-font-family);
 
-  font-weight:
-    var(--card-font-weight);
+  font-weight: var(--card-font-weight);
 
   transition:
     box-shadow 0.2s ease,
@@ -118,366 +84,243 @@
     background-color 0.2s ease,
     border-color 0.2s ease;
 
-  box-sizing:
-    border-box;
+  box-sizing: border-box;
 }
 
-
-/* =========================================
+/*
    CLICKABLE
-   ========================================= */
+ */
 
-.balina-card.card-clickable {
-
-  cursor:
-    pointer;
+:host(.card-clickable) .balina-card {
+  cursor: pointer;
 }
 
-
-/* =========================================
+/*
    NOT CLICKABLE
-   ========================================= */
+ */
 
-.balina-card:not(.card-clickable) {
-
-  cursor:
-    default;
+:host(:not(.card-clickable)) .balina-card {
+  cursor: default;
 }
 
-
-/* =========================================
+/*
    HOVER
-   ========================================= */
+ */
 
-.balina-card.card-clickable:hover {
+:host(.card-clickable) .balina-card:hover {
+  box-shadow: var(--card-hover-shadow);
 
-  box-shadow:
-    var(--card-hover-shadow);
-
-  transform:
-    var(--card-hover-transform);
+  transform: var(--card-hover-transform);
 }
 
-
-/* =========================================
+/*
    ACTIVE
-   ========================================= */
+ */
 
-.balina-card.card-clickable:active {
-
-  transform:
-    translateY(0);
+:host(.card-clickable) .balina-card:active {
+  transform: translateY(0);
 }
 
-
-/* =========================================
+/*
    TITLE
-   ========================================= */
+ */
 
-.card-title {
+:host .card-title {
+  margin: 0;
 
-  margin:
-    0;
+  color: var(--card-title-color);
 
-  color:
-    var(--card-title-color);
+  font-size: var(--card-title-size);
 
-  font-size:
-    var(--card-title-size);
+  font-weight: 700;
 
-  font-weight:
-    700;
-
-  line-height:
-    1.2;
+  line-height: 1.2;
 }
 
-
-/* =========================================
+/*
    CONTENT
-   ========================================= */
+ */
 
-.card-content {
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    28px;
-
-  margin-top:
-    36px;
+:host .card-content {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 36px;
 }
 
-
-/* =========================================
+/*
    DATE
-   ========================================= */
+ */
 
-.card-date {
+:host .card-date {
+  width: 92px;
+  height: 96px;
+  flex-shrink: 0;
 
-  width:
-    92px;
+  display: flex;
 
-  height:
-    96px;
+  flex-direction: column;
 
-  flex-shrink:
-    0;
+  align-items: center;
 
-  display:
-    flex;
+  justify-content: center;
 
-  flex-direction:
-    column;
+  box-sizing: border-box;
 
-  align-items:
-    center;
+  padding: 8px;
 
-  justify-content:
-    center;
+  background: var(--card-date-background);
 
-  box-sizing:
-    border-box;
-
-  padding:
-    8px;
-
-  background:
-    var(--card-date-background);
-
-  border-radius:
-    10px;
+  border-radius: 10px;
 }
 
-
-/* =========================================
+/*
    MONTH
-   ========================================= */
+ */
 
-.card-month {
+:host .card-month {
+  color: var(--card-month-color);
 
-  color:
-    var(--card-month-color);
+  font-size: var(--card-month-size);
 
-  font-size:
-    var(--card-month-size);
+  font-weight: 700;
 
-  font-weight:
-    700;
-
-  line-height:
-    1;
+  line-height: 1;
 }
 
-
-/* =========================================
+/*
    LINE
-   ========================================= */
+ */
 
-.card-line {
+:host .card-line {
+  width: 80%;
 
-  width:
-    80%;
+  height: 2px;
 
-  height:
-    2px;
+  margin: 7px 0;
 
-  margin:
-    7px 0;
-
-  background:
-    var(--card-line-color);
+  background: var(--card-line-color);
 }
 
-
-/* =========================================
+/*
    DAY
-   ========================================= */
+ */
 
-.card-day {
+:host .card-day {
+  color: var(--card-day-color);
 
-  color:
-    var(--card-day-color);
+  font-size: var(--card-day-size);
 
-  font-size:
-    var(--card-day-size);
+  font-weight: 600;
 
-  font-weight:
-    600;
-
-  line-height:
-    1;
+  line-height: 1;
 }
 
-
-/* =========================================
+/*
    DESCRIPTION
-   ========================================= */
+ */
 
-.card-description {
+:host .card-description {
+  flex: 1;
 
-  flex:
-    1;
+  color: var(--card-description-color);
 
-  color:
-    var(--card-description-color);
+  font-size: var(--card-description-size);
 
-  font-size:
-    var(--card-description-size);
+  font-weight: 600;
 
-  font-weight:
-    600;
-
-  line-height:
-    1.4;
+  line-height: 1.4;
 }
 
-
-/* =========================================
+/*
    DISABLED
-   ========================================= */
+ */
 
-.balina-card.card-disabled {
+:host(.card-disabled) .balina-card {
+  background: var(--card-disabled-background);
 
-  background:
-    var(--card-disabled-background);
+  border-color: var(--card-disabled-border);
 
-  border-color:
-    var(--card-disabled-border);
+  color: var(--card-disabled-text);
 
-  color:
-    var(--card-disabled-text);
+  cursor: not-allowed;
 
-  cursor:
-    not-allowed;
+  box-shadow: none;
 
-  box-shadow:
-    none;
-
-  transform:
-    none;
+  transform: none;
 }
-
 
 /* Prevent hover when disabled */
 
-.balina-card.card-disabled:hover {
+:host(.card-disabled) .balina-card:hover {
+  box-shadow: none;
 
-  box-shadow:
-    none;
-
-  transform:
-    none;
+  transform: none;
 }
 
-
-/* =========================================
+/*
    DISABLED CONTENT
-   ========================================= */
+ */
 
-.balina-card.card-disabled
-.card-title,
-
-.balina-card.card-disabled
-.card-description {
-
-  color:
-    var(--card-disabled-text);
+:host(.card-disabled) .balina-card .card-title,
+:host(.card-disabled) .balina-card .card-description {
+  color: var(--card-disabled-text);
 }
 
-
-/* =========================================
+/*
    RESPONSIVE
-   ========================================= */
+ */
 
 @media (max-width: 768px) {
+  :host .balina-card {
+    --card-title-size: 30px;
 
-  .balina-card {
+    --card-description-size: 17px;
 
-    --card-title-size:
-      30px;
+    --card-height: auto;
 
-    --card-description-size:
-      17px;
-
-    --card-height:
-      auto;
-
-    padding:
-      22px;
+    padding: 22px;
   }
 
+  :host .card-content {
+    gap: 18px;
 
-  .card-content {
-
-    gap:
-      18px;
-
-    margin-top:
-      28px;
+    margin-top: 28px;
   }
 
+  :host .card-date {
+    width: 80px;
 
-  .card-date {
-
-    width:
-      80px;
-
-    height:
-      88px;
+    height: 88px;
   }
 }
 
-
 @media (max-width: 480px) {
+  :host .balina-card {
+    --card-title-size: 26px;
 
-  .balina-card {
+    --card-description-size: 15px;
 
-    --card-title-size:
-      26px;
-
-    --card-description-size:
-      15px;
-
-    padding:
-      18px;
+    padding: 18px;
   }
 
+  :host .card-content {
+    align-items: flex-start;
 
-  .card-content {
-
-    align-items:
-      flex-start;
-
-    gap:
-      14px;
+    gap: 14px;
   }
 
+  :host .card-date {
+    width: 70px;
 
-  .card-date {
-
-    width:
-      70px;
-
-    height:
-      80px;
+    height: 80px;
   }
 
-
-  .card-month {
-
-    font-size:
-      20px;
+  :host .card-month {
+    font-size: 20px;
   }
 
-
-  .card-day {
-
-    font-size:
-      20px;
+  :host .card-day {
+    font-size: 20px;
   }
 }

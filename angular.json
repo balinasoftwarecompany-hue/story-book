@@ -10,7 +10,7 @@
       "projectType": "library",
       "root": "projects/balinaui-components",
       "sourceRoot": "projects/balinaui-components/src",
-      "prefix": "lib",
+      "prefix": "brb",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",

@@ -63,9 +63,7 @@ export default meta;
 type Story = StoryObj<DateInput>;
 
 
-// =========================================
 // DEFAULT
-// =========================================
 
 export const Default: Story = {
 
@@ -86,9 +84,7 @@ export const Default: Story = {
 };
 
 
-// =========================================
 // WITH VALUE
-// =========================================
 
 export const WithValue: Story = {
 
@@ -109,9 +105,7 @@ export const WithValue: Story = {
 };
 
 
-// =========================================
 // DISABLED
-// =========================================
 
 export const Disabled: Story = {
 
@@ -132,9 +126,7 @@ export const Disabled: Story = {
 };
 
 
-// =========================================
 // READONLY
-// =========================================
 
 export const Readonly: Story = {
 
@@ -155,9 +147,7 @@ export const Readonly: Story = {
 };
 
 
-// =========================================
 // CUSTOM STYLE
-// =========================================
 
 export const CustomStyle: Story = {
 

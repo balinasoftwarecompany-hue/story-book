@@ -1,163 +1,111 @@
-/* =========================================
+/*
    BALINA BUTTON HOST
-   ========================================= */
+ */
 
 :host {
-
-  /* =======================================
+  /*
      DESIGN TOKENS
-     ======================================= */
+ */
 
-  --button-width:
-    auto;
+  --button-width: auto;
 
-  --button-height:
-    44px;
+  --button-height: 44px;
 
-  --button-padding:
-    0 22px;
+  --button-padding: 0 22px;
 
-  --button-background:
-    #68479b;
+  --button-background: #68479b;
 
-  --button-background-hover:
-    #593b84;
+  --button-background-hover: #593b84;
 
-  --button-background-active:
-    #4b326f;
+  --button-background-active: #4b326f;
 
-  --button-text-color:
-    #ffffff;
+  --button-text-color: #ffffff;
 
-  --button-border:
-    1px solid #68479b;
+  --button-border: 1px solid #68479b;
 
-  --button-radius:
-    6px;
+  --button-radius: 6px;
 
-  --button-font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  --button-font-family: Arial, Helvetica, sans-serif;
 
-  --button-font-size:
-    14px;
+  --button-font-size: 14px;
 
-  --button-font-weight:
-    600;
+  --button-font-weight: 600;
 
-  --button-gap:
-    8px;
+  --button-gap: 8px;
 
-  --button-shadow:
-    0 2px 5px
-    rgba(0, 0, 0, 0.08);
+  --button-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 
-  --button-disabled-background:
-    #dddddd;
+  --button-disabled-background: #dddddd;
 
-  --button-disabled-text:
-    #999999;
+  --button-disabled-text: #999999;
 
-  --button-disabled-border:
-    #dddddd;
+  --button-disabled-border: #dddddd;
 
-  --button-focus-ring:
-    rgba(104, 71, 155, 0.20);
+  --button-focus-ring: rgba(104, 71, 155, 0.2);
 
-  --button-spinner-size:
-    16px;
+  --button-spinner-size: 16px;
 
-  --button-spinner-border:
-    2px;
+  --button-spinner-border: 2px;
 
-
-  /* =======================================
+  /*
      HOST
-     ======================================= */
+ */
 
-  display:
-    inline-block;
+  display: inline-block;
 
-  width:
-    var(--button-width);
+  width: var(--button-width);
 
-  box-sizing:
-    border-box;
+  box-sizing: border-box;
 
-  font-family:
-    var(--button-font-family);
+  font-family: var(--button-font-family);
 }
 
-
-/* =========================================
+/*
    BUTTON
-   ========================================= */
+ */
 
 .balina-button {
+  width: 100%;
 
-  width:
-    100%;
+  min-height: var(--button-height);
 
-  min-height:
-    var(--button-height);
+  padding: var(--button-padding);
 
-  padding:
-    var(--button-padding);
+  display: inline-flex;
 
-  display:
-    inline-flex;
+  align-items: center;
 
-  align-items:
-    center;
+  justify-content: center;
 
-  justify-content:
-    center;
+  gap: var(--button-gap);
 
-  gap:
-    var(--button-gap);
+  box-sizing: border-box;
 
-  box-sizing:
-    border-box;
+  border: var(--button-border);
 
-  border:
-    var(--button-border);
+  border-radius: var(--button-radius);
 
-  border-radius:
-    var(--button-radius);
+  background: var(--button-background);
 
-  background:
-    var(--button-background);
+  color: var(--button-text-color);
 
-  color:
-    var(--button-text-color);
+  font-family: var(--button-font-family);
 
-  font-family:
-    var(--button-font-family);
+  font-size: var(--button-font-size);
 
-  font-size:
-    var(--button-font-size);
+  font-weight: var(--button-font-weight);
 
-  font-weight:
-    var(--button-font-weight);
+  line-height: 1;
 
-  line-height:
-    1;
+  box-shadow: var(--button-shadow);
 
-  box-shadow:
-    var(--button-shadow);
+  outline: none;
 
-  outline:
-    none;
+  cursor: pointer;
 
-  cursor:
-    pointer;
+  user-select: none;
 
-  user-select:
-    none;
-
-  white-space:
-    nowrap;
+  white-space: nowrap;
 
   transition:
     background-color 0.2s ease,
@@ -167,220 +115,146 @@
     color 0.2s ease;
 }
 
-
-/* =========================================
+/*
    CLICKABLE STATE
-   ========================================= */
+ */
 
-:host(.button-clickable)
-.balina-button {
-
-  cursor:
-    pointer;
+:host(.button-clickable) .balina-button {
+  cursor: pointer;
 }
 
-
-/* =========================================
+/*
    NOT CLICKABLE
-   ========================================= */
+ */
 
-:host(:not(.button-clickable))
-.balina-button {
-
-  cursor:
-    default;
+:host(:not(.button-clickable)) .balina-button {
+  cursor: default;
 }
 
-
-/* =========================================
+/*
    HOVER
-   ========================================= */
+ */
 
-:host(.button-clickable)
-.balina-button:hover {
-
-  background:
-    var(--button-background-hover);
+:host(.button-clickable) .balina-button:hover {
+  background: var(--button-background-hover);
 }
 
-
-/* =========================================
+/*
    ACTIVE
-   ========================================= */
+ */
 
-:host(.button-clickable)
-.balina-button:active {
+:host(.button-clickable) .balina-button:active {
+  background: var(--button-background-active);
 
-  background:
-    var(--button-background-active);
-
-  transform:
-    translateY(1px);
+  transform: translateY(1px);
 }
 
-
-/* =========================================
+/*
    FOCUS
-   ========================================= */
+ */
 
 .balina-button:focus-visible {
-
-  box-shadow:
-    0 0 0 3px
-    var(--button-focus-ring);
+  box-shadow: 0 0 0 3px var(--button-focus-ring);
 }
 
-
-/* =========================================
+/*
    DISABLED STATE
-   ========================================= */
+ */
 
-:host(.button-disabled)
-.balina-button {
+:host(.button-disabled) .balina-button {
+  background: var(--button-disabled-background);
 
-  background:
-    var(--button-disabled-background);
+  color: var(--button-disabled-text);
 
-  color:
-    var(--button-disabled-text);
+  border-color: var(--button-disabled-border);
 
-  border-color:
-    var(--button-disabled-border);
+  cursor: not-allowed;
 
-  cursor:
-    not-allowed;
+  box-shadow: none;
 
-  box-shadow:
-    none;
-
-  transform:
-    none;
+  transform: none;
 }
 
-
-/* =========================================
+/*
    LOADING
-   ========================================= */
+ */
 
 .balina-button[aria-busy='true'] {
-
-  cursor:
-    wait;
+  cursor: wait;
 }
 
-
-/* =========================================
+/*
    LABEL
-   ========================================= */
+ */
 
 .button-label {
+  display: inline-flex;
 
-  display:
-    inline-flex;
+  align-items: center;
 
-  align-items:
-    center;
+  justify-content: center;
 
-  justify-content:
-    center;
+  overflow: hidden;
 
-  overflow:
-    hidden;
+  text-overflow: ellipsis;
 
-  text-overflow:
-    ellipsis;
-
-  white-space:
-    nowrap;
+  white-space: nowrap;
 }
 
-
-/* =========================================
+/*
    LOADING TEXT
-   ========================================= */
+ */
 
 .button-loading-text {
+  display: inline-flex;
 
-  display:
-    inline-flex;
+  align-items: center;
 
-  align-items:
-    center;
+  justify-content: center;
 
-  justify-content:
-    center;
-
-  white-space:
-    nowrap;
+  white-space: nowrap;
 }
 
-
-/* =========================================
+/*
    SPINNER
-   ========================================= */
+ */
 
 .button-spinner {
+  width: var(--button-spinner-size);
 
-  width:
-    var(--button-spinner-size);
+  height: var(--button-spinner-size);
 
-  height:
-    var(--button-spinner-size);
+  flex: 0 0 auto;
 
-  flex:
-    0 0 auto;
+  box-sizing: border-box;
 
-  box-sizing:
-    border-box;
+  border: var(--button-spinner-border) solid rgba(255, 255, 255, 0.4);
 
-  border:
-    var(--button-spinner-border)
-    solid
-    rgba(255, 255, 255, 0.4);
+  border-top-color: var(--button-text-color);
 
-  border-top-color:
-    var(--button-text-color);
+  border-radius: 50%;
 
-  border-radius:
-    50%;
-
-  animation:
-    button-spin
-    0.7s
-    linear
-    infinite;
+  animation: button-spin 0.7s linear infinite;
 }
 
-
 @keyframes button-spin {
-
   to {
-
-    transform:
-      rotate(360deg);
-
+    transform: rotate(360deg);
   }
 }
 
-
-/* =========================================
+/*
    RESPONSIVE
-   ========================================= */
+ */
 
 @media (max-width: 768px) {
-
   :host {
-
-    width:
-      var(--button-width);
+    width: var(--button-width);
   }
 
   .balina-button {
+    min-height: var(--button-height);
 
-    min-height:
-      var(--button-height);
-
-    font-size:
-      var(--button-font-size);
+    font-size: var(--button-font-size);
   }
 }

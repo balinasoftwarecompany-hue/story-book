@@ -1,7 +1,7 @@
 import {Component,EventEmitter,HostBinding,Input,Output} from '@angular/core';
 
 @Component({
-  selector: 'lib-text-box',
+  selector: 'brb-text-box',
   standalone: true,
   imports: [],
   templateUrl: './text-box.html',
@@ -9,9 +9,7 @@ import {Component,EventEmitter,HostBinding,Input,Output} from '@angular/core';
 })
 export class TextBox {
 
-  // =========================================
   // INPUTS
-  // =========================================
 
   @Input() placeholder: string = '';
 
@@ -23,60 +21,33 @@ export class TextBox {
 
   @Input() readonly: boolean = false;
 
-  /**
-   * Developer custom CSS class.
-   *
-   * Example:
-   *
-   * customClass="flight-input"
-   */
   @Input()
   @HostBinding('class')
   customClass: string = '';
 
 
-  // =========================================
   // OUTPUT EVENTS
-  // =========================================
 
-  /**
-   * Emits the current value.
-   */
   @Output()
   valueChange =
     new EventEmitter<string>();
 
-  /**
-   * Emits whenever the user types.
-   */
+
   @Output()
   inputChange =
     new EventEmitter<string>();
 
-  /**
-   * Emits whenever the textbox is clicked.
-   */
+
   @Output()
   clicked =
     new EventEmitter<MouseEvent>();
 
 
-  // =========================================
   // PASSWORD VISIBILITY
-  // =========================================
 
-  /**
-   * Controls password visibility.
-   */
   showPassword: boolean = false;
 
 
-  /**
-   * Returns the actual input type.
-   *
-   * password + showPassword
-   * becomes text.
-   */
   get inputType(): string {
 
     if (this.type === 'password') {
@@ -102,9 +73,7 @@ export class TextBox {
   }
 
 
-  // =========================================
   // INPUT HANDLER
-  // =========================================
 
   onInput(event: Event): void {
 
@@ -125,9 +94,7 @@ export class TextBox {
   }
 
 
-  // =========================================
   // CLICK HANDLER
-  // =========================================
 
   onClick(event: MouseEvent): void {
 

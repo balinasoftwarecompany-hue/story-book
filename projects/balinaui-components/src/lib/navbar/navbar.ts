@@ -1,5 +1,4 @@
-import { Component, ElementRef, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';
-import { EventEmitter } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,7 +16,7 @@ export interface UserProfile {
   initials?: string;
 }
 @Component({
-  selector: 'lib-navbar',
+  selector: 'brb-navbar',
   standalone: true,
   imports: [CommonModule, RouterModule, MatIconModule],
   templateUrl: './navbar.html',
@@ -26,12 +25,15 @@ export interface UserProfile {
 export class Navbar {
 
   // Brand
-  @Input() brand = 'Aero';
+  @Input() brand = '';
 
-  @Input() logoAlt = 'Aero logo';
+  @Input() logoAlt = '';
 
   @Input() image = '';
 
+  @Input() customClass = '';
+  
+  @HostBinding('class')
   // Navigation
   @Input() links: NavLink[] = [];
 
@@ -39,22 +41,16 @@ export class Navbar {
   @Input() initiallyLoggedIn = false;
 
   // User profile
-  @Input() user: UserProfile = {
-    username: 'Guest User',
-    email: 'guest@example.com',
-    image: '',
-    role: 'Guest',
-    name: undefined
-  };
+  @Input() user!: UserProfile;
 
   // Icons
-  @Input() notificationIcon = 'notifications';
+  @Input() notificationIcon = '';
 
-  @Input() profileIcon = 'account_circle';
+  @Input() profileIcon = '';
 
-  @Input() userIcon = 'person';
+  @Input() userIcon = '';
 
-  @Input() logoutIcon = 'logout';
+  @Input() logoutIcon = '';
 
   // Events
   @Output() login = new EventEmitter<void>();

@@ -1,7 +1,7 @@
-import {Component,ElementRef,EventEmitter,HostBinding,HostListener,Input,Output} from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'lib-date-input',
+  selector: 'brb-date-input',
   standalone: true,
   imports: [],
   templateUrl: './date-input.html',
@@ -9,13 +9,11 @@ import {Component,ElementRef,EventEmitter,HostBinding,HostListener,Input,Output}
 })
 export class DateInput {
 
-  // =========================================
   // INPUTS
-  // =========================================
 
   @Input() label: string = '';
 
-  @Input() placeholder: string = 'Select date';
+  @Input() placeholder: string = '';
 
   @Input() value: string = '';
 
@@ -35,9 +33,7 @@ export class DateInput {
   customClass: string = '';
 
 
-  // =========================================
   // OUTPUTS
-  // =========================================
 
   /**
    * Emits the selected date as:
@@ -70,9 +66,7 @@ export class DateInput {
     new EventEmitter<MouseEvent>();
 
 
-  // =========================================
   // INTERNAL STATE
-  // =========================================
 
   isOpen: boolean = false;
 
@@ -82,12 +76,10 @@ export class DateInput {
   constructor(
     private elementRef:
       ElementRef<HTMLElement>
-  ) {}
+  ) { }
 
 
-  // =========================================
   // INITIALIZE VALUE
-  // =========================================
 
   ngOnInit(): void {
 
@@ -109,9 +101,7 @@ export class DateInput {
   }
 
 
-  // =========================================
   // CALENDAR DAYS
-  // =========================================
 
   get calendarDays(): Date[] {
 
@@ -137,19 +127,11 @@ export class DateInput {
 
     const days: Date[] = [];
 
-    /*
-     * Sunday = 0
-     * Monday = 1
-     * ...
-     * Saturday = 6
-     */
     const startDay =
       firstDay.getDay();
 
 
-    // =====================================
     // PREVIOUS MONTH DAYS
-    // =====================================
 
     for (
       let i = 0;
@@ -167,9 +149,7 @@ export class DateInput {
     }
 
 
-    // =====================================
     // CURRENT MONTH DAYS
-    // =====================================
 
     for (
       let day = 1;
@@ -187,9 +167,7 @@ export class DateInput {
     }
 
 
-    // =====================================
     // NEXT MONTH DAYS
-    // =====================================
 
     const remaining =
       42 - days.length;
@@ -213,9 +191,7 @@ export class DateInput {
   }
 
 
-  // =========================================
   // MONTH NAME
-  // =========================================
 
   get monthName(): string {
 
@@ -228,9 +204,7 @@ export class DateInput {
   }
 
 
-  // =========================================
   // YEAR
-  // =========================================
 
   get year(): number {
 
@@ -238,9 +212,7 @@ export class DateInput {
   }
 
 
-  // =========================================
   // TOGGLE CALENDAR
-  // =========================================
 
   toggleCalendar(
     event?: MouseEvent
@@ -266,9 +238,7 @@ export class DateInput {
   }
 
 
-  // =========================================
   // PREVIOUS MONTH
-  // =========================================
 
   previousMonth(
     event?: MouseEvent
@@ -285,9 +255,7 @@ export class DateInput {
   }
 
 
-  // =========================================
   // NEXT MONTH
-  // =========================================
 
   nextMonth(
     event?: MouseEvent
@@ -303,10 +271,7 @@ export class DateInput {
       );
   }
 
-
-  // =========================================
   // SELECT DATE
-  // =========================================
 
   selectDate(
     date: Date,
@@ -333,9 +298,7 @@ export class DateInput {
       );
 
 
-    // =====================================
     // UPDATE VALUE
-    // =====================================
 
     this.value =
       this.formatDate(
@@ -343,9 +306,7 @@ export class DateInput {
       );
 
 
-    // =====================================
     // EMIT EVENTS
-    // =====================================
 
     this.valueChange.emit(
       this.value
@@ -360,9 +321,7 @@ export class DateInput {
     );
 
 
-    // =====================================
     // CLOSE
-    // =====================================
 
     this.isOpen = false;
 
@@ -372,9 +331,7 @@ export class DateInput {
   }
 
 
-  // =========================================
   // FORMAT DATE
-  // =========================================
 
   formatDate(
     date: Date
@@ -397,9 +354,7 @@ export class DateInput {
   }
 
 
-  // =========================================
   // PARSE DATE
-  // =========================================
 
   private parseDate(
     value: string
@@ -451,9 +406,7 @@ export class DateInput {
   }
 
 
-  // =========================================
   // CURRENT MONTH
-  // =========================================
 
   isCurrentMonth(
     date: Date
@@ -461,16 +414,14 @@ export class DateInput {
 
     return (
       date.getMonth() ===
-        this.currentDate.getMonth() &&
+      this.currentDate.getMonth() &&
       date.getFullYear() ===
-        this.currentDate.getFullYear()
+      this.currentDate.getFullYear()
     );
   }
 
 
-  // =========================================
   // TODAY
-  // =========================================
 
   isToday(
     date: Date
@@ -481,18 +432,16 @@ export class DateInput {
 
     return (
       date.getDate() ===
-        today.getDate() &&
+      today.getDate() &&
       date.getMonth() ===
-        today.getMonth() &&
+      today.getMonth() &&
       date.getFullYear() ===
-        today.getFullYear()
+      today.getFullYear()
     );
   }
 
 
-  // =========================================
   // SELECTED DATE
-  // =========================================
 
   isSelected(
     date: Date
@@ -505,9 +454,7 @@ export class DateInput {
   }
 
 
-  // =========================================
   // OUTSIDE CLICK
-  // =========================================
 
   @HostListener(
     'document:click',
@@ -536,9 +483,7 @@ export class DateInput {
   }
 
 
-  // =========================================
   // CLOSE CALENDAR
-  // =========================================
 
   closeCalendar(): void {
 

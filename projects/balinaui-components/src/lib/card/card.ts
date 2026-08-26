@@ -1,12 +1,7 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output
-} from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'lib-card',
+  selector: 'brb-card',
   standalone: true,
   imports: [],
   templateUrl: './card.html',
@@ -14,64 +9,61 @@ import {
 })
 export class Card {
 
-  // =========================================
   // INPUTS
-  // =========================================
 
   @Input()
-  title: string = 'Last 24 hours';
+  title: string = '';
 
   @Input()
-  month: string = 'Jul';
+  month: string = '';
 
   @Input()
-  day: string | number = 9;
+  day: string | number = '';
 
   @Input()
-  description: string =
-    '156 flights were monitored with 96.8% on-time performance. Minor delays occurred due to weather and air traffic.';
+  description: string = '';
 
-  /**
-   * Developer custom CSS class.
-   */
   @Input()
   customClass: string = '';
 
-  /**
-   * Controls whether the card is clickable.
-   */
   @Input()
   clickable: boolean = true;
 
-  /**
-   * Disables card interaction.
-   */
   @Input()
   disabled: boolean = false;
 
 
-  // =========================================
-  // OUTPUTS
-  // =========================================
+  @HostBinding('class')
+  get hostClasses(): string {
 
-  /**
-   * Legacy / specific card click event.
-   */
+    return [
+      this.customClass,
+
+      this.clickable
+        ? 'card-clickable'
+        : '',
+
+      this.disabled
+        ? 'card-disabled'
+        : ''
+
+    ]
+      .filter(Boolean)
+      .join(' ');
+  }
+
+
+  // OUTPUTS
   @Output()
   cardClick =
     new EventEmitter<void>();
 
-  /**
-   * Standard Balina UI developer click event.
-   */
   @Output()
   clicked =
     new EventEmitter<MouseEvent>();
 
 
-  // =========================================
   // CLICK HANDLER
-  // =========================================
 
   onClick(
     event: MouseEvent

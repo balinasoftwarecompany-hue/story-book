@@ -1,104 +1,74 @@
-/* =========================================
+/*
    HOST
-   ========================================= */
+ */
 
 :host {
-
-  /* =======================================
+  /*
      BALINA UI DESIGN TOKENS
-     ======================================= */
+ */
 
-  --date-width:
-    300px;
+  --date-width: 300px;
 
-  --date-height:
-    44px;
+  --date-height: 44px;
 
-  --date-background:
-    #ffffff;
+  --date-background: #ffffff;
 
-  --date-border:
-    1px solid #a9a9a9;
+  --date-border: 1px solid #a9a9a9;
 
-  --date-border-hover:
-    #777777;
+  --date-border-hover: #777777;
 
-  --date-border-focus:
-    #68479b;
+  --date-border-focus: #68479b;
 
-  --date-radius:
-    6px;
+  --date-radius: 6px;
 
-  --date-text:
-    #222222;
+  --date-text: #222222;
 
-  --date-placeholder:
-    #777777;
+  --date-placeholder: #777777;
 
-  --date-primary:
-    #68479b;
+  --date-primary: #68479b;
 
-  --date-hover:
-    #f3f0f7;
+  --date-hover: #f3f0f7;
 
-  --date-selected:
-    #68479b;
+  --date-selected: #68479b;
 
-  --date-selected-text:
-    #ffffff;
+  --date-selected-text: #ffffff;
 
-  --date-font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  --date-font-family: Arial, Helvetica, sans-serif;
 
-  --date-font-size:
-    14px;
+  --date-font-size: 14px;
 
-  --date-font-weight:
-    600;
+  --date-font-weight: 600;
 
-  --date-shadow:
-    0 4px 12px
-    rgba(0, 0, 0, 0.12);
+  --date-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 
-  --date-icon-color:
-    #555555;
+  --date-icon-color: #555555;
 
-  --date-disabled-background:
-    #f5f5f5;
+  --date-disabled-background: #f5f5f5;
 
-  --date-disabled-border:
-    #d0d0d0;
+  --date-disabled-border: #d0d0d0;
 
-  --date-disabled-text:
-    #999999;
+  --date-disabled-text: #999999;
 
-
-  /* =======================================
+  /*
      HOST
-     ======================================= */
+ */
 
   display: block;
 
   position: relative;
 
-  width:
-    var(--date-width);
+  width: var(--date-width);
 
   box-sizing: border-box;
 
-  font-family:
-    var(--date-font-family);
+  font-family: var(--date-font-family);
 }
 
-
-/* =========================================
+/*
    CONTAINER
-   ========================================= */
+ */
 
 .date-input-container {
-
   position: relative;
 
   width: 100%;
@@ -106,19 +76,16 @@
   box-sizing: border-box;
 }
 
-
-/* =========================================
+/*
    FIELD
-   ========================================= */
+ */
 
 .date-input-field {
-
   position: relative;
 
   width: 100%;
 
-  height:
-    var(--date-height);
+  height: var(--date-height);
 
   display: flex;
 
@@ -126,26 +93,19 @@
 
   box-sizing: border-box;
 
-  padding:
-    0 50px 0 18px;
+  padding: 0 50px 0 18px;
 
-  border:
-    var(--date-border);
+  border: var(--date-border);
 
-  border-radius:
-    var(--date-radius);
+  border-radius: var(--date-radius);
 
-  background:
-    var(--date-background);
+  background: var(--date-background);
 
-  color:
-    var(--date-text);
+  color: var(--date-text);
 
-  font-size:
-    var(--date-font-size);
+  font-size: var(--date-font-size);
 
-  font-weight:
-    var(--date-font-weight);
+  font-weight: var(--date-font-weight);
 
   cursor: pointer;
 
@@ -155,109 +115,79 @@
     background-color 0.2s ease;
 }
 
-
-/* =========================================
+/*
    HOVER
-   ========================================= */
+ */
 
 .date-input-field:hover {
-
-  border-color:
-    var(--date-border-hover);
+  border-color: var(--date-border-hover);
 }
 
-
-/* =========================================
+/*
    OPEN
-   ========================================= */
+ */
 
-.date-input-open
-.date-input-field {
+.date-input-open .date-input-field {
+  border-color: var(--date-border-focus);
 
-  border-color:
-    var(--date-border-focus);
-
-  box-shadow:
-    0 0 0 1px
-    rgba(104, 71, 155, 0.12);
+  box-shadow: 0 0 0 1px rgba(104, 71, 155, 0.12);
 }
 
-
-/* =========================================
+/*
    LABEL
-   ========================================= */
+ */
 
 .date-input-label {
-
   position: absolute;
 
   top: 0;
 
   left: 14px;
 
-  transform:
-    translateY(-50%);
+  transform: translateY(-50%);
 
-  padding:
-    0 6px;
+  padding: 0 6px;
 
-  background:
-    var(--date-background);
+  background: var(--date-background);
 
-  color:
-    var(--date-border-focus);
+  color: var(--date-border-focus);
 
-  font-size:
-    13px;
+  font-size: 13px;
 
-  font-weight:
-    500;
+  font-weight: 500;
 
-  line-height:
-    1;
+  line-height: 1;
 
-  pointer-events:
-    none;
+  pointer-events: none;
 }
 
-
-/* =========================================
+/*
    VALUE
-   ========================================= */
+ */
 
 .date-input-value {
+  overflow: hidden;
 
-  overflow:
-    hidden;
+  white-space: nowrap;
 
-  white-space:
-    nowrap;
+  text-overflow: ellipsis;
 
-  text-overflow:
-    ellipsis;
-
-  color:
-    var(--date-text);
+  color: var(--date-text);
 }
 
-
-/* =========================================
+/*
    PLACEHOLDER
-   ========================================= */
+ */
 
 .date-input-placeholder {
-
-  color:
-    var(--date-placeholder);
+  color: var(--date-placeholder);
 }
 
-
-/* =========================================
+/*
    CALENDAR ICON
-   ========================================= */
+ */
 
 .calendar-icon {
-
   position: absolute;
 
   right: 17px;
@@ -268,20 +198,16 @@
 
   box-sizing: border-box;
 
-  border:
-    1.8px solid
-    var(--date-icon-color);
+  border: 1.8px solid var(--date-icon-color);
 
   border-radius: 3px;
 }
 
-
-/* =========================================
+/*
    CALENDAR TOP
-   ========================================= */
+ */
 
 .calendar-top {
-
   position: absolute;
 
   left: 0;
@@ -290,19 +216,15 @@
 
   width: 100%;
 
-  border-top:
-    1.8px solid
-    var(--date-icon-color);
+  border-top: 1.8px solid var(--date-icon-color);
 }
 
-
-/* =========================================
+/*
    CALENDAR RINGS
-   ========================================= */
+ */
 
 .calendar-icon::before,
 .calendar-icon::after {
-
   content: '';
 
   position: absolute;
@@ -313,35 +235,27 @@
 
   height: 6px;
 
-  background:
-    var(--date-icon-color);
+  background: var(--date-icon-color);
 
   border-radius: 2px;
 }
 
-
 .calendar-icon::before {
-
   left: 4px;
 }
 
-
 .calendar-icon::after {
-
   right: 4px;
 }
 
-
-/* =========================================
+/*
    DATE PICKER
-   ========================================= */
+ */
 
 .date-picker {
-
   position: absolute;
 
-  top:
-    calc(100% + 6px);
+  top: calc(100% + 6px);
 
   left: 0;
 
@@ -355,26 +269,20 @@
 
   box-sizing: border-box;
 
-  background:
-    #ffffff;
+  background: #ffffff;
 
-  border:
-    1px solid #d5d5d5;
+  border: 1px solid #d5d5d5;
 
-  border-radius:
-    var(--date-radius);
+  border-radius: var(--date-radius);
 
-  box-shadow:
-    var(--date-shadow);
+  box-shadow: var(--date-shadow);
 }
 
-
-/* =========================================
+/*
    HEADER
-   ========================================= */
+ */
 
 .date-picker-header {
-
   display: flex;
 
   align-items: center;
@@ -384,30 +292,23 @@
   margin-bottom: 14px;
 }
 
-
-/* =========================================
+/*
    MONTH TITLE
-   ========================================= */
+ */
 
 .month-title {
+  font-size: 15px;
 
-  font-size:
-    15px;
+  font-weight: 700;
 
-  font-weight:
-    700;
-
-  color:
-    var(--date-text);
+  color: var(--date-text);
 }
 
-
-/* =========================================
+/*
    MONTH BUTTON
-   ========================================= */
+ */
 
 .month-button {
-
   width: 32px;
 
   height: 32px;
@@ -437,31 +338,24 @@
     color 0.15s ease;
 }
 
-
-/* =========================================
+/*
    MONTH BUTTON HOVER
-   ========================================= */
+ */
 
 .month-button:hover {
+  background: var(--date-hover);
 
-  background:
-    var(--date-hover);
-
-  color:
-    var(--date-primary);
+  color: var(--date-primary);
 }
 
-
-/* =========================================
+/*
    WEEK DAYS
-   ========================================= */
+ */
 
 .week-days {
-
   display: grid;
 
-  grid-template-columns:
-    repeat(7, 1fr);
+  grid-template-columns: repeat(7, 1fr);
 
   margin-bottom: 6px;
 
@@ -474,28 +368,23 @@
   font-weight: 600;
 }
 
-
-/* =========================================
+/*
    CALENDAR DAYS
-   ========================================= */
+ */
 
 .calendar-days {
-
   display: grid;
 
-  grid-template-columns:
-    repeat(7, 1fr);
+  grid-template-columns: repeat(7, 1fr);
 
   gap: 4px;
 }
 
-
-/* =========================================
+/*
    CALENDAR DAY
-   ========================================= */
+ */
 
 .calendar-day {
-
   width: 100%;
 
   aspect-ratio: 1;
@@ -512,14 +401,11 @@
 
   background: transparent;
 
-  color:
-    var(--date-text);
+  color: var(--date-text);
 
-  font-family:
-    var(--date-font-family);
+  font-family: var(--date-font-family);
 
-  font-size:
-    13px;
+  font-size: 13px;
 
   cursor: pointer;
 
@@ -528,60 +414,43 @@
     color 0.15s ease;
 }
 
-
-/* =========================================
+/*
    DAY HOVER
-   ========================================= */
+ */
 
 .calendar-day:hover {
-
-  background:
-    var(--date-hover);
+  background: var(--date-hover);
 }
 
-
-/* =========================================
+/*
    OTHER MONTH
-   ========================================= */
+ */
 
 .calendar-day.other-month {
-
-  color:
-    #c0c0c0;
+  color: #c0c0c0;
 }
 
-
-/* =========================================
+/*
    TODAY
-   ========================================= */
+ */
 
 .calendar-day.today {
+  border: 1px solid var(--date-primary);
 
-  border:
-    1px solid
-    var(--date-primary);
-
-  color:
-    var(--date-primary);
+  color: var(--date-primary);
 }
 
-
-/* =========================================
+/*
    SELECTED
-   ========================================= */
+ */
 
 .calendar-day.selected {
+  background: var(--date-selected);
 
-  background:
-    var(--date-selected);
+  color: var(--date-selected-text);
 
-  color:
-    var(--date-selected-text);
-
-  border:
-    none;
+  border: none;
 }
-
 
 /*
  * Selected + today:
@@ -589,49 +458,35 @@
  */
 
 .calendar-day.selected.today {
+  background: var(--date-selected);
 
-  background:
-    var(--date-selected);
-
-  color:
-    var(--date-selected-text);
+  color: var(--date-selected-text);
 }
 
-
-/* =========================================
+/*
    DISABLED
-   ========================================= */
+ */
 
-.date-input-disabled
-.date-input-field {
+.date-input-disabled .date-input-field {
+  background: var(--date-disabled-background);
 
-  background:
-    var(--date-disabled-background);
+  border-color: var(--date-disabled-border);
 
-  border-color:
-    var(--date-disabled-border);
+  color: var(--date-disabled-text);
 
-  color:
-    var(--date-disabled-text);
-
-  cursor:
-    not-allowed;
+  cursor: not-allowed;
 }
 
-
-/* =========================================
+/*
    RESPONSIVE
-   ========================================= */
+ */
 
 @media (max-width: 768px) {
-
   :host {
-
     width: 100%;
   }
 
   .date-picker {
-
     min-width: 100%;
   }
 }
