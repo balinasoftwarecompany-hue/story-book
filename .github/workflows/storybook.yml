@@ -16,11 +16,11 @@ concurrency:
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -38,11 +38,8 @@ jobs:
       - name: Build Storybook
         run: npm run build-storybook
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
       - name: Upload Storybook
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: storybook-static
 
