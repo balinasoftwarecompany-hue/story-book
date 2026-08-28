@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { MultiSelectDropdown } from './multi-select-dropdown';
 
+
 const meta: Meta<MultiSelectDropdown> = {
-  title: 'Components/MultiSelectDropdown',
+  title: 'Components/Multi Select Dropdown',
   component: MultiSelectDropdown,
 
   parameters: {
@@ -27,14 +28,19 @@ const meta: Meta<MultiSelectDropdown> = {
       control: 'object',
     },
 
-    customClass: {
-      control: 'text',
+    useCheckbox: {
+      control: 'boolean',
+      description:
+        'Show checkboxes and allow multiple selections',
     },
 
     disabled: {
       control: 'boolean',
     },
 
+    customClass: {
+      control: 'text',
+    },
 
     selectionChange: {
       action: 'selectionChange',
@@ -59,11 +65,143 @@ export default meta;
 type Story = StoryObj<MultiSelectDropdown>;
 
 
-// =========================================
-// DEFAULT
-// =========================================
+// OPTIONS
 
-export const Default: Story = {
+const options = [
+  {
+    label: 'Price',
+    value: 'price',
+  },
+  {
+    label: 'Volume',
+    value: 'volume',
+  },
+  {
+    label: 'RSI',
+    value: 'rsi',
+  },
+  {
+    label: 'MACD',
+    value: 'macd',
+  },
+  {
+    label: 'Moving Average',
+    value: 'moving-average',
+  },
+  {
+    label: 'Bollinger Bands',
+    value: 'bollinger',
+  },
+  {
+    label: 'Stochastic',
+    value: 'stochastic',
+  },
+  {
+    label: 'Average True Range',
+    value: 'atr',
+  },
+];
+
+
+// NORMAL DROPDOWN
+
+export const NormalDropdown: Story = {
+
+  args: {
+
+    label: 'Add Parameters',
+
+    placeholder: 'Select options',
+
+    options,
+
+    selectedValues: [],
+
+    useCheckbox: false,
+
+    disabled: false,
+
+    customClass: '',
+  },
+};
+
+
+// CHECKBOX DROPDOWN
+
+export const CheckboxDropdown: Story = {
+
+  args: {
+
+    label: 'Add Parameters',
+
+    placeholder: 'Select options',
+
+    options,
+
+    selectedValues: [],
+
+    useCheckbox: true,
+
+    disabled: false,
+
+    customClass: '',
+  },
+};
+
+
+// PRESELECTED
+
+export const Preselected: Story = {
+
+  args: {
+
+    label: 'Add Parameters',
+
+    placeholder: 'Select options',
+
+    options,
+
+    selectedValues: [
+      'price',
+      'volume',
+      'rsi',
+    ],
+
+    useCheckbox: true,
+
+    disabled: false,
+
+    customClass: '',
+  },
+};
+
+
+// DISABLED
+
+export const Disabled: Story = {
+
+  args: {
+
+    label: 'Add Parameters',
+
+    placeholder: 'Select options',
+
+    options,
+
+    selectedValues: [],
+
+    useCheckbox: false,
+
+    disabled: true,
+
+    customClass: '',
+  },
+};
+
+
+// DISABLED OPTION
+
+export const WithDisabledOption: Story = {
 
   args: {
 
@@ -74,35 +212,45 @@ export const Default: Story = {
     options: [
 
       {
-        label: 'Option',
-        value: 'option1',
+        label: 'Price',
+        value: 'price',
       },
 
       {
-        label: 'Option',
-        value: 'option2',
+        label: 'Volume',
+        value: 'volume',
       },
 
       {
-        label: 'Option',
-        value: 'option3',
+        label: 'RSI',
+        value: 'rsi',
+        disabled: true,
+      },
+
+      {
+        label: 'MACD',
+        value: 'macd',
+      },
+
+      {
+        label: 'Moving Average',
+        value: 'moving-average',
       },
 
     ],
 
     selectedValues: [],
 
-    customClass: '',
+    useCheckbox: true,
 
     disabled: false,
 
+    customClass: '',
   },
 };
 
 
-// =========================================
-// WITH MANY OPTIONS
-// =========================================
+// MANY OPTIONS / SCROLL
 
 export const Scrollable: Story = {
 
@@ -110,147 +258,94 @@ export const Scrollable: Story = {
 
     label: 'Add Parameters',
 
+    placeholder: 'Select options',
+
     options: [
 
       {
-        label: 'Option 1',
-        value: 'option1',
+        label: 'Price',
+        value: 'price',
       },
 
       {
-        label: 'Option 2',
-        value: 'option2',
+        label: 'Volume',
+        value: 'volume',
       },
 
       {
-        label: 'Option 3',
-        value: 'option3',
+        label: 'RSI',
+        value: 'rsi',
       },
 
       {
-        label: 'Option 4',
-        value: 'option4',
+        label: 'MACD',
+        value: 'macd',
       },
 
       {
-        label: 'Option 5',
-        value: 'option5',
+        label: 'Moving Average',
+        value: 'moving-average',
       },
 
       {
-        label: 'Option 6',
-        value: 'option6',
+        label: 'Bollinger Bands',
+        value: 'bollinger',
       },
 
       {
-        label: 'Option 7',
-        value: 'option7',
+        label: 'Stochastic',
+        value: 'stochastic',
       },
 
       {
-        label: 'Option 8',
-        value: 'option8',
+        label: 'Average True Range',
+        value: 'atr',
       },
 
       {
-        label: 'Option 9',
-        value: 'option9',
+        label: 'Momentum',
+        value: 'momentum',
       },
 
       {
-        label: 'Option 10',
-        value: 'option10',
+        label: 'CCI',
+        value: 'cci',
+      },
+
+      {
+        label: 'Williams %R',
+        value: 'williams',
+      },
+
+      {
+        label: 'ADX',
+        value: 'adx',
+      },
+
+      {
+        label: 'OBV',
+        value: 'obv',
+      },
+
+      {
+        label: 'Parabolic SAR',
+        value: 'sar',
       },
 
     ],
 
     selectedValues: [],
 
+    useCheckbox: true,
+
+    disabled: false,
+
+    customClass: '',
   },
 };
 
 
-// =========================================
-// PRESELECTED
-// =========================================
-
-export const Preselected: Story = {
-
-  args: {
-
-    label: 'Add Parameters',
-
-    options: [
-
-      {
-        label: 'Option 1',
-        value: 'option1',
-      },
-
-      {
-        label: 'Option 2',
-        value: 'option2',
-      },
-
-      {
-        label: 'Option 3',
-        value: 'option3',
-      },
-
-      {
-        label: 'Option 4',
-        value: 'option4',
-      },
-
-    ],
-
-    selectedValues: [
-      'option1',
-      'option3',
-    ],
-  },
-};
-
-
-// =========================================
-// DISABLED
-// =========================================
-
-export const Disabled: Story = {
-
-  args: {
-
-    label: 'Add Parameters',
-
-    options: [
-
-      {
-        label: 'Option 1',
-        value: 'option1',
-      },
-
-      {
-        label: 'Option 2',
-        value: 'option2',
-      },
-
-      {
-        label: 'Option 3',
-        value: 'option3',
-      },
-
-    ],
-
-    selectedValues: [],
-
-    disabled: true,
-  },
-};
-
-
-// =========================================
 // CUSTOM CSS
-// =========================================
 
 export const CustomStyle: Story = {
 
@@ -258,33 +353,17 @@ export const CustomStyle: Story = {
 
     label: 'Add Parameters',
 
-    options: [
+    placeholder: 'Select options',
 
-      {
-        label: 'Option 1',
-        value: 'option1',
-      },
-
-      {
-        label: 'Option 2',
-        value: 'option2',
-      },
-
-      {
-        label: 'Option 3',
-        value: 'option3',
-      },
-
-      {
-        label: 'Option 4',
-        value: 'option4',
-      },
-
-    ],
+    options,
 
     selectedValues: [],
 
-    customClass: 'storybook-custom-dropdown',
+    useCheckbox: true,
+
+    disabled: false,
+
+    customClass: 'custom-dropdown',
   },
 
   decorators: [
@@ -295,36 +374,29 @@ export const CustomStyle: Story = {
 
       styles: [
 
-      `
+        `
+        .custom-dropdown {
 
-    .storybook-custom-dropdown {
+          --dropdown-width: 400px;
 
-      --dropdown-width: 320px;
+          --dropdown-header-height: 50px;
 
-      --dropdown-header-height: 55px;
+          --dropdown-radius: 14px;
 
-      --dropdown-max-height: 220px;
+          --dropdown-option-height: 44px;
 
-      --dropdown-header-padding: 0 18px;
+          --dropdown-label-size: 16px;
 
-      --dropdown-border: 3px solid #c5c5c5;
+          --dropdown-option-size: 15px;
 
-      --dropdown-radius: 8px;
+          --dropdown-max-height: 220px;
 
-      --dropdown-label-size: 20px;
-
-      --dropdown-option-size: 18px;
-
-      --dropdown-option-height: 52px;
-
-      --dropdown-option-gap: 22px;
-
-      --checkbox-size: 24px;
-
-    }
-
+        }
         `,
+
       ],
+
     }),
+
   ],
 };

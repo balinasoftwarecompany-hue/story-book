@@ -1,18 +1,21 @@
 <div
   class="balina-graph-card"
-  [class.graph-card-clickable]="clickable"
-  [class.graph-card-disabled]="disabled"
+
   (click)="onClick($event)"
 >
 
-  <!-- TITLE-->
+  <!-- TITLE -->
 
-  <h2 class="graph-card-title">
-    {{ title }}
-  </h2>
+  @if (title) {
+
+    <h2 class="graph-card-title">
+      {{ title }}
+    </h2>
+
+  }
 
 
-  <!--DEVELOPER CONTENT-->
+  <!-- DEVELOPER CONTENT -->
 
   <div class="graph-card-content">
 

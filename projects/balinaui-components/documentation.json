@@ -103,12 +103,12 @@
         },
         {
             "name": "MultiSelectOption",
-            "id": "interface-MultiSelectOption-15daf5c8fbba91ef4fcb5812c18769a02467a2549ff0e5fc5083c8929f06b425142ed7808df0e39e41717607117ca956203be8362944841e1957e097f50610ad",
+            "id": "interface-MultiSelectOption-bb89cfbce287dcf47c656974e8663ea52295ca3341fdf780cd6291b0c3d0b70ff7d73b864bb4b482f8fb992c085ed290e4fb4001b1054f82518b937c14b2d501",
             "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import {Component,Input,Output,EventEmitter,HostBinding,HostListener,ElementRef} from '@angular/core';\n\nexport interface MultiSelectOption {\n  label: string;\n  value: string;\n  disabled?: boolean;\n}\n\n@Component({\n  selector: 'brb-multi-select-dropdown',\n  standalone: true,\n  imports: [],\n  templateUrl: './multi-select-dropdown.html',\n  styleUrl: './multi-select-dropdown.css',\n})\nexport class MultiSelectDropdown {\n\n  @Input() label: string = 'Add Parameters';\n\n  @Input() options: MultiSelectOption[] = [];\n\n  @Input() selectedValues: string[] = [];\n\n  @Input() placeholder: string = 'Select options';\n\n  @Input() customClass: string = '';\n\n  @Input() disabled: boolean = false;\n\n\n  isOpen: boolean = false;\n\n\n  @HostBinding('class')\n  get hostClasses(): string {\n\n    return [\n      this.customClass,\n      this.disabled ? 'dropdown-disabled' : '',\n      this.isOpen ? 'dropdown-open' : ''\n    ]\n      .filter(Boolean)\n      .join(' ');\n  }\n\n\n  @Output()\n  selectionChange =\n    new EventEmitter<string[]>();\n\n  @Output()\n  opened =\n    new EventEmitter<void>();\n\n  @Output()\n  closed =\n    new EventEmitter<void>();\n\n  @Output()\n  clicked =\n    new EventEmitter<MouseEvent>();\n\n\n  constructor(\n    private elementRef: ElementRef\n  ) {}toggle(event: MouseEvent): void {\n\n    if (this.disabled) {\n      return;\n    }\n\n    event.stopPropagation();\n\n    this.clicked.emit(event);\n\n    this.isOpen = !this.isOpen;\n\n    if (this.isOpen) {\n\n      this.opened.emit();\n\n    } else {\n\n      this.closed.emit();\n\n    }\n  }onOptionClick(\n    option: MultiSelectOption,\n    event: MouseEvent\n  ): void {\n\n    if (\n      this.disabled ||\n      option.disabled\n    ) {\n      return;\n    }\n\n    event.stopPropagation();\n\n\n    const values =\n      [...this.selectedValues];\n\n    const index =\n      values.indexOf(option.value);\n\n\n    if (index === -1) {\n\n      values.push(option.value);\n\n    } else {\n\n      values.splice(index, 1);\n    }\n\n\n    this.selectedValues =\n      values;\n\n\n    this.selectionChange.emit(\n      [...values]\n    );\n  }isSelected(\n    option: MultiSelectOption\n  ): boolean {\n\n    return this.selectedValues.includes(\n      option.value\n    );\n  }get displayText(): string {\n  return this.label;\n}@HostListener(\n    'document:click',\n    ['$event']\n  )\n  onDocumentClick(\n    event: MouseEvent\n  ): void {\n\n    if (!this.isOpen) {\n      return;\n    }\n\n\n    const target =\n      event.target as Node;\n\n\n    if (\n      !this.elementRef.nativeElement\n        .contains(target)\n    ) {\n\n      this.close();\n    }\n  }close(): void {\n\n    if (!this.isOpen) {\n      return;\n    }\n\n    this.isOpen = false;\n\n    this.closed.emit();\n  }\n}",
+            "sourceCode": "import {Component,Input,Output,EventEmitter,HostBinding,HostListener,ElementRef} from '@angular/core';\n\nexport interface MultiSelectOption {\n  label: string;\n  value: string;\n  disabled?: boolean;\n}\n\n@Component({\n  selector: 'brb-multi-select-dropdown',\n  standalone: true,\n  imports: [],\n  templateUrl: './multi-select-dropdown.html',\n  styleUrl: './multi-select-dropdown.css',\n})\nexport class MultiSelectDropdown {\n\n  // INPUTS\n\n  @Input() label: string = 'Add Parameters';\n\n  @Input() options: MultiSelectOption[] = [];\n\n  @Input() selectedValues: string[] = [];\n\n  @Input() placeholder: string = 'Select options';\n\n  /*\n   * TRUE  = show checkbox\n   * FALSE = hide checkbox\n   */\n  @Input() useCheckbox: boolean = true;\n\n  @Input() customClass: string = '';\n\n  @Input() clickable: boolean = true;\n\n  @Input() disabled: boolean = false;\n\n\n  // STATE\n\n  isOpen: boolean = false;\n\n\n  // HOST CLASSES\n\n  @HostBinding('class')\n  get hostClasses(): string {\n\n    return [\n      this.customClass,\n\n      this.clickable\n        ? 'dropdown-clickable'\n        : '',\n\n      this.disabled\n        ? 'dropdown-disabled'\n        : '',\n\n      this.isOpen\n        ? 'dropdown-open'\n        : ''\n\n    ]\n      .filter(Boolean)\n      .join(' ');\n  }\n\n\n  // EVENTS\n\n  @Output()\n  selectionChange =\n    new EventEmitter<string[]>();\n\n  @Output()\n  opened =\n    new EventEmitter<void>();\n\n  @Output()\n  closed =\n    new EventEmitter<void>();\n\n  @Output()\n  clicked =\n    new EventEmitter<MouseEvent>();\n\n\n  // CONSTRUCTOR\n\n  constructor(\n    private elementRef: ElementRef\n  ) {}\n\n\n  // TOGGLE\n\n  toggle(event: MouseEvent): void {\n\n    if (\n      this.disabled ||\n      !this.clickable\n    ) {\n      return;\n    }\n\n    event.stopPropagation();\n\n    this.clicked.emit(event);\n\n    this.isOpen = !this.isOpen;\n\n    if (this.isOpen) {\n\n      this.opened.emit();\n\n    } else {\n\n      this.closed.emit();\n\n    }\n  }\n\n\n  // OPTION CLICK\n\n  onOptionClick(\n    option: MultiSelectOption,\n    event: MouseEvent\n  ): void {\n\n    if (\n      this.disabled ||\n      option.disabled ||\n      !this.clickable\n    ) {\n      return;\n    }\n\n    event.stopPropagation();\n\n    const values =\n      [...this.selectedValues];\n\n    const index =\n      values.indexOf(option.value);\n\n\n    // ADD\n    if (index === -1) {\n\n      values.push(option.value);\n\n    }\n\n    // REMOVE\n    else {\n\n      values.splice(index, 1);\n\n    }\n\n\n    this.selectedValues =\n      values;\n\n\n    this.selectionChange.emit(\n      [...values]\n    );\n  }\n\n\n  // CHECK SELECTED\n\n  isSelected(\n    option: MultiSelectOption\n  ): boolean {\n\n    return this.selectedValues\n      .includes(option.value);\n  }\n\n\n  // DISPLAY TEXT\n\n  get displayText(): string {\n\n    return this.label;\n  }\n\n\n  // OUTSIDE CLICK\n\n  @HostListener(\n    'document:click',\n    ['$event']\n  )\n  onDocumentClick(\n    event: MouseEvent\n  ): void {\n\n    if (!this.isOpen) {\n      return;\n    }\n\n    const target =\n      event.target as Node;\n\n    if (\n      !this.elementRef\n        .nativeElement\n        .contains(target)\n    ) {\n\n      this.close();\n    }\n  }\n\n\n  // CLOSE\n\n  close(): void {\n\n    if (!this.isOpen) {\n      return;\n    }\n\n    this.isOpen = false;\n\n    this.closed.emit();\n  }\n}",
             "displayName": "MultiSelectOption",
             "properties": [
                 {
@@ -752,7 +752,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "/*\n   BALINA BUTTON HOST\n */\n\n:host {\n  /*\n     DESIGN TOKENS\n */\n\n  --button-width: auto;\n\n  --button-height: 44px;\n\n  --button-padding: 0 22px;\n\n  --button-background: #68479b;\n\n  --button-background-hover: #593b84;\n\n  --button-background-active: #4b326f;\n\n  --button-text-color: #ffffff;\n\n  --button-border: 1px solid #68479b;\n\n  --button-radius: 6px;\n\n  --button-font-family: Arial, Helvetica, sans-serif;\n\n  --button-font-size: 14px;\n\n  --button-font-weight: 600;\n\n  --button-gap: 8px;\n\n  --button-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);\n\n  --button-disabled-background: #dddddd;\n\n  --button-disabled-text: #999999;\n\n  --button-disabled-border: #dddddd;\n\n  --button-focus-ring: rgba(104, 71, 155, 0.2);\n\n  --button-spinner-size: 16px;\n\n  --button-spinner-border: 2px;\n\n  /*\n     HOST\n */\n\n  display: inline-block;\n\n  width: var(--button-width);\n\n  box-sizing: border-box;\n\n  font-family: var(--button-font-family);\n}\n\n/*\n   BUTTON\n */\n\n.balina-button {\n  width: 100%;\n\n  min-height: var(--button-height);\n\n  padding: var(--button-padding);\n\n  display: inline-flex;\n\n  align-items: center;\n\n  justify-content: center;\n\n  gap: var(--button-gap);\n\n  box-sizing: border-box;\n\n  border: var(--button-border);\n\n  border-radius: var(--button-radius);\n\n  background: var(--button-background);\n\n  color: var(--button-text-color);\n\n  font-family: var(--button-font-family);\n\n  font-size: var(--button-font-size);\n\n  font-weight: var(--button-font-weight);\n\n  line-height: 1;\n\n  box-shadow: var(--button-shadow);\n\n  outline: none;\n\n  cursor: pointer;\n\n  user-select: none;\n\n  white-space: nowrap;\n\n  transition:\n    background-color 0.2s ease,\n    border-color 0.2s ease,\n    box-shadow 0.2s ease,\n    transform 0.1s ease,\n    color 0.2s ease;\n}\n\n/*\n   CLICKABLE STATE\n */\n\n:host(.button-clickable) .balina-button {\n  cursor: pointer;\n}\n\n/*\n   NOT CLICKABLE\n */\n\n:host(:not(.button-clickable)) .balina-button {\n  cursor: default;\n}\n\n/*\n   HOVER\n */\n\n:host(.button-clickable) .balina-button:hover {\n  background: var(--button-background-hover);\n}\n\n/*\n   ACTIVE\n */\n\n:host(.button-clickable) .balina-button:active {\n  background: var(--button-background-active);\n\n  transform: translateY(1px);\n}\n\n/*\n   FOCUS\n */\n\n.balina-button:focus-visible {\n  box-shadow: 0 0 0 3px var(--button-focus-ring);\n}\n\n/*\n   DISABLED STATE\n */\n\n:host(.button-disabled) .balina-button {\n  background: var(--button-disabled-background);\n\n  color: var(--button-disabled-text);\n\n  border-color: var(--button-disabled-border);\n\n  cursor: not-allowed;\n\n  box-shadow: none;\n\n  transform: none;\n}\n\n/*\n   LOADING\n */\n\n.balina-button[aria-busy='true'] {\n  cursor: wait;\n}\n\n/*\n   LABEL\n */\n\n.button-label {\n  display: inline-flex;\n\n  align-items: center;\n\n  justify-content: center;\n\n  overflow: hidden;\n\n  text-overflow: ellipsis;\n\n  white-space: nowrap;\n}\n\n/*\n   LOADING TEXT\n */\n\n.button-loading-text {\n  display: inline-flex;\n\n  align-items: center;\n\n  justify-content: center;\n\n  white-space: nowrap;\n}\n\n/*\n   SPINNER\n */\n\n.button-spinner {\n  width: var(--button-spinner-size);\n\n  height: var(--button-spinner-size);\n\n  flex: 0 0 auto;\n\n  box-sizing: border-box;\n\n  border: var(--button-spinner-border) solid rgba(255, 255, 255, 0.4);\n\n  border-top-color: var(--button-text-color);\n\n  border-radius: 50%;\n\n  animation: button-spin 0.7s linear infinite;\n}\n\n@keyframes button-spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n\n/*\n   RESPONSIVE\n */\n\n@media (max-width: 768px) {\n  :host {\n    width: var(--button-width);\n  }\n\n  .balina-button {\n    min-height: var(--button-height);\n\n    font-size: var(--button-font-size);\n  }\n}\n",
+                    "data": "/*\n   BALINA BUTTON HOST\n*/\n\n:host {\n\n  /* =========================================\n     DESIGN TOKENS\n  ========================================= */\n\n  /* SIZE */\n\n  --button-width: auto;\n\n  --button-min-width: 0;\n\n  --button-height: 44px;\n\n  --button-min-height: 44px;\n\n  --button-padding: 0 22px;\n\n\n  /* COLORS */\n\n  --button-background: #68479b;\n\n  --button-background-hover: #593b84;\n\n  --button-background-active: #4b326f;\n\n  --button-text-color: #ffffff;\n\n  --button-border: 1px solid #68479b;\n\n\n  /* BORDER */\n\n  --button-radius: 6px;\n\n\n  /* FONT */\n\n  --button-font-family:\n    Arial,\n    Helvetica,\n    sans-serif;\n\n  --button-font-size: 14px;\n\n  --button-font-weight: 600;\n\n\n  /* FLEX */\n\n  --button-gap: 8px;\n\n  --button-justify-content: center;\n\n  --button-align-items: center;\n\n\n  /* EFFECTS */\n\n  --button-shadow:\n    0 2px 5px\n    rgba(0, 0, 0, 0.08);\n\n  --button-focus-ring:\n    rgba(104, 71, 155, 0.2);\n\n\n  /* DISABLED */\n\n  --button-disabled-background: #dddddd;\n\n  --button-disabled-text: #999999;\n\n  --button-disabled-border: #dddddd;\n\n\n  /* SPINNER */\n\n  --button-spinner-size: 16px;\n\n  --button-spinner-border: 2px;\n\n\n  /* =========================================\n     HOST FLEX\n  ========================================= */\n\n  display: inline-flex;\n\n  flex: 0 1 auto;\n\n  width: var(--button-width);\n\n  min-width: var(--button-min-width);\n\n  max-width: 100%;\n\n  box-sizing: border-box;\n\n  font-family:\n    var(--button-font-family);\n}\n\n\n/*\n   =========================================\n   BUTTON\n   =========================================\n*/\n\n.balina-button {\n\n  width: 100%;\n\n  min-width: 0;\n\n  min-height:\n    var(--button-min-height);\n\n  height:\n    var(--button-height);\n\n  padding:\n    var(--button-padding);\n\n\n  /* FLEX */\n\n  display: flex;\n\n  flex-direction: row;\n\n  align-items:\n    var(--button-align-items);\n\n  justify-content:\n    var(--button-justify-content);\n\n  gap:\n    var(--button-gap);\n\n\n  /* BOX */\n\n  box-sizing: border-box;\n\n  border:\n    var(--button-border);\n\n  border-radius:\n    var(--button-radius);\n\n\n  /* COLORS */\n\n  background:\n    var(--button-background);\n\n  color:\n    var(--button-text-color);\n\n\n  /* FONT */\n\n  font-family:\n    var(--button-font-family);\n\n  font-size:\n    var(--button-font-size);\n\n  font-weight:\n    var(--button-font-weight);\n\n  line-height: 1.2;\n\n\n  /* INTERACTION */\n\n  box-shadow:\n    var(--button-shadow);\n\n  outline: none;\n\n  cursor: pointer;\n\n  user-select: none;\n\n\n  /* IMPORTANT FOR FLEX */\n\n  overflow: hidden;\n\n  transition:\n    background-color 0.2s ease,\n    border-color 0.2s ease,\n    box-shadow 0.2s ease,\n    transform 0.1s ease,\n    color 0.2s ease;\n}\n\n\n/*\n   =========================================\n   CLICKABLE STATE\n   =========================================\n*/\n\n:host(.button-clickable)\n.balina-button {\n\n  cursor: pointer;\n}\n\n\n/*\n   =========================================\n   NOT CLICKABLE\n   =========================================\n*/\n\n:host(:not(.button-clickable))\n.balina-button {\n\n  cursor: default;\n}\n\n\n/*\n   =========================================\n   HOVER\n   =========================================\n*/\n\n:host(.button-clickable)\n.balina-button:hover {\n\n  background:\n    var(--button-background-hover);\n}\n\n\n/*\n   =========================================\n   ACTIVE\n   =========================================\n*/\n\n:host(.button-clickable)\n.balina-button:active {\n\n  background:\n    var(--button-background-active);\n\n  transform:\n    translateY(1px);\n}\n\n\n/*\n   =========================================\n   FOCUS\n   =========================================\n*/\n\n.balina-button:focus-visible {\n\n  box-shadow:\n    0 0 0 3px\n    var(--button-focus-ring);\n}\n\n\n/*\n   =========================================\n   DISABLED\n   =========================================\n*/\n\n:host(.button-disabled)\n.balina-button {\n\n  background:\n    var(--button-disabled-background);\n\n  color:\n    var(--button-disabled-text);\n\n  border-color:\n    var(--button-disabled-border);\n\n  cursor: not-allowed;\n\n  pointer-events: none;\n\n  box-shadow: none;\n\n  transform: none;\n}\n\n\n/*\n   =========================================\n   LOADING\n   =========================================\n*/\n\n.balina-button[aria-busy='true'] {\n\n  cursor: wait;\n}\n\n\n/*\n   =========================================\n   LABEL\n   =========================================\n*/\n\n.button-label {\n\n  flex: 1 1 auto;\n\n  min-width: 0;\n\n  display: flex;\n\n  align-items: center;\n\n  justify-content: center;\n\n  overflow: hidden;\n\n  text-overflow: ellipsis;\n\n  white-space: nowrap;\n}\n\n\n/*\n   =========================================\n   LOADING TEXT\n   =========================================\n*/\n\n.button-loading-text {\n\n  flex: 1 1 auto;\n\n  min-width: 0;\n\n  display: flex;\n\n  align-items: center;\n\n  justify-content: center;\n\n  overflow: hidden;\n\n  text-overflow: ellipsis;\n\n  white-space: nowrap;\n}\n\n\n/*\n   =========================================\n   SPINNER\n   =========================================\n*/\n\n.button-spinner {\n\n  width:\n    var(--button-spinner-size);\n\n  height:\n    var(--button-spinner-size);\n\n  min-width:\n    var(--button-spinner-size);\n\n  min-height:\n    var(--button-spinner-size);\n\n  flex:\n    0 0 var(--button-spinner-size);\n\n  box-sizing: border-box;\n\n  border:\n    var(--button-spinner-border)\n    solid\n    rgba(255, 255, 255, 0.4);\n\n  border-top-color:\n    var(--button-text-color);\n\n  border-radius: 50%;\n\n  animation:\n    button-spin\n    0.7s\n    linear\n    infinite;\n}\n\n\n@keyframes button-spin {\n\n  to {\n\n    transform:\n      rotate(360deg);\n  }\n}\n\n\n/*\n   =========================================\n   RESPONSIVE\n   =========================================\n*/\n\n@media (max-width: 768px) {\n\n  :host {\n\n    --button-font-size: 14px;\n\n    --button-height: 44px;\n\n    --button-min-height: 44px;\n  }\n}\n\n\n@media (max-width: 480px) {\n\n  :host {\n\n    --button-height: 42px;\n\n    --button-min-height: 42px;\n\n    --button-padding: 0 16px;\n\n    --button-font-size: 13px;\n\n    --button-gap: 6px;\n  }\n}",
                     "styleUrl": "./button.css"
                 }
             ],
@@ -1139,7 +1139,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "/*\n   BALINA CARD\n */\n\n:host {\n  /*\n     BALINA UI DESIGN TOKENS\n */\n\n  --card-width: 100%;\n\n  --card-height: 280px;\n\n  --card-padding: 28px;\n\n  --card-background: #ffffff;\n\n  --card-border: 3px solid #dddddd;\n\n  --card-radius: 12px;\n\n  --card-title-color: #000000;\n\n  --card-description-color: #222222;\n\n  --card-date-background: #eef5ff;\n\n  --card-month-color: #2962ff;\n\n  --card-day-color: #000000;\n\n  --card-line-color: #b7b7b7;\n\n  --card-title-size: 38px;\n\n  --card-description-size: 20px;\n\n  --card-month-size: 24px;\n\n  --card-day-size: 24px;\n\n  --card-font-family: Arial, Helvetica, sans-serif;\n\n  --card-font-weight: 600;\n\n  --card-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);\n\n  --card-hover-transform: translateY(-1px);\n\n  --card-disabled-background: #f5f5f5;\n\n  --card-disabled-border: #d0d0d0;\n\n  --card-disabled-text: #999999;\n\n}\n\n:host .balina-card {\n  /*\n     CARD\n */\n\n  width: var(--card-width);\n\n  min-height: var(--card-height);\n\n  box-sizing: border-box;\n\n  padding: var(--card-padding);\n\n  background: var(--card-background);\n\n  border: var(--card-border);\n\n  border-radius: var(--card-radius);\n\n  font-family: var(--card-font-family);\n\n  font-weight: var(--card-font-weight);\n\n  transition:\n    box-shadow 0.2s ease,\n    transform 0.2s ease,\n    background-color 0.2s ease,\n    border-color 0.2s ease;\n\n  box-sizing: border-box;\n}\n\n/*\n   CLICKABLE\n */\n\n:host(.card-clickable) .balina-card {\n  cursor: pointer;\n}\n\n/*\n   NOT CLICKABLE\n */\n\n:host(:not(.card-clickable)) .balina-card {\n  cursor: default;\n}\n\n/*\n   HOVER\n */\n\n:host(.card-clickable) .balina-card:hover {\n  box-shadow: var(--card-hover-shadow);\n\n  transform: var(--card-hover-transform);\n}\n\n/*\n   ACTIVE\n */\n\n:host(.card-clickable) .balina-card:active {\n  transform: translateY(0);\n}\n\n/*\n   TITLE\n */\n\n:host .card-title {\n  margin: 0;\n\n  color: var(--card-title-color);\n\n  font-size: var(--card-title-size);\n\n  font-weight: 700;\n\n  line-height: 1.2;\n}\n\n/*\n   CONTENT\n */\n\n:host .card-content {\n  display: flex;\n  align-items: center;\n  gap: 28px;\n  margin-top: 36px;\n}\n\n/*\n   DATE\n */\n\n:host .card-date {\n  width: 92px;\n  height: 96px;\n  flex-shrink: 0;\n\n  display: flex;\n\n  flex-direction: column;\n\n  align-items: center;\n\n  justify-content: center;\n\n  box-sizing: border-box;\n\n  padding: 8px;\n\n  background: var(--card-date-background);\n\n  border-radius: 10px;\n}\n\n/*\n   MONTH\n */\n\n:host .card-month {\n  color: var(--card-month-color);\n\n  font-size: var(--card-month-size);\n\n  font-weight: 700;\n\n  line-height: 1;\n}\n\n/*\n   LINE\n */\n\n:host .card-line {\n  width: 80%;\n\n  height: 2px;\n\n  margin: 7px 0;\n\n  background: var(--card-line-color);\n}\n\n/*\n   DAY\n */\n\n:host .card-day {\n  color: var(--card-day-color);\n\n  font-size: var(--card-day-size);\n\n  font-weight: 600;\n\n  line-height: 1;\n}\n\n/*\n   DESCRIPTION\n */\n\n:host .card-description {\n  flex: 1;\n\n  color: var(--card-description-color);\n\n  font-size: var(--card-description-size);\n\n  font-weight: 600;\n\n  line-height: 1.4;\n}\n\n/*\n   DISABLED\n */\n\n:host(.card-disabled) .balina-card {\n  background: var(--card-disabled-background);\n\n  border-color: var(--card-disabled-border);\n\n  color: var(--card-disabled-text);\n\n  cursor: not-allowed;\n\n  box-shadow: none;\n\n  transform: none;\n}\n\n/* Prevent hover when disabled */\n\n:host(.card-disabled) .balina-card:hover {\n  box-shadow: none;\n\n  transform: none;\n}\n\n/*\n   DISABLED CONTENT\n */\n\n:host(.card-disabled) .balina-card .card-title,\n:host(.card-disabled) .balina-card .card-description {\n  color: var(--card-disabled-text);\n}\n\n/*\n   RESPONSIVE\n */\n\n@media (max-width: 768px) {\n  :host .balina-card {\n    --card-title-size: 30px;\n\n    --card-description-size: 17px;\n\n    --card-height: auto;\n\n    padding: 22px;\n  }\n\n  :host .card-content {\n    gap: 18px;\n\n    margin-top: 28px;\n  }\n\n  :host .card-date {\n    width: 80px;\n\n    height: 88px;\n  }\n}\n\n@media (max-width: 480px) {\n  :host .balina-card {\n    --card-title-size: 26px;\n\n    --card-description-size: 15px;\n\n    padding: 18px;\n  }\n\n  :host .card-content {\n    align-items: flex-start;\n\n    gap: 14px;\n  }\n\n  :host .card-date {\n    width: 70px;\n\n    height: 80px;\n  }\n\n  :host .card-month {\n    font-size: 20px;\n  }\n\n  :host .card-day {\n    font-size: 20px;\n  }\n}\n",
+                    "data": "/*\n   BALINA CARD\n*/\n\n:host {\n\n  /* =========================================\n     DESIGN TOKENS\n  ========================================= */\n\n  --card-width: 100%;\n\n  --card-height: auto;\n\n  --card-min-height: 280px;\n\n  --card-padding: 28px;\n\n  --card-background: #ffffff;\n\n  --card-border: 3px solid #dddddd;\n\n  --card-radius: 12px;\n\n\n  /* COLORS */\n\n  --card-title-color: #000000;\n\n  --card-description-color: #222222;\n\n  --card-date-background: #eef5ff;\n\n  --card-month-color: #2962ff;\n\n  --card-day-color: #000000;\n\n  --card-line-color: #b7b7b7;\n\n\n  /* TEXT */\n\n  --card-title-size: 38px;\n\n  --card-description-size: 20px;\n\n  --card-month-size: 24px;\n\n  --card-day-size: 24px;\n\n  --card-font-family:\n    Arial,\n    Helvetica,\n    sans-serif;\n\n  --card-font-weight: 600;\n\n\n  /* SPACING */\n\n  --card-content-gap: 28px;\n\n  --card-title-content-gap: 36px;\n\n\n  /* DATE */\n\n  --card-date-width: 92px;\n\n  --card-date-height: 96px;\n\n\n  /* EFFECTS */\n\n  --card-hover-shadow:\n    0 4px 12px\n    rgba(0, 0, 0, 0.08);\n\n  --card-hover-transform:\n    translateY(-1px);\n\n\n  /* DISABLED */\n\n  --card-disabled-background: #f5f5f5;\n\n  --card-disabled-border: #d0d0d0;\n\n  --card-disabled-text: #999999;\n\n\n  /* =========================================\n     HOST\n  ========================================= */\n\n  display: block;\n\n  width: var(--card-width);\n\n  max-width: 100%;\n\n  box-sizing: border-box;\n}\n\n\n/*\n   =========================================\n   CARD\n   =========================================\n*/\n\n:host .balina-card {\n\n  width: 100%;\n\n  min-width: 0;\n\n  min-height: var(--card-min-height);\n\n  height: var(--card-height);\n\n  box-sizing: border-box;\n\n\n  /* FLEX */\n\n  display: flex;\n\n  flex-direction: column;\n\n\n  /* SPACING */\n\n  padding: var(--card-padding);\n\n\n  /* COLORS */\n\n  background:\n    var(--card-background);\n\n  border:\n    var(--card-border);\n\n  border-radius:\n    var(--card-radius);\n\n\n  /* FONT */\n\n  font-family:\n    var(--card-font-family);\n\n  font-weight:\n    var(--card-font-weight);\n\n\n  /* OVERFLOW */\n\n  overflow: hidden;\n\n\n  /* TRANSITION */\n\n  transition:\n    box-shadow 0.2s ease,\n    transform 0.2s ease,\n    background-color 0.2s ease,\n    border-color 0.2s ease;\n}\n\n\n/*\n   =========================================\n   CLICKABLE\n   =========================================\n*/\n\n:host(.card-clickable) .balina-card {\n\n  cursor: pointer;\n}\n\n\n/*\n   =========================================\n   NOT CLICKABLE\n   =========================================\n*/\n\n:host(:not(.card-clickable)) .balina-card {\n\n  cursor: default;\n}\n\n\n/*\n   =========================================\n   HOVER\n   =========================================\n*/\n\n:host(.card-clickable)\n.balina-card:hover {\n\n  box-shadow:\n    var(--card-hover-shadow);\n\n  transform:\n    var(--card-hover-transform);\n}\n\n\n/*\n   =========================================\n   ACTIVE\n   =========================================\n*/\n\n:host(.card-clickable)\n.balina-card:active {\n\n  transform:\n    translateY(0);\n}\n\n\n/*\n   =========================================\n   TITLE\n   =========================================\n*/\n\n:host .card-title {\n\n  width: 100%;\n\n  min-width: 0;\n\n  flex: 0 0 auto;\n\n  margin: 0;\n\n  padding: 0;\n\n\n  color:\n    var(--card-title-color);\n\n  font-size:\n    var(--card-title-size);\n\n  font-weight: 700;\n\n  line-height: 1.2;\n\n\n  /* Prevent overflow */\n\n  word-break: break-word;\n\n  overflow-wrap: anywhere;\n}\n\n\n/*\n   =========================================\n   CONTENT\n   =========================================\n*/\n\n:host .card-content {\n\n  width: 100%;\n\n  min-width: 0;\n\n  flex: 1 1 auto;\n\n\n  /* FLEX */\n\n  display: flex;\n\n  flex-direction: row;\n\n  align-items: center;\n\n\n  /* SPACING */\n\n  gap:\n    var(--card-content-gap);\n\n  margin-top:\n    var(--card-title-content-gap);\n\n\n  /* IMPORTANT */\n\n  box-sizing: border-box;\n\n  overflow: hidden;\n}\n\n\n/*\n   =========================================\n   DATE\n   =========================================\n*/\n\n:host .card-date {\n\n  width:\n    var(--card-date-width);\n\n  height:\n    var(--card-date-height);\n\n  min-width:\n    var(--card-date-width);\n\n  flex:\n    0 0 var(--card-date-width);\n\n\n  /* FLEX */\n\n  display: flex;\n\n  flex-direction: column;\n\n  align-items: center;\n\n  justify-content: center;\n\n\n  /* BOX */\n\n  box-sizing: border-box;\n\n  padding: 8px;\n\n  background:\n    var(--card-date-background);\n\n  border-radius: 10px;\n\n\n  /* Prevent shrinking */\n\n  overflow: hidden;\n}\n\n\n/*\n   =========================================\n   MONTH\n   =========================================\n*/\n\n:host .card-month {\n\n  max-width: 100%;\n\n  color:\n    var(--card-month-color);\n\n  font-size:\n    var(--card-month-size);\n\n  font-weight: 700;\n\n  line-height: 1;\n\n  white-space: nowrap;\n}\n\n\n/*\n   =========================================\n   LINE\n   =========================================\n*/\n\n:host .card-line {\n\n  width: 80%;\n\n  max-width: 80%;\n\n  height: 2px;\n\n  flex: 0 0 2px;\n\n  margin: 7px 0;\n\n  background:\n    var(--card-line-color);\n}\n\n\n/*\n   =========================================\n   DAY\n   =========================================\n*/\n\n:host .card-day {\n\n  max-width: 100%;\n\n  color:\n    var(--card-day-color);\n\n  font-size:\n    var(--card-day-size);\n\n  font-weight: 600;\n\n  line-height: 1;\n\n  white-space: nowrap;\n}\n\n\n/*\n   =========================================\n   DESCRIPTION\n   =========================================\n*/\n\n:host .card-description {\n\n  flex: 1 1 auto;\n\n  min-width: 0;\n\n  width: auto;\n\n\n  color:\n    var(--card-description-color);\n\n  font-size:\n    var(--card-description-size);\n\n  font-weight: 600;\n\n  line-height: 1.4;\n\n\n  /* TEXT FIT */\n\n  word-break: break-word;\n\n  overflow-wrap: anywhere;\n}\n\n\n/*\n   =========================================\n   DISABLED\n   =========================================\n*/\n\n:host(.card-disabled)\n.balina-card {\n\n  background:\n    var(--card-disabled-background);\n\n  border-color:\n    var(--card-disabled-border);\n\n  color:\n    var(--card-disabled-text);\n\n  cursor: not-allowed;\n\n  box-shadow: none;\n\n  transform: none;\n\n  pointer-events: none;\n}\n\n\n/*\n   =========================================\n   DISABLED HOVER\n   =========================================\n*/\n\n:host(.card-disabled)\n.balina-card:hover {\n\n  box-shadow: none;\n\n  transform: none;\n}\n\n\n/*\n   =========================================\n   DISABLED CONTENT\n   =========================================\n*/\n\n:host(.card-disabled)\n.balina-card .card-title,\n\n:host(.card-disabled)\n.balina-card .card-description {\n\n  color:\n    var(--card-disabled-text);\n}\n\n\n/*\n   =========================================\n   TABLET\n   =========================================\n*/\n\n@media (max-width: 768px) {\n\n  :host {\n\n    --card-min-height: 250px;\n\n    --card-padding: 22px;\n\n    --card-title-size: 30px;\n\n    --card-description-size: 17px;\n\n    --card-content-gap: 18px;\n\n    --card-title-content-gap: 28px;\n\n    --card-date-width: 80px;\n\n    --card-date-height: 88px;\n  }\n}\n\n\n/*\n   =========================================\n   MOBILE\n   =========================================\n*/\n\n@media (max-width: 480px) {\n\n  :host {\n\n    --card-min-height: auto;\n\n    --card-padding: 18px;\n\n    --card-title-size: 26px;\n\n    --card-description-size: 15px;\n\n    --card-content-gap: 14px;\n\n    --card-title-content-gap: 22px;\n\n    --card-date-width: 70px;\n\n    --card-date-height: 80px;\n  }\n\n\n  :host .card-content {\n\n    align-items: flex-start;\n  }\n}\n\n\n/*\n   =========================================\n   VERY SMALL MOBILE\n   =========================================\n*/\n\n@media (max-width: 360px) {\n\n  :host {\n\n    --card-padding: 14px;\n\n    --card-title-size: 22px;\n\n    --card-description-size: 14px;\n\n    --card-content-gap: 10px;\n\n    --card-title-content-gap: 18px;\n\n    --card-date-width: 60px;\n\n    --card-date-height: 72px;\n  }\n\n\n  :host .card-month {\n\n    font-size: 18px;\n  }\n\n\n  :host .card-day {\n\n    font-size: 18px;\n  }\n}",
                     "styleUrl": "./card.css"
                 }
             ],
@@ -1163,6 +1163,235 @@
                 "outgoing": []
             },
             "templateData": "<div class=\"balina-card\"\n  (click)=\"onClick($event)\">\n\n\n  <h2 class=\"card-title\">\n    {{ title }}\n  </h2>\n\n\n  <div class=\"card-content\">\n\n    <div class=\"card-date\">\n\n      <div class=\"card-month\">\n        {{ month }}\n      </div>\n\n      <div class=\"card-line\"></div>\n\n      <div class=\"card-day\">\n        {{ day }}\n      </div>\n\n    </div>\n\n\n    <div class=\"card-description\">\n\n      {{ description }}\n\n    </div>\n\n  </div>\n\n</div>"
+        },
+        {
+            "name": "Checkbox",
+            "id": "component-Checkbox-3033a0a9c0dc9efa70cf5b69ec95284bc39a4a31cf990f150f91b523f46eecc4db5533e94e8e03883615312c755a20cf16338d7a0eb30862717cd6c5a0e24fd2",
+            "file": "projects/balinaui-components/src/lib/checkbox/checkbox.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "brb-checkbox",
+            "styleUrls": [
+                "./checkbox.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./checkbox.html"
+            ],
+            "templateVariables": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "coverageIgnore": false,
+                    "name": "checked",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 16,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "clickable",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 20,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "customClass",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 22,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "disabled",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 18,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "label",
+                    "defaultValue": "' '",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 14,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "changed",
+                    "coverageIgnore": false,
+                    "defaultValue": "new EventEmitter<boolean>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 54,
+                    "type": "EventEmitter"
+                },
+                {
+                    "name": "clicked",
+                    "coverageIgnore": false,
+                    "defaultValue": "new EventEmitter<MouseEvent>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 59,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "onChange",
+                    "coverageIgnore": false,
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 65,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onClick",
+                    "coverageIgnore": false,
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "MouseEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 90,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "MouseEvent",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "coverageIgnore": false,
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [
+                {
+                    "coverageIgnore": false,
+                    "name": "class",
+                    "actualName": "hostClasses",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 28,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import {Component,Input,Output,EventEmitter,HostBinding} from '@angular/core';\n\n@Component({\n  selector: 'brb-checkbox',\n  standalone: true,\n  imports: [],\n  templateUrl: './checkbox.html',\n  styleUrl: './checkbox.css',\n})\nexport class Checkbox {\n\n  // INPUTS\n\n  @Input() label: string = ' ';\n\n  @Input() checked: boolean = false;\n\n  @Input() disabled: boolean = false;\n\n  @Input() clickable: boolean = true;\n\n  @Input() customClass: string = '';\n\n\n  // HOST CLASSES\n\n  @HostBinding('class')\n  get hostClasses(): string {\n\n    return [\n      this.customClass,\n\n      this.clickable\n        ? 'checkbox-clickable'\n        : '',\n\n      this.disabled\n        ? 'checkbox-disabled'\n        : '',\n\n      this.checked\n        ? 'checkbox-checked'\n        : ''\n\n    ]\n      .filter(Boolean)\n      .join(' ');\n  }\n\n\n  // EVENTS\n\n  @Output()\n  changed =\n    new EventEmitter<boolean>();\n\n\n  @Output()\n  clicked =\n    new EventEmitter<MouseEvent>();\n\n\n  // CHANGE\n\n  onChange(\n    event: Event\n  ): void {\n\n    if (\n      this.disabled ||\n      !this.clickable\n    ) {\n      return;\n    }\n\n    const input =\n      event.target as HTMLInputElement;\n\n    this.checked =\n      input.checked;\n\n    this.changed.emit(\n      this.checked\n    );\n  }\n\n\n  // CLICK\n\n  onClick(\n    event: MouseEvent\n  ): void {\n\n    if (\n      this.disabled ||\n      !this.clickable\n    ) {\n      return;\n    }\n\n    this.clicked.emit(event);\n  }\n}",
+            "styleUrl": "./checkbox.css",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "/* BALINA CHECKBOX */\n\n:host {\n\n  /* SIZE */\n\n  --checkbox-size: 30px;\n\n  --checkbox-width: auto;\n\n  --checkbox-max-width: 100%;\n\n\n  /* SPACING */\n\n  --checkbox-gap: 8px;\n\n  --checkbox-padding: 0;\n\n\n  /* COLORS */\n\n  --checkbox-background: #ffffff;\n\n  --checkbox-checked-background: #000000;\n\n  --checkbox-border: #222222;\n\n  --checkbox-checked-border: #000000;\n\n  --checkbox-checkmark-color: #ffffff;\n\n  --checkbox-label-color: #111111;\n\n  --checkbox-disabled-background: #eeeeee;\n\n  --checkbox-disabled-border: #cccccc;\n\n  --checkbox-disabled-text: #999999;\n\n\n  /* BORDER */\n\n  --checkbox-border-width: 2px;\n\n  --checkbox-radius: 6px;\n\n\n  /* TEXT */\n\n  --checkbox-label-size: 18px;\n\n  --checkbox-label-weight: 400;\n\n  --checkbox-checkmark-size: 22px;\n\n\n  /* FONT */\n\n  --checkbox-font-family:\n    Arial,\n    Helvetica,\n    sans-serif;\n\n\n  /* FLEX HOST */\n\n  display: flex;\n\n  flex: 0 1 auto;\n\n  width: var(--checkbox-width);\n\n  max-width: var(--checkbox-max-width);\n\n  min-width: 0;\n\n  box-sizing: border-box;\n\n  font-family:\n    var(--checkbox-font-family);\n}\n\n\n/* MAIN CHECKBOX */\n\n:host .balina-checkbox {\n\n  width: 100%;\n\n  min-width: 0;\n\n  display: flex;\n\n  flex-direction: row;\n\n  align-items: center;\n\n  gap: var(--checkbox-gap);\n\n  padding: var(--checkbox-padding);\n\n  box-sizing: border-box;\n\n  cursor: pointer;\n\n  user-select: none;\n}\n\n\n/* INPUT */\n\n:host .balina-checkbox input {\n\n  position: absolute;\n\n  opacity: 0;\n\n  width: 1px;\n\n  height: 1px;\n\n  pointer-events: none;\n}\n\n\n/* CHECKBOX BOX */\n\n:host .checkbox-box {\n\n  width: var(--checkbox-size);\n\n  height: var(--checkbox-size);\n\n  min-width: var(--checkbox-size);\n\n  min-height: var(--checkbox-size);\n\n  flex: 0 0 var(--checkbox-size);\n\n  display: flex;\n\n  align-items: center;\n\n  justify-content: center;\n\n  box-sizing: border-box;\n\n  background:\n    var(--checkbox-background);\n\n  border:\n    var(--checkbox-border-width)\n    solid\n    var(--checkbox-border);\n\n  border-radius:\n    var(--checkbox-radius);\n\n  color:\n    var(--checkbox-checkmark-color);\n\n  transition:\n    background-color 0.15s ease,\n    border-color 0.15s ease,\n    transform 0.15s ease,\n    box-shadow 0.15s ease;\n}\n\n\n/* CHECKED */\n\n:host(.checkbox-checked)\n.checkbox-box {\n\n  background:\n    var(--checkbox-checked-background);\n\n  border-color:\n    var(--checkbox-checked-border);\n}\n\n\n/* CHECKMARK */\n\n:host .checkbox-checkmark {\n\n  display: flex;\n\n  align-items: center;\n\n  justify-content: center;\n\n  color:\n    var(--checkbox-checkmark-color);\n\n  font-size:\n    var(--checkbox-checkmark-size);\n\n  font-weight: 400;\n\n  line-height: 1;\n}\n\n\n/* LABEL */\n\n:host .checkbox-label {\n\n  flex: 1 1 auto;\n\n  min-width: 0;\n\n  overflow: hidden;\n\n  text-overflow: ellipsis;\n\n  white-space: nowrap;\n\n  color:\n    var(--checkbox-label-color);\n\n  font-family:\n    var(--checkbox-font-family);\n\n  font-size:\n    var(--checkbox-label-size);\n\n  font-weight:\n    var(--checkbox-label-weight);\n\n  line-height: 1.3;\n}\n\n\n/* HOVER */\n\n:host(.checkbox-clickable)\n.balina-checkbox:hover\n.checkbox-box {\n\n  transform: scale(1.03);\n}\n\n\n/* ACTIVE */\n\n:host(.checkbox-clickable)\n.balina-checkbox:active\n.checkbox-box {\n\n  transform: scale(0.97);\n}\n\n\n/* FOCUS */\n\n:host .balina-checkbox\ninput:focus-visible\n+ .checkbox-box {\n\n  outline: 2px solid #2962ff;\n\n  outline-offset: 2px;\n}\n\n\n/* DISABLED */\n\n:host(.checkbox-disabled) {\n\n  opacity: 0.6;\n}\n\n\n:host(.checkbox-disabled)\n.balina-checkbox {\n\n  cursor: not-allowed;\n}\n\n\n:host(.checkbox-disabled)\n.checkbox-box {\n\n  background:\n    var(--checkbox-disabled-background);\n\n  border-color:\n    var(--checkbox-disabled-border);\n}\n\n\n:host(.checkbox-disabled)\n.checkbox-label {\n\n  color:\n    var(--checkbox-disabled-text);\n}\n\n\n/* RESPONSIVE */\n\n@media (max-width: 768px) {\n\n  :host {\n\n    --checkbox-size: 28px;\n\n    --checkbox-label-size: 17px;\n  }\n}\n\n\n@media (max-width: 480px) {\n\n  :host {\n\n    --checkbox-size: 26px;\n\n    --checkbox-label-size: 16px;\n\n    --checkbox-gap: 7px;\n\n    --checkbox-radius: 5px;\n  }\n}\n\n\n@media (max-width: 360px) {\n\n  :host {\n\n    --checkbox-size: 24px;\n\n    --checkbox-label-size: 15px;\n  }\n}",
+                    "styleUrl": "./checkbox.css"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "accessors": {
+                "hostClasses": {
+                    "name": "hostClasses",
+                    "getSignature": {
+                        "name": "hostClasses",
+                        "type": "string",
+                        "returnType": "string",
+                        "line": 28,
+                        "rawdescription": "\n",
+                        "description": ""
+                    }
+                }
+            },
+            "relationships": {
+                "incoming": [],
+                "outgoing": []
+            },
+            "templateData": "<label\n  class=\"balina-checkbox\"\n  [class.checkbox-clickable]=\"clickable\"\n  [class.checkbox-disabled]=\"disabled\"\n  [class.checkbox-checked]=\"checked\"\n  (click)=\"onClick($event)\"\n>\n\n  <input\n    type=\"checkbox\"\n    [checked]=\"checked\"\n    [disabled]=\"disabled || !clickable\"\n    (change)=\"onChange($event)\"\n  />\n\n  <span class=\"checkbox-box\">\n\n    @if (checked) {\n      <span class=\"checkbox-checkmark\">\n        ✓\n      </span>\n    }\n\n  </span>\n\n  <span class=\"checkbox-label\">\n    {{ label }}\n  </span>\n\n</label>"
         },
         {
             "name": "DateInput",
@@ -2538,7 +2767,7 @@
         },
         {
             "name": "GraphCard",
-            "id": "component-GraphCard-4820ae513c79967de5a6ddb76b1b236aec4781e99e0e2426d98ff4c773180220be839814bbe8af4d4cf4ed88bfe216d81a4c9e9a3f050bff31e9964ef47a8cc2",
+            "id": "component-GraphCard-9ab706eee08318121798ad03e0b35f54044627115533c58fad3bbc92bb4f3538a53f22786053ec768a462d3b822533af008b5360d58173f580b15db872075ec0",
             "file": "projects/balinaui-components/src/lib/graph-card/graph-card.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -2566,7 +2795,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 18,
+                    "line": 16,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -2578,7 +2807,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 16,
+                    "line": 14,
                     "type": "string",
                     "decorators": []
                 },
@@ -2590,7 +2819,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 20,
+                    "line": 18,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -2602,7 +2831,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 14,
+                    "line": 12,
                     "type": "string",
                     "decorators": []
                 }
@@ -2614,7 +2843,7 @@
                     "defaultValue": "new EventEmitter<MouseEvent>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 43,
+                    "line": 42,
                     "type": "EventEmitter"
                 }
             ],
@@ -2636,7 +2865,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 48,
+                    "line": 46,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
@@ -2668,7 +2897,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 24,
+                    "line": 22,
                     "type": "string",
                     "decorators": []
                 }
@@ -2679,12 +2908,12 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {Component,Input,Output,EventEmitter,HostBinding} from '@angular/core';\n\n@Component({\n  selector: 'brb-graph-card',\n  standalone: true,\n  imports: [],\n  templateUrl: './graph-card.html',\n  styleUrl: './graph-card.css',\n})\nexport class GraphCard {\n\n  // INPUTS\n\n  @Input() title: string = '';\n\n  @Input() customClass: string = '';\n\n  @Input() clickable: boolean = false;\n\n  @Input() disabled: boolean = false;\n\n  // HOST CLASSES\n  @HostBinding('class')\n  get hostClasses(): string {\n\n    return [\n      this.customClass,\n\n      this.clickable\n        ? 'graph-card-clickable'\n        : '',\n\n      this.disabled\n        ? 'graph-card-disabled'\n        : ''\n\n    ]\n      .filter(Boolean)\n      .join(' ');\n  }\n\n  // OUTPUT\n  @Output() clicked =\n    new EventEmitter<MouseEvent>();\n\n  // CLICK\n\n  onClick(event: MouseEvent): void {\n\n    if (\n      !this.clickable ||\n      this.disabled\n    ) {\n      return;\n    }\n\n    this.clicked.emit(event);\n  }\n}",
+            "sourceCode": "import {Component,Input,Output,EventEmitter,HostBinding} from '@angular/core';\n\n@Component({\n  selector: 'brb-graph-card',\n  standalone: true,\n  imports: [],\n  templateUrl: './graph-card.html',\n  styleUrl: './graph-card.css',\n})\nexport class GraphCard {\n\n  @Input() title: string = '';\n\n  @Input() customClass: string = '';\n\n  @Input() clickable: boolean = false;\n\n  @Input() disabled: boolean = false;\n\n\n  @HostBinding('class')\n  get hostClasses(): string {\n\n    return [\n      this.customClass,\n\n      this.clickable\n        ? 'graph-card-clickable'\n        : '',\n\n      this.disabled\n        ? 'graph-card-disabled'\n        : ''\n\n    ]\n      .filter(Boolean)\n      .join(' ');\n  }\n\n\n  @Output()\n  clicked =\n    new EventEmitter<MouseEvent>();\n\n\n  onClick(event: MouseEvent): void {\n\n    if (\n      !this.clickable ||\n      this.disabled\n    ) {\n      return;\n    }\n\n    this.clicked.emit(event);\n  }\n}",
             "styleUrl": "./graph-card.css",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "/*CARD HOST*/\n\n:host {\n\n  /* SIZE*/\n\n  --graph-card-width: 100%;\n\n  --graph-card-min-height: 300px;\n\n  --graph-card-max-width: none;\n\n\n  /* SPACING*/\n\n  --graph-card-padding: 30px;\n\n  --graph-card-content-gap: 20px;\n\n  --graph-card-title-content-gap: 25px;\n\n\n  /*COLORS*/\n\n  --graph-card-background: #ffffff;\n\n  --graph-card-border: 2px solid #d9d9d9;\n\n  --graph-card-title-color: #111111;\n\n  --graph-card-content-color: #333333;\n\n\n  /* BORDER*/\n\n  --graph-card-radius: 12px;\n\n\n  /*TITLE*/\n\n  --graph-card-title-size: 32px;\n\n  --graph-card-title-weight: 700;\n\n  --graph-card-title-line-height: 1.2;\n\n\n  /*FONT*/\n\n  --graph-card-font-family:\n    Arial,\n    Helvetica,\n    sans-serif;\n\n\n  /*HOST*/\n\n  display: block;\n\n  width: var(--graph-card-width);\n\n  max-width: var(--graph-card-max-width);\n\n  box-sizing: border-box;\n}\n\n\n/*MAIN CARD*/\n\n.balina-graph-card {\n\n  width: 100%;\n\n  min-height:\n    var(--graph-card-min-height);\n\n  height: auto;\n\n  box-sizing: border-box;\n\n  display: flex;\n\n  flex-direction: column;\n\n  padding:\n    var(--graph-card-padding);\n\n  background:\n    var(--graph-card-background);\n\n  border:\n    var(--graph-card-border);\n\n  border-radius:\n    var(--graph-card-radius);\n\n  color:\n    var(--graph-card-content-color);\n\n  font-family:\n    var(--graph-card-font-family);\n\n  overflow: hidden;\n\n  transition:\n    transform 0.2s ease,\n    box-shadow 0.2s ease,\n    opacity 0.2s ease;\n}\n\n\n/*TITLE*/\n\n.graph-card-title {\n\n  flex: 0 0 auto;\n\n  margin: 0;\n\n  padding: 0;\n\n  color:\n    var(--graph-card-title-color);\n\n  font-size:\n    var(--graph-card-title-size);\n\n  font-weight:\n    var(--graph-card-title-weight);\n\n  line-height:\n    var(--graph-card-title-line-height);\n\n  word-break: break-word;\n}\n\n\n/*CONTENT*/\n\n.graph-card-content {\n\n  width: 100%;\n\n  min-width: 0;\n\n  display: flex;\n\n  flex-direction: column;\n\n  gap:\n    var(--graph-card-content-gap);\n\n  margin-top:\n    var(--graph-card-title-content-gap);\n\n  box-sizing: border-box;\n}\n\n\n/*DEVELOPER CONTENT*/\n\n.graph-card-content > * {\n\n  max-width: 100%;\n\n  box-sizing: border-box;\n}\n\n\n/*IMAGES*/\n\n.graph-card-content img {\n\n  display: block;\n\n  max-width: 100%;\n\n  width: auto;\n\n  height: auto;\n\n  object-fit: contain;\n\n  border-radius: 8px;\n}\n\n\n/*GRAPHS / CANVAS*/\n\n.graph-card-content canvas {\n\n  display: block;\n\n  max-width: 100%;\n\n  height: auto;\n}\n\n\n/* SVG*/\n\n.graph-card-content svg {\n\n  display: block;\n\n  max-width: 100%;\n\n  height: auto;\n}\n\n\n/*TEXT*/\n\n.graph-card-content p {\n\n  margin: 0;\n\n  color:\n    var(--graph-card-content-color);\n\n  line-height: 1.5;\n\n  word-break: break-word;\n\n  overflow-wrap: anywhere;\n}\n\n\n/* BUTTONS*/\n\n.graph-card-content button {\n\n  box-sizing: border-box;\n\n  cursor: pointer;\n}\n\n\n/*CLICKABLE*/\n\n:host(.graph-card-clickable) {\n\n  cursor: pointer;\n}\n\n\n:host(.graph-card-clickable) .balina-graph-card:hover {\n\n  transform: translateY(-2px);\n\n  box-shadow:\n    0 6px 18px\n    rgba(0, 0, 0, 0.12);\n}\n\n\n:host(.graph-card-clickable) .balina-graph-card:active {\n\n  transform: translateY(0);\n\n  box-shadow:\n    0 2px 6px\n    rgba(0, 0, 0, 0.10);\n}\n\n\n/*DISABLED*/\n\n:host(.graph-card-disabled) {\n\n  opacity: 0.55;\n\n  pointer-events: none;\n\n  cursor: not-allowed;\n}\n\n\n:host(.graph-card-disabled) .balina-graph-card {\n\n  transform: none;\n\n  box-shadow: none;\n}\n\n\n/*RESPONSIVE - TABLET*/\n\n@media (max-width: 768px) {\n\n  :host {\n\n    --graph-card-min-height: 250px;\n\n    --graph-card-padding: 24px;\n\n    --graph-card-title-size: 28px;\n\n    --graph-card-content-gap: 16px;\n\n    --graph-card-title-content-gap: 20px;\n  }\n}\n\n\n/*RESPONSIVE - MOBILE*/\n\n@media (max-width: 480px) {\n\n  :host {\n\n    --graph-card-min-height: 220px;\n\n    --graph-card-padding: 18px;\n\n    --graph-card-title-size: 24px;\n\n    --graph-card-content-gap: 14px;\n\n    --graph-card-title-content-gap: 18px;\n\n    --graph-card-radius: 10px;\n  }\n}\n\n\n/*SMALL MOBILE*/\n\n@media (max-width: 360px) {\n\n  :host {\n\n    --graph-card-padding: 14px;\n\n    --graph-card-title-size: 21px;\n\n    --graph-card-content-gap: 12px;\n  }\n}",
+                    "data": "/* BALINA GRAPH CARD */\n\n/* HOST */\n\n:host {\n\n  /* SIZE */\n\n  --graph-card-width: 100%;\n\n  --graph-card-min-height: 300px;\n\n  --graph-card-max-width: none;\n\n\n  /* SPACING */\n\n  --graph-card-padding: 30px;\n\n  --graph-card-content-gap: 20px;\n\n  --graph-card-title-content-gap: 25px;\n\n\n  /* COLORS */\n\n  --graph-card-background: #ffffff;\n\n  --graph-card-border: 2px solid #d9d9d9;\n\n  --graph-card-title-color: #111111;\n\n  --graph-card-content-color: #333333;\n\n\n  /* BORDER */\n\n  --graph-card-radius: 12px;\n\n\n  /* TITLE */\n\n  --graph-card-title-size: 32px;\n\n  --graph-card-title-weight: 700;\n\n  --graph-card-title-line-height: 1.2;\n\n\n  /* FONT */\n\n  --graph-card-font-family:\n    Arial,\n    Helvetica,\n    sans-serif;\n\n\n  /* HOST */\n\n  display: flex;\n\n  flex-direction: column;\n\n  flex: 0 1 auto;\n\n  width: var(--graph-card-width);\n\n  max-width: var(--graph-card-max-width);\n\n  min-width: 0;\n\n  box-sizing: border-box;\n\n  font-family: var(--graph-card-font-family);\n}\n\n\n/* MAIN CARD */\n\n.balina-graph-card {\n\n  width: 100%;\n\n  min-width: 0;\n\n  min-height:\n    var(--graph-card-min-height);\n\n  height: auto;\n\n  box-sizing: border-box;\n\n  display: flex;\n\n  flex-direction: column;\n\n  flex: 1 1 auto;\n\n  padding:\n    var(--graph-card-padding);\n\n  background:\n    var(--graph-card-background);\n\n  border:\n    var(--graph-card-border);\n\n  border-radius:\n    var(--graph-card-radius);\n\n  color:\n    var(--graph-card-content-color);\n\n  font-family:\n    var(--graph-card-font-family);\n\n  overflow: hidden;\n\n  transition:\n    transform 0.2s ease,\n    box-shadow 0.2s ease,\n    opacity 0.2s ease,\n    background-color 0.2s ease,\n    border-color 0.2s ease;\n}\n\n\n/* TITLE */\n\n.graph-card-title {\n\n  width: 100%;\n\n  min-width: 0;\n\n  flex: 0 0 auto;\n\n  margin: 0;\n\n  padding: 0;\n\n  box-sizing: border-box;\n\n  color:\n    var(--graph-card-title-color);\n\n  font-family:\n    var(--graph-card-font-family);\n\n  font-size:\n    var(--graph-card-title-size);\n\n  font-weight:\n    var(--graph-card-title-weight);\n\n  line-height:\n    var(--graph-card-title-line-height);\n\n  word-break: break-word;\n\n  overflow-wrap: anywhere;\n}\n\n\n/* CONTENT */\n\n.graph-card-content {\n\n  width: 100%;\n\n  min-width: 0;\n\n  flex: 1 1 auto;\n\n  display: flex;\n\n  flex-direction: column;\n\n  align-items: stretch;\n\n  gap:\n    var(--graph-card-content-gap);\n\n  margin-top:\n    var(--graph-card-title-content-gap);\n\n  box-sizing: border-box;\n}\n\n\n/* DEVELOPER CONTENT */\n\n.graph-card-content > * {\n\n  max-width: 100%;\n\n  min-width: 0;\n\n  box-sizing: border-box;\n}\n\n\n/* IMAGE */\n\n.graph-card-content img {\n\n  display: block;\n\n  max-width: 100%;\n\n  width: auto;\n\n  height: auto;\n\n  object-fit: contain;\n\n  box-sizing: border-box;\n\n  border-radius: 8px;\n}\n\n\n/* IMAGE THAT SHOULD FIT CARD WIDTH */\n\n.graph-card-content img.full-width {\n\n  width: 100%;\n\n  max-width: 100%;\n\n  height: auto;\n}\n\n\n/* CANVAS / GRAPH */\n\n.graph-card-content canvas {\n\n  display: block;\n\n  width: 100%;\n\n  max-width: 100%;\n\n  height: auto;\n\n  box-sizing: border-box;\n}\n\n\n/* SVG */\n\n.graph-card-content svg {\n\n  display: block;\n\n  width: 100%;\n\n  max-width: 100%;\n\n  height: auto;\n\n  box-sizing: border-box;\n}\n\n\n/* IF DEVELOPER USES A GRAPH CONTAINER */\n\n.graph-card-content .graph-container {\n\n  width: 100%;\n\n  min-width: 0;\n\n  display: flex;\n\n  flex-direction: column;\n\n  box-sizing: border-box;\n}\n\n\n/* TEXT */\n\n.graph-card-content p {\n\n  width: 100%;\n\n  min-width: 0;\n\n  margin: 0;\n\n  padding: 0;\n\n  color:\n    var(--graph-card-content-color);\n\n  font-family:\n    var(--graph-card-font-family);\n\n  line-height: 1.5;\n\n  word-break: break-word;\n\n  overflow-wrap: anywhere;\n}\n\n\n/* HEADINGS INSIDE CONTENT */\n\n.graph-card-content h1,\n.graph-card-content h2,\n.graph-card-content h3,\n.graph-card-content h4,\n.graph-card-content h5,\n.graph-card-content h6 {\n\n  max-width: 100%;\n\n  margin-top: 0;\n\n  word-break: break-word;\n\n  overflow-wrap: anywhere;\n}\n\n\n/* BUTTONS */\n\n.graph-card-content button {\n\n  box-sizing: border-box;\n\n  max-width: 100%;\n\n  cursor: pointer;\n}\n\n\n/* TABLES */\n\n.graph-card-content table {\n\n  width: 100%;\n\n  max-width: 100%;\n\n  border-collapse: collapse;\n\n  box-sizing: border-box;\n}\n\n\n/* FLEX DEVELOPER CONTENT */\n\n.graph-card-content .flex-content {\n\n  width: 100%;\n\n  min-width: 0;\n\n  display: flex;\n\n  flex-wrap: wrap;\n\n  align-items: center;\n\n  gap: var(--graph-card-content-gap);\n\n  box-sizing: border-box;\n}\n\n\n/* CLICKABLE */\n\n:host(.graph-card-clickable) {\n\n  cursor: pointer;\n}\n\n\n:host(.graph-card-clickable)\n.balina-graph-card:hover {\n\n  transform:\n    translateY(-2px);\n\n  box-shadow:\n    0 6px 18px\n    rgba(0, 0, 0, 0.12);\n}\n\n\n:host(.graph-card-clickable)\n.balina-graph-card:active {\n\n  transform:\n    translateY(0);\n\n  box-shadow:\n    0 2px 6px\n    rgba(0, 0, 0, 0.10);\n}\n\n\n/* NOT CLICKABLE */\n\n:host(:not(.graph-card-clickable)) {\n\n  cursor: default;\n}\n\n\n/* DISABLED */\n\n:host(.graph-card-disabled) {\n\n  opacity: 0.55;\n\n  cursor: not-allowed;\n\n  pointer-events: none;\n}\n\n\n:host(.graph-card-disabled)\n.balina-graph-card {\n\n  transform: none;\n\n  box-shadow: none;\n}\n\n\n/* CUSTOM CLASS SUPPORT: customClass is applied to the HOST through @HostBinding. */\n\n\n/* RESPONSIVE - TABLET */\n\n@media (max-width: 768px) {\n\n  :host {\n\n    --graph-card-min-height: 250px;\n\n    --graph-card-padding: 24px;\n\n    --graph-card-title-size: 28px;\n\n    --graph-card-content-gap: 16px;\n\n    --graph-card-title-content-gap: 20px;\n  }\n}\n\n\n/* RESPONSIVE - MOBILE */\n\n@media (max-width: 480px) {\n\n  :host {\n\n    --graph-card-min-height: 220px;\n\n    --graph-card-padding: 18px;\n\n    --graph-card-title-size: 24px;\n\n    --graph-card-content-gap: 14px;\n\n    --graph-card-title-content-gap: 18px;\n\n    --graph-card-radius: 10px;\n  }\n\n\n  .graph-card-content img {\n\n    width: 100%;\n\n    height: auto;\n  }\n\n\n  .graph-card-content canvas {\n\n    width: 100%;\n\n    height: auto;\n  }\n\n\n  .graph-card-content .flex-content {\n\n    flex-direction: column;\n\n    align-items: stretch;\n  }\n}\n\n\n/* SMALL MOBILE */\n\n@media (max-width: 360px) {\n\n  :host {\n\n    --graph-card-padding: 14px;\n\n    --graph-card-title-size: 21px;\n\n    --graph-card-content-gap: 12px;\n\n    --graph-card-title-content-gap: 16px;\n  }\n}",
                     "styleUrl": "./graph-card.css"
                 }
             ],
@@ -2697,7 +2926,7 @@
                         "name": "hostClasses",
                         "type": "string",
                         "returnType": "string",
-                        "line": 24,
+                        "line": 22,
                         "rawdescription": "\n",
                         "description": ""
                     }
@@ -2707,7 +2936,7 @@
                 "incoming": [],
                 "outgoing": []
             },
-            "templateData": "<div\n  class=\"balina-graph-card\"\n  [class.graph-card-clickable]=\"clickable\"\n  [class.graph-card-disabled]=\"disabled\"\n  (click)=\"onClick($event)\"\n>\n\n  <!-- TITLE-->\n\n  <h2 class=\"graph-card-title\">\n    {{ title }}\n  </h2>\n\n\n  <!--DEVELOPER CONTENT-->\n\n  <div class=\"graph-card-content\">\n\n    <ng-content></ng-content>\n\n  </div>\n\n</div>"
+            "templateData": "<div\n  class=\"balina-graph-card\"\n\n  (click)=\"onClick($event)\"\n>\n\n  <!-- TITLE -->\n\n  @if (title) {\n\n    <h2 class=\"graph-card-title\">\n      {{ title }}\n    </h2>\n\n  }\n\n\n  <!-- DEVELOPER CONTENT -->\n\n  <div class=\"graph-card-content\">\n\n    <ng-content></ng-content>\n\n  </div>\n\n</div>"
         },
         {
             "name": "HeaderComponent",
@@ -2824,7 +3053,7 @@
         },
         {
             "name": "MultiSelectDropdown",
-            "id": "component-MultiSelectDropdown-15daf5c8fbba91ef4fcb5812c18769a02467a2549ff0e5fc5083c8929f06b425142ed7808df0e39e41717607117ca956203be8362944841e1957e097f50610ad",
+            "id": "component-MultiSelectDropdown-bb89cfbce287dcf47c656974e8663ea52295ca3341fdf780cd6291b0c3d0b70ff7d73b864bb4b482f8fb992c085ed290e4fb4001b1054f82518b937c14b2d501",
             "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -2846,13 +3075,25 @@
             "inputsClass": [
                 {
                     "coverageIgnore": false,
+                    "name": "clickable",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 36,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
                     "name": "customClass",
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 26,
+                    "line": 34,
                     "type": "string",
                     "decorators": []
                 },
@@ -2864,7 +3105,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 28,
+                    "line": 38,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -2876,7 +3117,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 18,
+                    "line": 20,
                     "type": "string",
                     "decorators": []
                 },
@@ -2888,7 +3129,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 20,
+                    "line": 22,
                     "type": "MultiSelectOption[]",
                     "decorators": []
                 },
@@ -2900,7 +3141,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 24,
+                    "line": 26,
                     "type": "string",
                     "decorators": []
                 },
@@ -2912,8 +3153,20 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 22,
+                    "line": 24,
                     "type": "string[]",
+                    "decorators": []
+                },
+                {
+                    "coverageIgnore": false,
+                    "name": "useCheckbox",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "line": 32,
+                    "type": "boolean",
                     "decorators": []
                 }
             ],
@@ -2924,7 +3177,7 @@
                     "defaultValue": "new EventEmitter<MouseEvent>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 60,
+                    "line": 87,
                     "type": "EventEmitter"
                 },
                 {
@@ -2933,7 +3186,7 @@
                     "defaultValue": "new EventEmitter<void>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 56,
+                    "line": 83,
                     "type": "EventEmitter"
                 },
                 {
@@ -2942,7 +3195,7 @@
                     "defaultValue": "new EventEmitter<void>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 52,
+                    "line": 79,
                     "type": "EventEmitter"
                 },
                 {
@@ -2951,7 +3204,7 @@
                     "defaultValue": "new EventEmitter<string[]>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 48,
+                    "line": 75,
                     "type": "EventEmitter"
                 }
             ],
@@ -2966,7 +3219,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 31,
+                    "line": 43,
                     "rawdescription": "\n"
                 }
             ],
@@ -2978,7 +3231,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 159,
+                    "line": 225,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
@@ -3000,7 +3253,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 126,
+                    "line": 178,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
@@ -3035,7 +3288,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 139,
+                    "line": 201,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
@@ -3087,7 +3340,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 87,
+                    "line": 129,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
@@ -3133,7 +3386,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 66,
+                    "line": 100,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n",
@@ -3165,7 +3418,7 @@
                     "deprecationMessage": "",
                     "rawdescription": "\n",
                     "description": "",
-                    "line": 35,
+                    "line": 49,
                     "type": "string",
                     "decorators": []
                 }
@@ -3189,7 +3442,7 @@
                     ],
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 139
+                    "line": 201
                 }
             ],
             "standalone": true,
@@ -3197,12 +3450,12 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {Component,Input,Output,EventEmitter,HostBinding,HostListener,ElementRef} from '@angular/core';\n\nexport interface MultiSelectOption {\n  label: string;\n  value: string;\n  disabled?: boolean;\n}\n\n@Component({\n  selector: 'brb-multi-select-dropdown',\n  standalone: true,\n  imports: [],\n  templateUrl: './multi-select-dropdown.html',\n  styleUrl: './multi-select-dropdown.css',\n})\nexport class MultiSelectDropdown {\n\n  @Input() label: string = 'Add Parameters';\n\n  @Input() options: MultiSelectOption[] = [];\n\n  @Input() selectedValues: string[] = [];\n\n  @Input() placeholder: string = 'Select options';\n\n  @Input() customClass: string = '';\n\n  @Input() disabled: boolean = false;\n\n\n  isOpen: boolean = false;\n\n\n  @HostBinding('class')\n  get hostClasses(): string {\n\n    return [\n      this.customClass,\n      this.disabled ? 'dropdown-disabled' : '',\n      this.isOpen ? 'dropdown-open' : ''\n    ]\n      .filter(Boolean)\n      .join(' ');\n  }\n\n\n  @Output()\n  selectionChange =\n    new EventEmitter<string[]>();\n\n  @Output()\n  opened =\n    new EventEmitter<void>();\n\n  @Output()\n  closed =\n    new EventEmitter<void>();\n\n  @Output()\n  clicked =\n    new EventEmitter<MouseEvent>();\n\n\n  constructor(\n    private elementRef: ElementRef\n  ) {}toggle(event: MouseEvent): void {\n\n    if (this.disabled) {\n      return;\n    }\n\n    event.stopPropagation();\n\n    this.clicked.emit(event);\n\n    this.isOpen = !this.isOpen;\n\n    if (this.isOpen) {\n\n      this.opened.emit();\n\n    } else {\n\n      this.closed.emit();\n\n    }\n  }onOptionClick(\n    option: MultiSelectOption,\n    event: MouseEvent\n  ): void {\n\n    if (\n      this.disabled ||\n      option.disabled\n    ) {\n      return;\n    }\n\n    event.stopPropagation();\n\n\n    const values =\n      [...this.selectedValues];\n\n    const index =\n      values.indexOf(option.value);\n\n\n    if (index === -1) {\n\n      values.push(option.value);\n\n    } else {\n\n      values.splice(index, 1);\n    }\n\n\n    this.selectedValues =\n      values;\n\n\n    this.selectionChange.emit(\n      [...values]\n    );\n  }isSelected(\n    option: MultiSelectOption\n  ): boolean {\n\n    return this.selectedValues.includes(\n      option.value\n    );\n  }get displayText(): string {\n  return this.label;\n}@HostListener(\n    'document:click',\n    ['$event']\n  )\n  onDocumentClick(\n    event: MouseEvent\n  ): void {\n\n    if (!this.isOpen) {\n      return;\n    }\n\n\n    const target =\n      event.target as Node;\n\n\n    if (\n      !this.elementRef.nativeElement\n        .contains(target)\n    ) {\n\n      this.close();\n    }\n  }close(): void {\n\n    if (!this.isOpen) {\n      return;\n    }\n\n    this.isOpen = false;\n\n    this.closed.emit();\n  }\n}",
+            "sourceCode": "import {Component,Input,Output,EventEmitter,HostBinding,HostListener,ElementRef} from '@angular/core';\n\nexport interface MultiSelectOption {\n  label: string;\n  value: string;\n  disabled?: boolean;\n}\n\n@Component({\n  selector: 'brb-multi-select-dropdown',\n  standalone: true,\n  imports: [],\n  templateUrl: './multi-select-dropdown.html',\n  styleUrl: './multi-select-dropdown.css',\n})\nexport class MultiSelectDropdown {\n\n  // INPUTS\n\n  @Input() label: string = 'Add Parameters';\n\n  @Input() options: MultiSelectOption[] = [];\n\n  @Input() selectedValues: string[] = [];\n\n  @Input() placeholder: string = 'Select options';\n\n  /*\n   * TRUE  = show checkbox\n   * FALSE = hide checkbox\n   */\n  @Input() useCheckbox: boolean = true;\n\n  @Input() customClass: string = '';\n\n  @Input() clickable: boolean = true;\n\n  @Input() disabled: boolean = false;\n\n\n  // STATE\n\n  isOpen: boolean = false;\n\n\n  // HOST CLASSES\n\n  @HostBinding('class')\n  get hostClasses(): string {\n\n    return [\n      this.customClass,\n\n      this.clickable\n        ? 'dropdown-clickable'\n        : '',\n\n      this.disabled\n        ? 'dropdown-disabled'\n        : '',\n\n      this.isOpen\n        ? 'dropdown-open'\n        : ''\n\n    ]\n      .filter(Boolean)\n      .join(' ');\n  }\n\n\n  // EVENTS\n\n  @Output()\n  selectionChange =\n    new EventEmitter<string[]>();\n\n  @Output()\n  opened =\n    new EventEmitter<void>();\n\n  @Output()\n  closed =\n    new EventEmitter<void>();\n\n  @Output()\n  clicked =\n    new EventEmitter<MouseEvent>();\n\n\n  // CONSTRUCTOR\n\n  constructor(\n    private elementRef: ElementRef\n  ) {}\n\n\n  // TOGGLE\n\n  toggle(event: MouseEvent): void {\n\n    if (\n      this.disabled ||\n      !this.clickable\n    ) {\n      return;\n    }\n\n    event.stopPropagation();\n\n    this.clicked.emit(event);\n\n    this.isOpen = !this.isOpen;\n\n    if (this.isOpen) {\n\n      this.opened.emit();\n\n    } else {\n\n      this.closed.emit();\n\n    }\n  }\n\n\n  // OPTION CLICK\n\n  onOptionClick(\n    option: MultiSelectOption,\n    event: MouseEvent\n  ): void {\n\n    if (\n      this.disabled ||\n      option.disabled ||\n      !this.clickable\n    ) {\n      return;\n    }\n\n    event.stopPropagation();\n\n    const values =\n      [...this.selectedValues];\n\n    const index =\n      values.indexOf(option.value);\n\n\n    // ADD\n    if (index === -1) {\n\n      values.push(option.value);\n\n    }\n\n    // REMOVE\n    else {\n\n      values.splice(index, 1);\n\n    }\n\n\n    this.selectedValues =\n      values;\n\n\n    this.selectionChange.emit(\n      [...values]\n    );\n  }\n\n\n  // CHECK SELECTED\n\n  isSelected(\n    option: MultiSelectOption\n  ): boolean {\n\n    return this.selectedValues\n      .includes(option.value);\n  }\n\n\n  // DISPLAY TEXT\n\n  get displayText(): string {\n\n    return this.label;\n  }\n\n\n  // OUTSIDE CLICK\n\n  @HostListener(\n    'document:click',\n    ['$event']\n  )\n  onDocumentClick(\n    event: MouseEvent\n  ): void {\n\n    if (!this.isOpen) {\n      return;\n    }\n\n    const target =\n      event.target as Node;\n\n    if (\n      !this.elementRef\n        .nativeElement\n        .contains(target)\n    ) {\n\n      this.close();\n    }\n  }\n\n\n  // CLOSE\n\n  close(): void {\n\n    if (!this.isOpen) {\n      return;\n    }\n\n    this.isOpen = false;\n\n    this.closed.emit();\n  }\n}",
             "styleUrl": "./multi-select-dropdown.css",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "\n:host {\n  /* Size */\n  --dropdown-width: 300px;\n  --dropdown-max-width: 100%;\n  --dropdown-max-height: 190px;\n\n  /* Colors */\n  --dropdown-background: #ffffff;\n  --dropdown-text: #344054;\n  --dropdown-option-text: #344054;\n\n  --dropdown-border: #b8c1d1;\n  --dropdown-focus-border: #2962ff;\n\n  --dropdown-hover: #f5f7fb;\n  --dropdown-selected: #e9efff;\n\n  --dropdown-arrow: #344054;\n\n  --dropdown-scrollbar: #7050c8;\n\n  /* Header */\n  --dropdown-header-height: 42px;\n  --dropdown-header-padding: 0 12px;\n\n  /* Border */\n  --dropdown-border-width: 1.5px;\n  --dropdown-radius: 10px;\n\n  /* Text */\n  --dropdown-label-size: 14px;\n  --dropdown-label-weight: 400;\n\n  --dropdown-option-size: 14px;\n  --dropdown-option-weight: 400;\n\n  /* Options */\n  --dropdown-option-height: 38px;\n  --dropdown-option-padding: 0 13px;\n\n  /* Arrow */\n  --dropdown-arrow-size: 15px;\n\n  /* Font */\n  --dropdown-font-family:\n    Arial,\n    Helvetica,\n    sans-serif;\n\n  display: block;\n\n  width: var(--dropdown-width);\n\n  max-width: var(--dropdown-max-width);\n\n  box-sizing: border-box;\n\n  position: relative;\n\n  font-family: var(--dropdown-font-family);\n}\n:host .multi-dropdown {\n  width: 100%;\n\n  display: flex;\n\n  flex-direction: column;\n\n  position: relative;\n\n  box-sizing: border-box;\n}\n:host .dropdown-header {\n  width: 100%;\n\n  height: var(--dropdown-header-height);\n\n  min-height: var(--dropdown-header-height);\n\n  display: flex;\n\n  align-items: center;\n\n  justify-content: space-between;\n\n  gap: 10px;\n\n  padding: var(--dropdown-header-padding);\n\n  box-sizing: border-box;\n\n  background: var(--dropdown-background);\n\n  border:\n    var(--dropdown-border-width)\n    solid\n    var(--dropdown-border);\n\n  border-radius: var(--dropdown-radius);\n\n  color: var(--dropdown-text);\n\n  font-family: inherit;\n\n  font-size: var(--dropdown-label-size);\n\n  font-weight: var(--dropdown-label-weight);\n\n  text-align: left;\n\n  cursor: pointer;\n\n  outline: none;\n\n  position: relative;\n\n  z-index: 2;\n\n  transition:\n    border-color 0.15s ease,\n    box-shadow 0.15s ease;\n}\n:host .dropdown-header:hover {\n  border-color: #8e99aa;\n}\n:host .dropdown-header:focus,\n:host .dropdown-header:focus-visible {\n  border-color: var(--dropdown-focus-border);\n\n  box-shadow:\n    0 0 0 2px\n    rgba(41, 98, 255, 0.18);\n}\n:host(.dropdown-open) .dropdown-header {\n\n  /*\n   * Keep the top corners rounded,\n   * remove the bottom corners.\n   */\n\n  border-radius: var(--dropdown-radius);\n\n  border-color: var(--dropdown-focus-border);\n\n  box-shadow:\n    0 0 0 1px\n    rgba(41, 98, 255, 0.08);\n\n  /*\n   * Hide bottom border so the\n   * dropdown connects directly.\n   */\n\n  border-bottom-color: #ffffff;\n}\n:host .dropdown-label {\n  flex: 1 1 auto;\n\n  min-width: 0;\n\n  display: block;\n\n  overflow: hidden;\n\n  white-space: nowrap;\n\n  text-overflow: ellipsis;\n\n  color: var(--dropdown-text);\n\n  font-size: var(--dropdown-label-size);\n\n  font-weight: var(--dropdown-label-weight);\n\n  line-height: 1.2;\n}\n:host .dropdown-arrow {\n  width: 8px;\n\n  height: 8px;\n\n  min-width: 8px;\n\n  flex: 0 0 8px;\n\n  display: flex;\n\n  color: var(--dropdown-arrow);\n\n  border-right: 1.5px solid currentColor;\n\n  border-bottom: 1.5px solid currentColor;\n\n  transform: translateY(-2px) rotate(45deg);\n\n  transition:\n    transform 0.15s ease;\n}\n:host .dropdown-arrow.arrow-open {\n  transform: translateY(2px) rotate(225deg);\n}\n:host .dropdown-options {\n  width: 100%;\n\n  max-height: var(--dropdown-max-height);\n\n  display: flex;\n\n  flex-direction: column;\n\n  box-sizing: border-box;\n\n  overflow-x: hidden;\n\n  overflow-y: auto;\n\n  margin-top: 7px;\n\n  padding: 4px 4px 5px 4px;\n\n  background: var(--dropdown-background);\n\n  border:\n    var(--dropdown-border-width)\n    solid\n    var(--dropdown-border);\n\n  border-radius: var(--dropdown-radius);\n\n  position: relative;\n\n  z-index: 1;\n\n  /*\n   * Small shadow like the reference.\n   */\n\n  box-shadow:\n    0 3px 8px\n    rgba(16, 24, 40, 0.08);\n}\n:host .dropdown-option {\n  width: 100%;\n\n  height: var(--dropdown-option-height);\n\n  min-height: var(--dropdown-option-height);\n\n  flex: 0 0 auto;\n\n  display: flex;\n\n  align-items: center;\n\n  padding: var(--dropdown-option-padding);\n\n  box-sizing: border-box;\n\n  border: none;\n\n  border-radius: 6px;\n\n  background: transparent;\n\n  color: var(--dropdown-option-text);\n\n  font-family: inherit;\n\n  font-size: var(--dropdown-option-size);\n\n  font-weight: var(--dropdown-option-weight);\n\n  text-align: left;\n\n  cursor: pointer;\n\n  outline: none;\n\n  transition:\n    background 0.12s ease,\n    color 0.12s ease;\n}\n:host .dropdown-option:hover {\n  background: var(--dropdown-hover);\n}\n:host .dropdown-option.option-selected {\n  background: var(--dropdown-selected);\n\n  color: #2457d6;\n}\n:host .dropdown-option.option-selected:hover {\n  background: #e2e9ff;\n}\n\n:host .checkbox {\n  width: 16px;\n\n  height: 16px;\n\n  flex: 0 0 16px;\n\n  display: inline-flex;\n\n  align-items: center;\n\n  justify-content: center;\n\n  margin-right: 10px;\n\n  box-sizing: border-box;\n\n  border: 1.5px solid var(--dropdown-border);\n\n  border-radius: 4px;\n\n  background: var(--dropdown-background);\n}\n\n:host .checkbox.checkbox-selected {\n  border-color: var(--dropdown-focus-border);\n\n  background: var(--dropdown-focus-border);\n}\n\n:host .checkmark {\n  color: #ffffff;\n\n  font-size: 12px;\n\n  font-weight: 700;\n\n  line-height: 1;\n}\n\n:host .option-label {\n  flex: 1 1 auto;\n\n  min-width: 0;\n\n  overflow: hidden;\n\n  white-space: nowrap;\n\n  text-overflow: ellipsis;\n}\n:host .dropdown-option.option-disabled {\n  opacity: 0.45;\n\n  cursor: not-allowed;\n}\n\n:host .dropdown-option.option-disabled:hover {\n  background: transparent;\n}\n/*\n * Chrome / Edge / Safari\n */\n\n:host .dropdown-options::-webkit-scrollbar {\n  width: 5px;\n}\n\n:host .dropdown-options::-webkit-scrollbar-track {\n  background: transparent;\n\n  margin: 5px 0;\n}\n\n:host .dropdown-options::-webkit-scrollbar-thumb {\n  background: var(--dropdown-scrollbar);\n\n  border-radius: 10px;\n\n  min-height: 35px;\n}\n\n:host .dropdown-options::-webkit-scrollbar-thumb:hover {\n  background: #5c3bb0;\n}\n:host .dropdown-options {\n  scrollbar-width: thin;\n\n  scrollbar-color:\n    var(--dropdown-scrollbar)\n    transparent;\n}\n:host(.dropdown-disabled) {\n  opacity: 0.55;\n\n  pointer-events: none;\n}\n@media (max-width: 768px) {\n\n  :host {\n    --dropdown-width: 280px;\n\n    --dropdown-header-height: 42px;\n\n    --dropdown-option-height: 38px;\n  }\n}\n@media (max-width: 480px) {\n\n  :host {\n    --dropdown-width: 100%;\n\n    --dropdown-header-height: 42px;\n\n    --dropdown-header-padding: 0 11px;\n\n    --dropdown-label-size: 14px;\n\n    --dropdown-option-size: 14px;\n\n    --dropdown-option-height: 38px;\n\n    --dropdown-option-padding: 0 11px;\n\n    --dropdown-max-height: 180px;\n\n    --dropdown-radius: 9px;\n  }\n}",
+                    "data": "/* BALINA MULTI SELECT DROPDOWN */\n\n:host {\n\n  /* SIZE */\n\n  --dropdown-width: 300px;\n\n  --dropdown-max-width: 100%;\n\n  --dropdown-max-height: 190px;\n\n\n  /* COLORS */\n\n  --dropdown-background: #ffffff;\n\n  --dropdown-text: #344054;\n\n  --dropdown-option-text: #344054;\n\n  --dropdown-border: #b8c1d1;\n\n  --dropdown-focus-border: #2962ff;\n\n  --dropdown-hover: #f5f7fb;\n\n  --dropdown-selected: #e9efff;\n\n  --dropdown-arrow: #344054;\n\n  --dropdown-scrollbar: #7050c8;\n\n\n  /* HEADER */\n\n  --dropdown-header-height: 42px;\n\n  --dropdown-header-padding: 0 12px;\n\n\n  /* BORDER */\n\n  --dropdown-border-width: 1.5px;\n\n  --dropdown-radius: 10px;\n\n\n  /* TEXT */\n\n  --dropdown-label-size: 14px;\n\n  --dropdown-label-weight: 400;\n\n  --dropdown-option-size: 14px;\n\n  --dropdown-option-weight: 400;\n\n\n  /* OPTIONS */\n\n  --dropdown-option-height: 38px;\n\n  --dropdown-option-padding: 0 13px;\n\n\n  /* CHECKBOX */\n\n  --dropdown-checkbox-size: 16px;\n\n  --dropdown-checkbox-radius: 4px;\n\n  --dropdown-checkbox-gap: 10px;\n\n\n  /* ARROW */\n\n  --dropdown-arrow-size: 15px;\n\n\n  /* FONT */\n\n  --dropdown-font-family:\n    Arial,\n    Helvetica,\n    sans-serif;\n\n\n  /* HOST */\n\n  display: flex;\n\n  flex: 0 1 auto;\n\n  width: var(--dropdown-width);\n\n  max-width: var(--dropdown-max-width);\n\n  min-width: 0;\n\n  box-sizing: border-box;\n\n  position: relative;\n\n  font-family:\n    var(--dropdown-font-family);\n}\n\n\n/* MAIN CONTAINER */\n\n:host .multi-dropdown {\n\n  width: 100%;\n\n  min-width: 0;\n\n  display: flex;\n\n  flex-direction: column;\n\n  box-sizing: border-box;\n}\n\n\n/* HEADER */\n\n:host .dropdown-header {\n\n  width: 100%;\n\n  min-width: 0;\n\n  height:\n    var(--dropdown-header-height);\n\n  min-height:\n    var(--dropdown-header-height);\n\n  display: flex;\n\n  flex-direction: row;\n\n  align-items: center;\n\n  justify-content: space-between;\n\n  gap: 10px;\n\n  padding:\n    var(--dropdown-header-padding);\n\n  box-sizing: border-box;\n\n  background:\n    var(--dropdown-background);\n\n  border:\n    var(--dropdown-border-width)\n    solid\n    var(--dropdown-border);\n\n  border-radius:\n    var(--dropdown-radius);\n\n  color:\n    var(--dropdown-text);\n\n  font-family: inherit;\n\n  font-size:\n    var(--dropdown-label-size);\n\n  font-weight:\n    var(--dropdown-label-weight);\n\n  text-align: left;\n\n  cursor: pointer;\n\n  outline: none;\n\n  position: relative;\n\n  z-index: 2;\n\n  transition:\n    border-color 0.15s ease,\n    box-shadow 0.15s ease;\n}\n\n\n/* HEADER HOVER */\n\n:host(.dropdown-clickable)\n.dropdown-header:hover {\n\n  border-color: #8e99aa;\n}\n\n\n/* HEADER FOCUS */\n\n:host .dropdown-header:focus,\n:host .dropdown-header:focus-visible {\n\n  border-color:\n    var(--dropdown-focus-border);\n\n  box-shadow:\n    0 0 0 2px\n    rgba(41, 98, 255, 0.18);\n}\n\n\n/* LABEL */\n\n:host .dropdown-label {\n\n  flex: 1 1 auto;\n\n  min-width: 0;\n\n  overflow: hidden;\n\n  white-space: nowrap;\n\n  text-overflow: ellipsis;\n\n  color:\n    var(--dropdown-text);\n\n  font-size:\n    var(--dropdown-label-size);\n\n  font-weight:\n    var(--dropdown-label-weight);\n\n  line-height: 1.2;\n}\n\n\n/* ARROW */\n\n:host .dropdown-arrow {\n\n  width: 8px;\n\n  height: 8px;\n\n  min-width: 8px;\n\n  flex: 0 0 8px;\n\n  display: flex;\n\n  border-right:\n    1.5px solid\n    currentColor;\n\n  border-bottom:\n    1.5px solid\n    currentColor;\n\n  color:\n    var(--dropdown-arrow);\n\n  transform:\n    translateY(-2px)\n    rotate(45deg);\n\n  transition:\n    transform 0.15s ease;\n}\n\n\n/* OPEN ARROW */\n\n:host .dropdown-arrow.arrow-open {\n\n  transform:\n    translateY(2px)\n    rotate(225deg);\n}\n\n\n/* OPTIONS */\n\n:host .dropdown-options {\n\n  width: 100%;\n\n  max-height:\n    var(--dropdown-max-height);\n\n  min-width: 0;\n\n  display: flex;\n\n  flex-direction: column;\n\n  box-sizing: border-box;\n\n  overflow-x: hidden;\n\n  overflow-y: auto;\n\n    /* SPACE BETWEEN HEADER */\n\n  margin-top: 7px;\n\n  padding: 4px;\n\n  background:\n    var(--dropdown-background);\n\n  border:\n    var(--dropdown-border-width)\n    solid\n    var(--dropdown-border);\n\n  border-radius:\n    var(--dropdown-radius);\n\n  position: relative;\n\n  z-index: 1;\n\n  box-shadow:\n    0 3px 8px\n    rgba(16, 24, 40, 0.08);\n}\n\n\n/* OPTION */\n\n:host .dropdown-option {\n\n  width: 100%;\n\n  min-width: 0;\n\n  height:\n    var(--dropdown-option-height);\n\n  min-height:\n    var(--dropdown-option-height);\n\n  flex: 0 0 auto;\n\n  display: flex;\n\n  flex-direction: row;\n\n  align-items: center;\n\n  padding:\n    var(--dropdown-option-padding);\n\n  box-sizing: border-box;\n\n  border: none;\n\n  border-radius: 6px;\n\n  background: transparent;\n\n  color:\n    var(--dropdown-option-text);\n\n  font-family: inherit;\n\n  font-size:\n    var(--dropdown-option-size);\n\n  font-weight:\n    var(--dropdown-option-weight);\n\n  text-align: left;\n\n  cursor: pointer;\n\n  outline: none;\n\n  transition:\n    background 0.12s ease,\n    color 0.12s ease;\n}\n\n\n/* OPTION HOVER */\n\n:host .dropdown-option:hover {\n\n  background:\n    var(--dropdown-hover);\n}\n\n\n/* SELECTED OPTION */\n\n:host .dropdown-option.option-selected {\n\n  background:\n    var(--dropdown-selected);\n\n  color: #2457d6;\n}\n\n\n/* SELECTED HOVER */\n\n:host .dropdown-option.option-selected:hover {\n\n  background: #e2e9ff;\n}\n\n\n/* CHECKBOX */\n\n:host .checkbox {\n\n  width:\n    var(--dropdown-checkbox-size);\n\n  height:\n    var(--dropdown-checkbox-size);\n\n  min-width:\n    var(--dropdown-checkbox-size);\n\n  min-height:\n    var(--dropdown-checkbox-size);\n\n  flex: 0 0\n    var(--dropdown-checkbox-size);\n\n  display: flex;\n\n  align-items: center;\n\n  justify-content: center;\n\n  margin-right:\n    var(--dropdown-checkbox-gap);\n\n  box-sizing: border-box;\n\n  background:\n    var(--dropdown-background);\n\n  border:\n    1.5px solid\n    var(--dropdown-border);\n\n  border-radius:\n    var(--dropdown-checkbox-radius);\n\n  transition:\n    background 0.12s ease,\n    border-color 0.12s ease;\n}\n\n\n/* CHECKED CHECKBOX */\n\n:host .checkbox.checkbox-selected {\n\n  background:\n    var(--dropdown-focus-border);\n\n  border-color:\n    var(--dropdown-focus-border);\n}\n\n\n/* CHECKMARK */\n\n:host .checkmark {\n\n  color: #ffffff;\n\n  font-size: 12px;\n\n  font-weight: 700;\n\n  line-height: 1;\n}\n\n\n/* OPTION LABEL */\n\n:host .option-label {\n\n  flex: 1 1 auto;\n\n  min-width: 0;\n\n  overflow: hidden;\n\n  white-space: nowrap;\n\n  text-overflow: ellipsis;\n}\n\n\n/* DISABLED OPTION */\n\n:host .dropdown-option.option-disabled {\n\n  opacity: 0.45;\n\n  cursor: not-allowed;\n}\n\n\n:host .dropdown-option.option-disabled:hover {\n\n  background: transparent;\n}\n\n\n/* SCROLLBAR */\n\n:host .dropdown-options::-webkit-scrollbar {\n\n  width: 5px;\n}\n\n\n:host .dropdown-options::-webkit-scrollbar-track {\n\n  background: transparent;\n\n  margin: 5px 0;\n}\n\n\n:host .dropdown-options::-webkit-scrollbar-thumb {\n\n  background:\n    var(--dropdown-scrollbar);\n\n  border-radius: 10px;\n\n  min-height: 35px;\n}\n\n\n:host .dropdown-options::-webkit-scrollbar-thumb:hover {\n\n  background: #5c3bb0;\n}\n\n\n/* FIREFOX SCROLLBAR */\n\n:host .dropdown-options {\n\n  scrollbar-width: thin;\n\n  scrollbar-color:\n    var(--dropdown-scrollbar)\n    transparent;\n}\n\n\n/* DISABLED COMPONENT */\n\n:host(.dropdown-disabled) {\n\n  opacity: 0.55;\n\n  pointer-events: none;\n}\n\n\n/* RESPONSIVE TABLET */\n\n@media (max-width: 768px) {\n\n  :host {\n\n    --dropdown-width: 280px;\n\n    --dropdown-header-height: 42px;\n\n    --dropdown-option-height: 38px;\n  }\n}\n\n\n/* RESPONSIVE MOBILE */\n\n@media (max-width: 480px) {\n\n  :host {\n\n    --dropdown-width: 100%;\n\n    --dropdown-header-height: 42px;\n\n    --dropdown-header-padding: 0 11px;\n\n    --dropdown-label-size: 14px;\n\n    --dropdown-option-size: 14px;\n\n    --dropdown-option-height: 38px;\n\n    --dropdown-option-padding: 0 11px;\n\n    --dropdown-max-height: 180px;\n\n    --dropdown-radius: 9px;\n  }\n}\n\n\n/* SMALL MOBILE */\n\n@media (max-width: 360px) {\n\n  :host {\n\n    --dropdown-header-height: 40px;\n\n    --dropdown-option-height: 36px;\n\n    --dropdown-checkbox-size: 15px;\n\n    --dropdown-label-size: 13px;\n\n    --dropdown-option-size: 13px;\n  }\n}",
                     "styleUrl": "./multi-select-dropdown.css"
                 }
             ],
@@ -3222,7 +3475,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 61,
+                "line": 88,
                 "rawdescription": "\n",
                 "jsdoctags": [
                     {
@@ -3246,7 +3499,7 @@
                         "name": "hostClasses",
                         "type": "string",
                         "returnType": "string",
-                        "line": 35,
+                        "line": 49,
                         "rawdescription": "\n",
                         "description": ""
                     }
@@ -3257,7 +3510,7 @@
                         "name": "displayText",
                         "type": "string",
                         "returnType": "string",
-                        "line": 133,
+                        "line": 189,
                         "rawdescription": "\n",
                         "description": ""
                     }
@@ -3267,7 +3520,7 @@
                 "incoming": [],
                 "outgoing": []
             },
-            "templateData": "<div\n  class=\"multi-dropdown\"\n>\n  <button\n    type=\"button\"\n    class=\"dropdown-header\"\n    [disabled]=\"disabled\"\n    (click)=\"toggle($event)\"\n  >\n\n    <span class=\"dropdown-label\">\n\n      {{ displayText }}\n\n    </span>\n\n\n    <span\n      class=\"dropdown-arrow\"\n      [class.arrow-open]=\"isOpen\"\n    ></span>\n\n  </button>\n  @if (isOpen) {\n\n    <div\n      class=\"dropdown-options\"\n    >\n\n      @for (\n        option of options;\n        track option.value\n      ) {\n\n        <button\n          type=\"button\"\n          class=\"dropdown-option\"\n          [class.option-selected]=\"\n            isSelected(option)\n          \"\n          [class.option-disabled]=\"\n            option.disabled\n          \"\n          [disabled]=\"\n            disabled ||\n            option.disabled\n          \"\n          (click)=\"\n            onOptionClick(\n              option,\n              $event\n            )\n          \"\n        >\n\n          <!-- Checkbox -->\n\n          <span\n            class=\"checkbox\"\n            [class.checkbox-selected]=\"\n              isSelected(option)\n            \"\n          >\n\n            @if (\n              isSelected(option)\n            ) {\n\n              <span class=\"checkmark\">\n                ✓\n              </span>\n\n            }\n\n          </span>\n\n\n          <!-- Label -->\n\n          <span\n            class=\"option-label\"\n          >\n            {{ option.label }}\n          </span>\n\n        </button>\n\n      }\n\n    </div>\n\n  }\n\n</div>"
+            "templateData": "<div class=\"multi-dropdown\">\n\n  <!-- HEADER -->\n\n  <button\n    type=\"button\"\n    class=\"dropdown-header\"\n    [disabled]=\"disabled || !clickable\"\n    (click)=\"toggle($event)\"\n  >\n\n    <span class=\"dropdown-label\">\n      {{ displayText }}\n    </span>\n\n\n    <span\n      class=\"dropdown-arrow\"\n      [class.arrow-open]=\"isOpen\"\n    ></span>\n\n  </button>\n\n\n  <!-- OPTIONS -->\n\n  @if (isOpen) {\n\n    <div class=\"dropdown-options\">\n\n      @for (\n        option of options;\n        track option.value\n      ) {\n\n        <button\n          type=\"button\"\n\n          class=\"dropdown-option\"\n\n          [class.option-selected]=\"\n            isSelected(option)\n          \"\n\n          [class.option-disabled]=\"\n            option.disabled\n          \"\n\n          [disabled]=\"\n            disabled ||\n            option.disabled ||\n            !clickable\n          \"\n\n          (click)=\"\n            onOptionClick(\n              option,\n              $event\n            )\n          \"\n        >\n\n          <!-- CHECKBOX -->\n\n          @if (useCheckbox) {\n\n            <span\n              class=\"checkbox\"\n              [class.checkbox-selected]=\"\n                isSelected(option)\n              \"\n            >\n\n              @if (\n                isSelected(option)\n              ) {\n\n                <span class=\"checkmark\">\n                  ✓\n                </span>\n\n              }\n\n            </span>\n\n          }\n\n\n          <!-- OPTION LABEL -->\n\n          <span class=\"option-label\">\n            {{ option.label }}\n          </span>\n\n        </button>\n\n      }\n\n    </div>\n\n  }\n\n</div>"
         },
         {
             "name": "Navbar",
@@ -4320,6 +4573,28 @@
     "miscellaneous": {
         "variables": [
             {
+                "name": "CheckboxDropdown",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options,\n\n    selectedValues: [],\n\n    useCheckbox: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
+            },
+            {
+                "name": "Checked",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Chart',\n\n    checked: true,\n\n    clickable: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
+            },
+            {
                 "name": "Clickable",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -4411,6 +4686,17 @@
                 "name": "CustomStyle",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Chart',\n\n    checked: true,\n\n    clickable: true,\n\n    disabled: false,\n\n    customClass: 'large-checkbox',\n  },\n\n  decorators: [\n\n    (story) => ({\n\n      ...story(),\n\n      styles: [\n\n        `\n        .large-checkbox {\n\n          --checkbox-size: 36px;\n\n          --checkbox-label-size: 20px;\n\n          --checkbox-gap: 12px;\n\n          --checkbox-radius: 8px;\n\n          --checkbox-checked-background: #2962ff;\n\n          --checkbox-checked-border: #2962ff;\n\n        }\n        `,\n\n      ],\n\n    }),\n\n  ],\n}"
+            },
+            {
+                "name": "CustomStyle",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/balinaui-components/src/lib/date-input/date-input.stories.ts",
                 "coverageIgnore": false,
                 "deprecated": false,
@@ -4438,7 +4724,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    options: [\n\n      {\n        label: 'Option 1',\n        value: 'option1',\n      },\n\n      {\n        label: 'Option 2',\n        value: 'option2',\n      },\n\n      {\n        label: 'Option 3',\n        value: 'option3',\n      },\n\n      {\n        label: 'Option 4',\n        value: 'option4',\n      },\n\n    ],\n\n    selectedValues: [],\n\n    customClass: 'storybook-custom-dropdown',\n  },\n\n  decorators: [\n\n    (story) => ({\n\n      ...story(),\n\n      styles: [\n\n      `\n\n    .storybook-custom-dropdown {\n\n      --dropdown-width: 320px;\n\n      --dropdown-header-height: 55px;\n\n      --dropdown-max-height: 220px;\n\n      --dropdown-header-padding: 0 18px;\n\n      --dropdown-border: 3px solid #c5c5c5;\n\n      --dropdown-radius: 8px;\n\n      --dropdown-label-size: 20px;\n\n      --dropdown-option-size: 18px;\n\n      --dropdown-option-height: 52px;\n\n      --dropdown-option-gap: 22px;\n\n      --checkbox-size: 24px;\n\n    }\n\n        `,\n      ],\n    }),\n  ],\n}"
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options,\n\n    selectedValues: [],\n\n    useCheckbox: true,\n\n    disabled: false,\n\n    customClass: 'custom-dropdown',\n  },\n\n  decorators: [\n\n    (story) => ({\n\n      ...story(),\n\n      styles: [\n\n        `\n        .custom-dropdown {\n\n          --dropdown-width: 400px;\n\n          --dropdown-header-height: 50px;\n\n          --dropdown-radius: 14px;\n\n          --dropdown-option-height: 44px;\n\n          --dropdown-label-size: 16px;\n\n          --dropdown-option-size: 15px;\n\n          --dropdown-max-height: 220px;\n\n        }\n        `,\n\n      ],\n\n    }),\n\n  ],\n}"
             },
             {
                 "name": "CustomStyle",
@@ -4477,6 +4763,17 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n\n  args: {\n\n    title: 'Last 24 hours',\n\n    month: 'Jul',\n\n    day: 9,\n\n    description:\n      '156 flights were monitored with 96.8% on-time performance. Minor delays occurred due to weather and air traffic.',\n\n    customClass: '',\n    clickable: true,\n    disabled: false\n  }\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
                 "coverageIgnore": false,
                 "deprecated": false,
@@ -4488,12 +4785,12 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
                 "coverageIgnore": false,
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n\n  args: {\n\n    title: 'Last 24 hours',\n\n    month: 'Jul',\n\n    day: 9,\n\n    description:\n      '156 flights were monitored with 96.8% on-time performance. Minor delays occurred due to weather and air traffic.',\n\n    customClass: '',\n    clickable: true,\n    disabled: false\n  }\n}"
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Chart',\n\n    checked: true,\n\n    clickable: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
             },
             {
                 "name": "Default",
@@ -4543,17 +4840,6 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
-                "coverageIgnore": false,
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options: [\n\n      {\n        label: 'Option',\n        value: 'option1',\n      },\n\n      {\n        label: 'Option',\n        value: 'option2',\n      },\n\n      {\n        label: 'Option',\n        value: 'option3',\n      },\n\n    ],\n\n    selectedValues: [],\n\n    customClass: '',\n\n    disabled: false,\n\n  },\n}"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/balinaui-components/src/lib/text-box/text-box.stories.ts",
                 "coverageIgnore": false,
                 "deprecated": false,
@@ -4593,6 +4879,17 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n\n  args: {\n\n    label:\n      'Disabled',\n\n    type:\n      'button',\n\n    disabled:\n      true,\n\n    loading:\n      false,\n\n    clickable:\n      true,\n\n    customClass:\n      ''\n  }\n}"
+            },
+            {
+                "name": "Disabled",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Chart',\n\n    checked: false,\n\n    clickable: true,\n\n    disabled: true,\n\n    customClass: '',\n  },\n}"
             },
             {
                 "name": "Disabled",
@@ -4647,7 +4944,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    options: [\n\n      {\n        label: 'Option 1',\n        value: 'option1',\n      },\n\n      {\n        label: 'Option 2',\n        value: 'option2',\n      },\n\n      {\n        label: 'Option 3',\n        value: 'option3',\n      },\n\n    ],\n\n    selectedValues: [],\n\n    disabled: true,\n  },\n}"
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options,\n\n    selectedValues: [],\n\n    useCheckbox: false,\n\n    disabled: true,\n\n    customClass: '',\n  },\n}"
             },
             {
                 "name": "Disabled",
@@ -4670,6 +4967,17 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n\n  args: {\n\n    label: 'Last 24 Hours',\n\n    value: '24h',\n\n    selectedValue: null,\n\n    customClass: '',\n\n    clickable: true,\n\n    disabled: true\n  }\n}"
+            },
+            {
+                "name": "DisabledChecked",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Chart',\n\n    checked: true,\n\n    clickable: true,\n\n    disabled: true,\n\n    customClass: '',\n  },\n}"
             },
             {
                 "name": "Email",
@@ -4818,6 +5126,17 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<Card>",
+                "defaultValue": "{\n\n  title: 'Components/Card',\n\n  component: Card,\n\n  tags: ['autodocs'],\n\n  parameters: {\n    layout: 'centered'\n  },\n\n  argTypes: {\n\n    title: {\n      control: 'text'\n    },\n\n    month: {\n      control: 'text'\n    },\n\n    day: {\n      control: 'text'\n    },\n\n    description: {\n      control: 'text'\n    },\n\n    cardClick: {\n      action: 'cardClick'\n    }\n  }\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
                 "coverageIgnore": false,
                 "deprecated": false,
@@ -4829,12 +5148,12 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
                 "coverageIgnore": false,
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<Card>",
-                "defaultValue": "{\n\n  title: 'Components/Card',\n\n  component: Card,\n\n  tags: ['autodocs'],\n\n  parameters: {\n    layout: 'centered'\n  },\n\n  argTypes: {\n\n    title: {\n      control: 'text'\n    },\n\n    month: {\n      control: 'text'\n    },\n\n    day: {\n      control: 'text'\n    },\n\n    description: {\n      control: 'text'\n    },\n\n    cardClick: {\n      action: 'cardClick'\n    }\n  }\n}"
+                "type": "Meta<Checkbox>",
+                "defaultValue": "{\n\n  title: 'Components/Checkbox',\n\n  component: Checkbox,\n\n  parameters: {\n    layout: 'centered',\n  },\n\n  argTypes: {\n\n    label: {\n      control: 'text',\n    },\n\n    checked: {\n      control: 'boolean',\n    },\n\n    clickable: {\n      control: 'boolean',\n    },\n\n    disabled: {\n      control: 'boolean',\n    },\n\n    customClass: {\n      control: 'text',\n    },\n\n    changed: {\n      action: 'changed',\n    },\n\n    clicked: {\n      action: 'clicked',\n    },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -4889,7 +5208,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<MultiSelectDropdown>",
-                "defaultValue": "{\n  title: 'Components/MultiSelectDropdown',\n  component: MultiSelectDropdown,\n\n  parameters: {\n    layout: 'centered',\n  },\n\n  argTypes: {\n\n    label: {\n      control: 'text',\n    },\n\n    placeholder: {\n      control: 'text',\n    },\n\n    options: {\n      control: 'object',\n    },\n\n    selectedValues: {\n      control: 'object',\n    },\n\n    customClass: {\n      control: 'text',\n    },\n\n    disabled: {\n      control: 'boolean',\n    },\n\n\n    selectionChange: {\n      action: 'selectionChange',\n    },\n\n    opened: {\n      action: 'opened',\n    },\n\n    closed: {\n      action: 'closed',\n    },\n\n    clicked: {\n      action: 'clicked',\n    },\n  },\n}"
+                "defaultValue": "{\n  title: 'Components/Multi Select Dropdown',\n  component: MultiSelectDropdown,\n\n  parameters: {\n    layout: 'centered',\n  },\n\n  argTypes: {\n\n    label: {\n      control: 'text',\n    },\n\n    placeholder: {\n      control: 'text',\n    },\n\n    options: {\n      control: 'object',\n    },\n\n    selectedValues: {\n      control: 'object',\n    },\n\n    useCheckbox: {\n      control: 'boolean',\n      description:\n        'Show checkboxes and allow multiple selections',\n    },\n\n    disabled: {\n      control: 'boolean',\n    },\n\n    customClass: {\n      control: 'text',\n    },\n\n    selectionChange: {\n      action: 'selectionChange',\n    },\n\n    opened: {\n      action: 'opened',\n    },\n\n    closed: {\n      action: 'closed',\n    },\n\n    clicked: {\n      action: 'clicked',\n    },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -4934,6 +5253,17 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n\n  args: {\n\n    items: [\n      {\n        label: 'Dashboard',\n        url: '/dashboard'\n      },\n      {\n        label: 'Flight Leg',\n        url: '/flight-leg'\n      },\n      {\n        label: 'Flight Details',\n        url: '/flight-details'\n      }\n    ],\n\n    clickable: true,\n\n    disabled: false,\n\n    customClass: ''\n  }\n}"
+            },
+            {
+                "name": "NormalDropdown",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options,\n\n    selectedValues: [],\n\n    useCheckbox: false,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
             },
             {
                 "name": "NotClickable",
@@ -4991,6 +5321,17 @@
                 "defaultValue": "[\n  {\n    label: 'Addis Ababa',\n    value: 'addis-ababa'\n  },\n  {\n    label: 'Debre Berhan',\n    value: 'debre-berhan'\n  },\n  {\n    label: 'Bahir Dar',\n    value: 'bahir-dar'\n  },\n  {\n    label: 'Hawassa',\n    value: 'hawassa'\n  },\n  {\n    label: 'Gondar',\n    value: 'gondar'\n  },\n  {\n    label: 'Dire Dawa',\n    value: 'dire-dawa'\n  }\n]"
             },
             {
+                "name": "options",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\n  {\n    label: 'Price',\n    value: 'price',\n  },\n  {\n    label: 'Volume',\n    value: 'volume',\n  },\n  {\n    label: 'RSI',\n    value: 'rsi',\n  },\n  {\n    label: 'MACD',\n    value: 'macd',\n  },\n  {\n    label: 'Moving Average',\n    value: 'moving-average',\n  },\n  {\n    label: 'Bollinger Bands',\n    value: 'bollinger',\n  },\n  {\n    label: 'Stochastic',\n    value: 'stochastic',\n  },\n  {\n    label: 'Average True Range',\n    value: 'atr',\n  },\n]"
+            },
+            {
                 "name": "Password",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -5010,7 +5351,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    options: [\n\n      {\n        label: 'Option 1',\n        value: 'option1',\n      },\n\n      {\n        label: 'Option 2',\n        value: 'option2',\n      },\n\n      {\n        label: 'Option 3',\n        value: 'option3',\n      },\n\n      {\n        label: 'Option 4',\n        value: 'option4',\n      },\n\n    ],\n\n    selectedValues: [\n      'option1',\n      'option3',\n    ],\n  },\n}"
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options,\n\n    selectedValues: [\n      'price',\n      'volume',\n      'rsi',\n    ],\n\n    useCheckbox: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
             },
             {
                 "name": "preview",
@@ -5076,7 +5417,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    options: [\n\n      {\n        label: 'Option 1',\n        value: 'option1',\n      },\n\n      {\n        label: 'Option 2',\n        value: 'option2',\n      },\n\n      {\n        label: 'Option 3',\n        value: 'option3',\n      },\n\n      {\n        label: 'Option 4',\n        value: 'option4',\n      },\n\n      {\n        label: 'Option 5',\n        value: 'option5',\n      },\n\n      {\n        label: 'Option 6',\n        value: 'option6',\n      },\n\n      {\n        label: 'Option 7',\n        value: 'option7',\n      },\n\n      {\n        label: 'Option 8',\n        value: 'option8',\n      },\n\n      {\n        label: 'Option 9',\n        value: 'option9',\n      },\n\n      {\n        label: 'Option 10',\n        value: 'option10',\n      },\n\n    ],\n\n    selectedValues: [],\n\n  },\n}"
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options: [\n\n      {\n        label: 'Price',\n        value: 'price',\n      },\n\n      {\n        label: 'Volume',\n        value: 'volume',\n      },\n\n      {\n        label: 'RSI',\n        value: 'rsi',\n      },\n\n      {\n        label: 'MACD',\n        value: 'macd',\n      },\n\n      {\n        label: 'Moving Average',\n        value: 'moving-average',\n      },\n\n      {\n        label: 'Bollinger Bands',\n        value: 'bollinger',\n      },\n\n      {\n        label: 'Stochastic',\n        value: 'stochastic',\n      },\n\n      {\n        label: 'Average True Range',\n        value: 'atr',\n      },\n\n      {\n        label: 'Momentum',\n        value: 'momentum',\n      },\n\n      {\n        label: 'CCI',\n        value: 'cci',\n      },\n\n      {\n        label: 'Williams %R',\n        value: 'williams',\n      },\n\n      {\n        label: 'ADX',\n        value: 'adx',\n      },\n\n      {\n        label: 'OBV',\n        value: 'obv',\n      },\n\n      {\n        label: 'Parabolic SAR',\n        value: 'sar',\n      },\n\n    ],\n\n    selectedValues: [],\n\n    useCheckbox: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
             },
             {
                 "name": "Secondary",
@@ -5112,6 +5453,17 @@
                 "defaultValue": "{\n  args: {\n    size: 'small',\n    label: 'Button',\n  },\n}"
             },
             {
+                "name": "Unchecked",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Chart',\n\n    checked: false,\n\n    clickable: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
+            },
+            {
                 "name": "WithButtons",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -5121,6 +5473,17 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n\n  args: {\n    title: 'GMT',\n    clickable: false,\n    disabled: false,\n    customClass: 'auto-card'\n  },\n\n  render: (args) => ({\n\n    props: args,\n\n    template: `\n      <brb-card\n        [title]=\"title\"\n        [clickable]=\"clickable\"\n        [disabled]=\"disabled\"\n        [customClass]=\"customClass\"\n        (clicked)=\"clicked($event)\"\n      >\n\n        <div class=\"button-content\">\n\n          <p>\n            GMT information\n          </p>\n\n          <div class=\"buttons\">\n\n            <button>\n              Refresh\n            </button>\n\n            <button>\n              View Details\n            </button>\n\n          </div>\n\n        </div>\n\n      </brb-card>\n    `\n  })\n}"
+            },
+            {
+                "name": "WithDisabledOption",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                "coverageIgnore": false,
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options: [\n\n      {\n        label: 'Price',\n        value: 'price',\n      },\n\n      {\n        label: 'Volume',\n        value: 'volume',\n      },\n\n      {\n        label: 'RSI',\n        value: 'rsi',\n        disabled: true,\n      },\n\n      {\n        label: 'MACD',\n        value: 'macd',\n      },\n\n      {\n        label: 'Moving Average',\n        value: 'moving-average',\n      },\n\n    ],\n\n    selectedValues: [],\n\n    useCheckbox: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
             },
             {
                 "name": "WithImage",
@@ -5248,6 +5611,19 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "coverageIgnore": false,
+                "rawtype": "StoryObj<Card>",
+                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "rawdescription": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "coverageIgnore": false,
                 "rawtype": "StoryObj<Button>",
                 "file": "projects/balinaui-components/src/lib/button/button.stories.ts",
                 "deprecated": false,
@@ -5261,8 +5637,8 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "coverageIgnore": false,
-                "rawtype": "StoryObj<Card>",
-                "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                "rawtype": "StoryObj<Checkbox>",
+                "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "rawdescription": "",
@@ -5376,6 +5752,186 @@
         ],
         "enumerations": [],
         "groupedVariables": {
+            "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts": [
+                {
+                    "name": "CheckboxDropdown",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options,\n\n    selectedValues: [],\n\n    useCheckbox: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
+                },
+                {
+                    "name": "CustomStyle",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options,\n\n    selectedValues: [],\n\n    useCheckbox: true,\n\n    disabled: false,\n\n    customClass: 'custom-dropdown',\n  },\n\n  decorators: [\n\n    (story) => ({\n\n      ...story(),\n\n      styles: [\n\n        `\n        .custom-dropdown {\n\n          --dropdown-width: 400px;\n\n          --dropdown-header-height: 50px;\n\n          --dropdown-radius: 14px;\n\n          --dropdown-option-height: 44px;\n\n          --dropdown-label-size: 16px;\n\n          --dropdown-option-size: 15px;\n\n          --dropdown-max-height: 220px;\n\n        }\n        `,\n\n      ],\n\n    }),\n\n  ],\n}"
+                },
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options,\n\n    selectedValues: [],\n\n    useCheckbox: false,\n\n    disabled: true,\n\n    customClass: '',\n  },\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<MultiSelectDropdown>",
+                    "defaultValue": "{\n  title: 'Components/Multi Select Dropdown',\n  component: MultiSelectDropdown,\n\n  parameters: {\n    layout: 'centered',\n  },\n\n  argTypes: {\n\n    label: {\n      control: 'text',\n    },\n\n    placeholder: {\n      control: 'text',\n    },\n\n    options: {\n      control: 'object',\n    },\n\n    selectedValues: {\n      control: 'object',\n    },\n\n    useCheckbox: {\n      control: 'boolean',\n      description:\n        'Show checkboxes and allow multiple selections',\n    },\n\n    disabled: {\n      control: 'boolean',\n    },\n\n    customClass: {\n      control: 'text',\n    },\n\n    selectionChange: {\n      action: 'selectionChange',\n    },\n\n    opened: {\n      action: 'opened',\n    },\n\n    closed: {\n      action: 'closed',\n    },\n\n    clicked: {\n      action: 'clicked',\n    },\n  },\n}"
+                },
+                {
+                    "name": "NormalDropdown",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options,\n\n    selectedValues: [],\n\n    useCheckbox: false,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
+                },
+                {
+                    "name": "options",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n  {\n    label: 'Price',\n    value: 'price',\n  },\n  {\n    label: 'Volume',\n    value: 'volume',\n  },\n  {\n    label: 'RSI',\n    value: 'rsi',\n  },\n  {\n    label: 'MACD',\n    value: 'macd',\n  },\n  {\n    label: 'Moving Average',\n    value: 'moving-average',\n  },\n  {\n    label: 'Bollinger Bands',\n    value: 'bollinger',\n  },\n  {\n    label: 'Stochastic',\n    value: 'stochastic',\n  },\n  {\n    label: 'Average True Range',\n    value: 'atr',\n  },\n]"
+                },
+                {
+                    "name": "Preselected",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options,\n\n    selectedValues: [\n      'price',\n      'volume',\n      'rsi',\n    ],\n\n    useCheckbox: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
+                },
+                {
+                    "name": "Scrollable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options: [\n\n      {\n        label: 'Price',\n        value: 'price',\n      },\n\n      {\n        label: 'Volume',\n        value: 'volume',\n      },\n\n      {\n        label: 'RSI',\n        value: 'rsi',\n      },\n\n      {\n        label: 'MACD',\n        value: 'macd',\n      },\n\n      {\n        label: 'Moving Average',\n        value: 'moving-average',\n      },\n\n      {\n        label: 'Bollinger Bands',\n        value: 'bollinger',\n      },\n\n      {\n        label: 'Stochastic',\n        value: 'stochastic',\n      },\n\n      {\n        label: 'Average True Range',\n        value: 'atr',\n      },\n\n      {\n        label: 'Momentum',\n        value: 'momentum',\n      },\n\n      {\n        label: 'CCI',\n        value: 'cci',\n      },\n\n      {\n        label: 'Williams %R',\n        value: 'williams',\n      },\n\n      {\n        label: 'ADX',\n        value: 'adx',\n      },\n\n      {\n        label: 'OBV',\n        value: 'obv',\n      },\n\n      {\n        label: 'Parabolic SAR',\n        value: 'sar',\n      },\n\n    ],\n\n    selectedValues: [],\n\n    useCheckbox: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
+                },
+                {
+                    "name": "WithDisabledOption",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options: [\n\n      {\n        label: 'Price',\n        value: 'price',\n      },\n\n      {\n        label: 'Volume',\n        value: 'volume',\n      },\n\n      {\n        label: 'RSI',\n        value: 'rsi',\n        disabled: true,\n      },\n\n      {\n        label: 'MACD',\n        value: 'macd',\n      },\n\n      {\n        label: 'Moving Average',\n        value: 'moving-average',\n      },\n\n    ],\n\n    selectedValues: [],\n\n    useCheckbox: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
+                }
+            ],
+            "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts": [
+                {
+                    "name": "Checked",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Chart',\n\n    checked: true,\n\n    clickable: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
+                },
+                {
+                    "name": "CustomStyle",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Chart',\n\n    checked: true,\n\n    clickable: true,\n\n    disabled: false,\n\n    customClass: 'large-checkbox',\n  },\n\n  decorators: [\n\n    (story) => ({\n\n      ...story(),\n\n      styles: [\n\n        `\n        .large-checkbox {\n\n          --checkbox-size: 36px;\n\n          --checkbox-label-size: 20px;\n\n          --checkbox-gap: 12px;\n\n          --checkbox-radius: 8px;\n\n          --checkbox-checked-background: #2962ff;\n\n          --checkbox-checked-border: #2962ff;\n\n        }\n        `,\n\n      ],\n\n    }),\n\n  ],\n}"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Chart',\n\n    checked: true,\n\n    clickable: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
+                },
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Chart',\n\n    checked: false,\n\n    clickable: true,\n\n    disabled: true,\n\n    customClass: '',\n  },\n}"
+                },
+                {
+                    "name": "DisabledChecked",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Chart',\n\n    checked: true,\n\n    clickable: true,\n\n    disabled: true,\n\n    customClass: '',\n  },\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<Checkbox>",
+                    "defaultValue": "{\n\n  title: 'Components/Checkbox',\n\n  component: Checkbox,\n\n  parameters: {\n    layout: 'centered',\n  },\n\n  argTypes: {\n\n    label: {\n      control: 'text',\n    },\n\n    checked: {\n      control: 'boolean',\n    },\n\n    clickable: {\n      control: 'boolean',\n    },\n\n    disabled: {\n      control: 'boolean',\n    },\n\n    customClass: {\n      control: 'text',\n    },\n\n    changed: {\n      action: 'changed',\n    },\n\n    clicked: {\n      action: 'clicked',\n    },\n  },\n}"
+                },
+                {
+                    "name": "Unchecked",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                    "coverageIgnore": false,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n\n  args: {\n\n    label: 'Chart',\n\n    checked: false,\n\n    clickable: true,\n\n    disabled: false,\n\n    customClass: '',\n  },\n}"
+                }
+            ],
             "projects/balinaui-components/src/lib/flight-card/flight-card.stories.ts": [
                 {
                     "name": "Clickable",
@@ -5898,74 +6454,6 @@
                     "defaultValue": "{\n\n  args: {\n\n    label: 'City',\n\n    placeholder: 'Select city',\n\n    options,\n\n    value: 'addis-ababa',\n\n    disabled: false,\n\n    searchable: true,\n\n    customClass: ''\n  }\n}"
                 }
             ],
-            "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts": [
-                {
-                    "name": "CustomStyle",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
-                    "coverageIgnore": false,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    options: [\n\n      {\n        label: 'Option 1',\n        value: 'option1',\n      },\n\n      {\n        label: 'Option 2',\n        value: 'option2',\n      },\n\n      {\n        label: 'Option 3',\n        value: 'option3',\n      },\n\n      {\n        label: 'Option 4',\n        value: 'option4',\n      },\n\n    ],\n\n    selectedValues: [],\n\n    customClass: 'storybook-custom-dropdown',\n  },\n\n  decorators: [\n\n    (story) => ({\n\n      ...story(),\n\n      styles: [\n\n      `\n\n    .storybook-custom-dropdown {\n\n      --dropdown-width: 320px;\n\n      --dropdown-header-height: 55px;\n\n      --dropdown-max-height: 220px;\n\n      --dropdown-header-padding: 0 18px;\n\n      --dropdown-border: 3px solid #c5c5c5;\n\n      --dropdown-radius: 8px;\n\n      --dropdown-label-size: 20px;\n\n      --dropdown-option-size: 18px;\n\n      --dropdown-option-height: 52px;\n\n      --dropdown-option-gap: 22px;\n\n      --checkbox-size: 24px;\n\n    }\n\n        `,\n      ],\n    }),\n  ],\n}"
-                },
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
-                    "coverageIgnore": false,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    placeholder: 'Select options',\n\n    options: [\n\n      {\n        label: 'Option',\n        value: 'option1',\n      },\n\n      {\n        label: 'Option',\n        value: 'option2',\n      },\n\n      {\n        label: 'Option',\n        value: 'option3',\n      },\n\n    ],\n\n    selectedValues: [],\n\n    customClass: '',\n\n    disabled: false,\n\n  },\n}"
-                },
-                {
-                    "name": "Disabled",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
-                    "coverageIgnore": false,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    options: [\n\n      {\n        label: 'Option 1',\n        value: 'option1',\n      },\n\n      {\n        label: 'Option 2',\n        value: 'option2',\n      },\n\n      {\n        label: 'Option 3',\n        value: 'option3',\n      },\n\n    ],\n\n    selectedValues: [],\n\n    disabled: true,\n  },\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
-                    "coverageIgnore": false,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta<MultiSelectDropdown>",
-                    "defaultValue": "{\n  title: 'Components/MultiSelectDropdown',\n  component: MultiSelectDropdown,\n\n  parameters: {\n    layout: 'centered',\n  },\n\n  argTypes: {\n\n    label: {\n      control: 'text',\n    },\n\n    placeholder: {\n      control: 'text',\n    },\n\n    options: {\n      control: 'object',\n    },\n\n    selectedValues: {\n      control: 'object',\n    },\n\n    customClass: {\n      control: 'text',\n    },\n\n    disabled: {\n      control: 'boolean',\n    },\n\n\n    selectionChange: {\n      action: 'selectionChange',\n    },\n\n    opened: {\n      action: 'opened',\n    },\n\n    closed: {\n      action: 'closed',\n    },\n\n    clicked: {\n      action: 'clicked',\n    },\n  },\n}"
-                },
-                {
-                    "name": "Preselected",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
-                    "coverageIgnore": false,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    options: [\n\n      {\n        label: 'Option 1',\n        value: 'option1',\n      },\n\n      {\n        label: 'Option 2',\n        value: 'option2',\n      },\n\n      {\n        label: 'Option 3',\n        value: 'option3',\n      },\n\n      {\n        label: 'Option 4',\n        value: 'option4',\n      },\n\n    ],\n\n    selectedValues: [\n      'option1',\n      'option3',\n    ],\n  },\n}"
-                },
-                {
-                    "name": "Scrollable",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
-                    "coverageIgnore": false,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n\n  args: {\n\n    label: 'Add Parameters',\n\n    options: [\n\n      {\n        label: 'Option 1',\n        value: 'option1',\n      },\n\n      {\n        label: 'Option 2',\n        value: 'option2',\n      },\n\n      {\n        label: 'Option 3',\n        value: 'option3',\n      },\n\n      {\n        label: 'Option 4',\n        value: 'option4',\n      },\n\n      {\n        label: 'Option 5',\n        value: 'option5',\n      },\n\n      {\n        label: 'Option 6',\n        value: 'option6',\n      },\n\n      {\n        label: 'Option 7',\n        value: 'option7',\n      },\n\n      {\n        label: 'Option 8',\n        value: 'option8',\n      },\n\n      {\n        label: 'Option 9',\n        value: 'option9',\n      },\n\n      {\n        label: 'Option 10',\n        value: 'option10',\n      },\n\n    ],\n\n    selectedValues: [],\n\n  },\n}"
-                }
-            ],
             "projects/balinaui-components/src/lib/text-box/text-box.stories.ts": [
                 {
                     "name": "CustomStyle",
@@ -6339,6 +6827,21 @@
                     "kind": 184
                 }
             ],
+            "projects/balinaui-components/src/lib/card/card.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "coverageIgnore": false,
+                    "rawtype": "StoryObj<Card>",
+                    "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
             "projects/balinaui-components/src/lib/button/button.stories.ts": [
                 {
                     "name": "Story",
@@ -6354,14 +6857,14 @@
                     "kind": 184
                 }
             ],
-            "projects/balinaui-components/src/lib/card/card.stories.ts": [
+            "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "coverageIgnore": false,
-                    "rawtype": "StoryObj<Card>",
-                    "file": "projects/balinaui-components/src/lib/card/card.stories.ts",
+                    "rawtype": "StoryObj<Checkbox>",
+                    "file": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "",
@@ -6746,6 +7249,95 @@
                 "status": "low"
             },
             {
+                "filePath": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Checked",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "CustomStyle",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Disabled",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "DisabledChecked",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Unchecked",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/checkbox/checkbox.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/checkbox/checkbox.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "Checkbox",
+                "coveragePercent": 0,
+                "coverageCount": "0/11",
+                "status": "low"
+            },
+            {
                 "filePath": "projects/balinaui-components/src/lib/date-input/date-input.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
@@ -7095,7 +7687,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "CustomStyle",
+                "name": "CheckboxDropdown",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -7105,7 +7697,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "Default",
+                "name": "CustomStyle",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -7135,6 +7727,26 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "NormalDropdown",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "options",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "Preselected",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
@@ -7146,6 +7758,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Scrollable",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/balinaui-components/src/lib/multi-select-dropdown/multi-select-dropdown.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "WithDisabledOption",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -7166,7 +7788,7 @@
                 "linktype": "component",
                 "name": "MultiSelectDropdown",
                 "coveragePercent": 0,
-                "coverageCount": "0/20",
+                "coverageCount": "0/22",
                 "status": "low"
             },
             {

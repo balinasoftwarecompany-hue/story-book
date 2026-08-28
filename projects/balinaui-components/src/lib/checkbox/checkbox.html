@@ -1,0 +1,30 @@
+<label
+  class="balina-checkbox"
+  [class.checkbox-clickable]="clickable"
+  [class.checkbox-disabled]="disabled"
+  [class.checkbox-checked]="checked"
+  (click)="onClick($event)"
+>
+
+  <input
+    type="checkbox"
+    [checked]="checked"
+    [disabled]="disabled || !clickable"
+    (change)="onChange($event)"
+  />
+
+  <span class="checkbox-box">
+
+    @if (checked) {
+      <span class="checkbox-checkmark">
+        ✓
+      </span>
+    }
+
+  </span>
+
+  <span class="checkbox-label">
+    {{ label }}
+  </span>
+
+</label>

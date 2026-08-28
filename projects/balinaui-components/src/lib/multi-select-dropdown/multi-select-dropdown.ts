@@ -15,6 +15,8 @@ export interface MultiSelectOption {
 })
 export class MultiSelectDropdown {
 
+  // INPUTS
+
   @Input() label: string = 'Add Parameters';
 
   @Input() options: MultiSelectOption[] = [];
@@ -23,26 +25,51 @@ export class MultiSelectDropdown {
 
   @Input() placeholder: string = 'Select options';
 
+  /*
+   * TRUE  = show checkbox
+   * FALSE = hide checkbox
+   */
+  @Input() useCheckbox: boolean = true;
+
   @Input() customClass: string = '';
+
+  @Input() clickable: boolean = true;
 
   @Input() disabled: boolean = false;
 
 
+  // STATE
+
   isOpen: boolean = false;
 
+
+  // HOST CLASSES
 
   @HostBinding('class')
   get hostClasses(): string {
 
     return [
       this.customClass,
-      this.disabled ? 'dropdown-disabled' : '',
-      this.isOpen ? 'dropdown-open' : ''
+
+      this.clickable
+        ? 'dropdown-clickable'
+        : '',
+
+      this.disabled
+        ? 'dropdown-disabled'
+        : '',
+
+      this.isOpen
+        ? 'dropdown-open'
+        : ''
+
     ]
       .filter(Boolean)
       .join(' ');
   }
 
+
+  // EVENTS
 
   @Output()
   selectionChange =
@@ -61,11 +88,21 @@ export class MultiSelectDropdown {
     new EventEmitter<MouseEvent>();
 
 
+  // CONSTRUCTOR
+
   constructor(
     private elementRef: ElementRef
-  ) {}toggle(event: MouseEvent): void {
+  ) {}
 
-    if (this.disabled) {
+
+  // TOGGLE
+
+  toggle(event: MouseEvent): void {
+
+    if (
+      this.disabled ||
+      !this.clickable
+    ) {
       return;
     }
 
@@ -84,20 +121,25 @@ export class MultiSelectDropdown {
       this.closed.emit();
 
     }
-  }onOptionClick(
+  }
+
+
+  // OPTION CLICK
+
+  onOptionClick(
     option: MultiSelectOption,
     event: MouseEvent
   ): void {
 
     if (
       this.disabled ||
-      option.disabled
+      option.disabled ||
+      !this.clickable
     ) {
       return;
     }
 
     event.stopPropagation();
-
 
     const values =
       [...this.selectedValues];
@@ -106,13 +148,18 @@ export class MultiSelectDropdown {
       values.indexOf(option.value);
 
 
+    // ADD
     if (index === -1) {
 
       values.push(option.value);
 
-    } else {
+    }
+
+    // REMOVE
+    else {
 
       values.splice(index, 1);
+
     }
 
 
@@ -123,16 +170,31 @@ export class MultiSelectDropdown {
     this.selectionChange.emit(
       [...values]
     );
-  }isSelected(
+  }
+
+
+  // CHECK SELECTED
+
+  isSelected(
     option: MultiSelectOption
   ): boolean {
 
-    return this.selectedValues.includes(
-      option.value
-    );
-  }get displayText(): string {
-  return this.label;
-}@HostListener(
+    return this.selectedValues
+      .includes(option.value);
+  }
+
+
+  // DISPLAY TEXT
+
+  get displayText(): string {
+
+    return this.label;
+  }
+
+
+  // OUTSIDE CLICK
+
+  @HostListener(
     'document:click',
     ['$event']
   )
@@ -144,19 +206,23 @@ export class MultiSelectDropdown {
       return;
     }
 
-
     const target =
       event.target as Node;
 
-
     if (
-      !this.elementRef.nativeElement
+      !this.elementRef
+        .nativeElement
         .contains(target)
     ) {
 
       this.close();
     }
-  }close(): void {
+  }
+
+
+  // CLOSE
+
+  close(): void {
 
     if (!this.isOpen) {
       return;

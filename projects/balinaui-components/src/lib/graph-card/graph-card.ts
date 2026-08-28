@@ -9,8 +9,6 @@ import {Component,Input,Output,EventEmitter,HostBinding} from '@angular/core';
 })
 export class GraphCard {
 
-  // INPUTS
-
   @Input() title: string = '';
 
   @Input() customClass: string = '';
@@ -19,7 +17,7 @@ export class GraphCard {
 
   @Input() disabled: boolean = false;
 
-  // HOST CLASSES
+
   @HostBinding('class')
   get hostClasses(): string {
 
@@ -39,11 +37,11 @@ export class GraphCard {
       .join(' ');
   }
 
-  // OUTPUT
-  @Output() clicked =
+
+  @Output()
+  clicked =
     new EventEmitter<MouseEvent>();
 
-  // CLICK
 
   onClick(event: MouseEvent): void {
 

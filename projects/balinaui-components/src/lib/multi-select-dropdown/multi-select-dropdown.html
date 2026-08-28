@@ -1,17 +1,16 @@
-<div
-  class="multi-dropdown"
->
+<div class="multi-dropdown">
+
+  <!-- HEADER -->
+
   <button
     type="button"
     class="dropdown-header"
-    [disabled]="disabled"
+    [disabled]="disabled || !clickable"
     (click)="toggle($event)"
   >
 
     <span class="dropdown-label">
-
       {{ displayText }}
-
     </span>
 
 
@@ -21,11 +20,13 @@
     ></span>
 
   </button>
+
+
+  <!-- OPTIONS -->
+
   @if (isOpen) {
 
-    <div
-      class="dropdown-options"
-    >
+    <div class="dropdown-options">
 
       @for (
         option of options;
@@ -34,17 +35,23 @@
 
         <button
           type="button"
+
           class="dropdown-option"
+
           [class.option-selected]="
             isSelected(option)
           "
+
           [class.option-disabled]="
             option.disabled
           "
+
           [disabled]="
             disabled ||
-            option.disabled
+            option.disabled ||
+            !clickable
           "
+
           (click)="
             onOptionClick(
               option,
@@ -53,33 +60,35 @@
           "
         >
 
-          <!-- Checkbox -->
+          <!-- CHECKBOX -->
 
-          <span
-            class="checkbox"
-            [class.checkbox-selected]="
-              isSelected(option)
-            "
-          >
+          @if (useCheckbox) {
 
-            @if (
-              isSelected(option)
-            ) {
+            <span
+              class="checkbox"
+              [class.checkbox-selected]="
+                isSelected(option)
+              "
+            >
 
-              <span class="checkmark">
-                ✓
-              </span>
+              @if (
+                isSelected(option)
+              ) {
 
-            }
+                <span class="checkmark">
+                  ✓
+                </span>
 
-          </span>
+              }
+
+            </span>
+
+          }
 
 
-          <!-- Label -->
+          <!-- OPTION LABEL -->
 
-          <span
-            class="option-label"
-          >
+          <span class="option-label">
             {{ option.label }}
           </span>
 

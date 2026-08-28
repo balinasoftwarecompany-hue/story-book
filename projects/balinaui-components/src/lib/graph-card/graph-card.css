@@ -1,8 +1,10 @@
-/*CARD HOST*/
+/* BALINA GRAPH CARD */
+
+/* HOST */
 
 :host {
 
-  /* SIZE*/
+  /* SIZE */
 
   --graph-card-width: 100%;
 
@@ -11,7 +13,7 @@
   --graph-card-max-width: none;
 
 
-  /* SPACING*/
+  /* SPACING */
 
   --graph-card-padding: 30px;
 
@@ -20,7 +22,7 @@
   --graph-card-title-content-gap: 25px;
 
 
-  /*COLORS*/
+  /* COLORS */
 
   --graph-card-background: #ffffff;
 
@@ -31,12 +33,12 @@
   --graph-card-content-color: #333333;
 
 
-  /* BORDER*/
+  /* BORDER */
 
   --graph-card-radius: 12px;
 
 
-  /*TITLE*/
+  /* TITLE */
 
   --graph-card-title-size: 32px;
 
@@ -45,7 +47,7 @@
   --graph-card-title-line-height: 1.2;
 
 
-  /*FONT*/
+  /* FONT */
 
   --graph-card-font-family:
     Arial,
@@ -53,23 +55,33 @@
     sans-serif;
 
 
-  /*HOST*/
+  /* HOST */
 
-  display: block;
+  display: flex;
+
+  flex-direction: column;
+
+  flex: 0 1 auto;
 
   width: var(--graph-card-width);
 
   max-width: var(--graph-card-max-width);
 
+  min-width: 0;
+
   box-sizing: border-box;
+
+  font-family: var(--graph-card-font-family);
 }
 
 
-/*MAIN CARD*/
+/* MAIN CARD */
 
 .balina-graph-card {
 
   width: 100%;
+
+  min-width: 0;
 
   min-height:
     var(--graph-card-min-height);
@@ -81,6 +93,8 @@
   display: flex;
 
   flex-direction: column;
+
+  flex: 1 1 auto;
 
   padding:
     var(--graph-card-padding);
@@ -105,13 +119,19 @@
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
-    opacity 0.2s ease;
+    opacity 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 
-/*TITLE*/
+/* TITLE */
 
 .graph-card-title {
+
+  width: 100%;
+
+  min-width: 0;
 
   flex: 0 0 auto;
 
@@ -119,8 +139,13 @@
 
   padding: 0;
 
+  box-sizing: border-box;
+
   color:
     var(--graph-card-title-color);
+
+  font-family:
+    var(--graph-card-font-family);
 
   font-size:
     var(--graph-card-title-size);
@@ -132,10 +157,12 @@
     var(--graph-card-title-line-height);
 
   word-break: break-word;
+
+  overflow-wrap: anywhere;
 }
 
 
-/*CONTENT*/
+/* CONTENT */
 
 .graph-card-content {
 
@@ -143,9 +170,13 @@
 
   min-width: 0;
 
+  flex: 1 1 auto;
+
   display: flex;
 
   flex-direction: column;
+
+  align-items: stretch;
 
   gap:
     var(--graph-card-content-gap);
@@ -157,17 +188,19 @@
 }
 
 
-/*DEVELOPER CONTENT*/
+/* DEVELOPER CONTENT */
 
 .graph-card-content > * {
 
   max-width: 100%;
 
+  min-width: 0;
+
   box-sizing: border-box;
 }
 
 
-/*IMAGES*/
+/* IMAGE */
 
 .graph-card-content img {
 
@@ -181,42 +214,89 @@
 
   object-fit: contain;
 
+  box-sizing: border-box;
+
   border-radius: 8px;
 }
 
 
-/*GRAPHS / CANVAS*/
+/* IMAGE THAT SHOULD FIT CARD WIDTH */
+
+.graph-card-content img.full-width {
+
+  width: 100%;
+
+  max-width: 100%;
+
+  height: auto;
+}
+
+
+/* CANVAS / GRAPH */
 
 .graph-card-content canvas {
 
   display: block;
 
+  width: 100%;
+
   max-width: 100%;
 
   height: auto;
+
+  box-sizing: border-box;
 }
 
 
-/* SVG*/
+/* SVG */
 
 .graph-card-content svg {
 
   display: block;
 
+  width: 100%;
+
   max-width: 100%;
 
   height: auto;
+
+  box-sizing: border-box;
 }
 
 
-/*TEXT*/
+/* IF DEVELOPER USES A GRAPH CONTAINER */
+
+.graph-card-content .graph-container {
+
+  width: 100%;
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  box-sizing: border-box;
+}
+
+
+/* TEXT */
 
 .graph-card-content p {
 
+  width: 100%;
+
+  min-width: 0;
+
   margin: 0;
+
+  padding: 0;
 
   color:
     var(--graph-card-content-color);
+
+  font-family:
+    var(--graph-card-font-family);
 
   line-height: 1.5;
 
@@ -226,17 +306,72 @@
 }
 
 
-/* BUTTONS*/
+/* HEADINGS INSIDE CONTENT */
+
+.graph-card-content h1,
+.graph-card-content h2,
+.graph-card-content h3,
+.graph-card-content h4,
+.graph-card-content h5,
+.graph-card-content h6 {
+
+  max-width: 100%;
+
+  margin-top: 0;
+
+  word-break: break-word;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* BUTTONS */
 
 .graph-card-content button {
 
   box-sizing: border-box;
 
+  max-width: 100%;
+
   cursor: pointer;
 }
 
 
-/*CLICKABLE*/
+/* TABLES */
+
+.graph-card-content table {
+
+  width: 100%;
+
+  max-width: 100%;
+
+  border-collapse: collapse;
+
+  box-sizing: border-box;
+}
+
+
+/* FLEX DEVELOPER CONTENT */
+
+.graph-card-content .flex-content {
+
+  width: 100%;
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  gap: var(--graph-card-content-gap);
+
+  box-sizing: border-box;
+}
+
+
+/* CLICKABLE */
 
 :host(.graph-card-clickable) {
 
@@ -244,9 +379,11 @@
 }
 
 
-:host(.graph-card-clickable) .balina-graph-card:hover {
+:host(.graph-card-clickable)
+.balina-graph-card:hover {
 
-  transform: translateY(-2px);
+  transform:
+    translateY(-2px);
 
   box-shadow:
     0 6px 18px
@@ -254,9 +391,11 @@
 }
 
 
-:host(.graph-card-clickable) .balina-graph-card:active {
+:host(.graph-card-clickable)
+.balina-graph-card:active {
 
-  transform: translateY(0);
+  transform:
+    translateY(0);
 
   box-shadow:
     0 2px 6px
@@ -264,19 +403,28 @@
 }
 
 
-/*DISABLED*/
+/* NOT CLICKABLE */
+
+:host(:not(.graph-card-clickable)) {
+
+  cursor: default;
+}
+
+
+/* DISABLED */
 
 :host(.graph-card-disabled) {
 
   opacity: 0.55;
 
-  pointer-events: none;
-
   cursor: not-allowed;
+
+  pointer-events: none;
 }
 
 
-:host(.graph-card-disabled) .balina-graph-card {
+:host(.graph-card-disabled)
+.balina-graph-card {
 
   transform: none;
 
@@ -284,7 +432,10 @@
 }
 
 
-/*RESPONSIVE - TABLET*/
+/* CUSTOM CLASS SUPPORT: customClass is applied to the HOST through @HostBinding. */
+
+
+/* RESPONSIVE - TABLET */
 
 @media (max-width: 768px) {
 
@@ -303,7 +454,7 @@
 }
 
 
-/*RESPONSIVE - MOBILE*/
+/* RESPONSIVE - MOBILE */
 
 @media (max-width: 480px) {
 
@@ -321,10 +472,34 @@
 
     --graph-card-radius: 10px;
   }
+
+
+  .graph-card-content img {
+
+    width: 100%;
+
+    height: auto;
+  }
+
+
+  .graph-card-content canvas {
+
+    width: 100%;
+
+    height: auto;
+  }
+
+
+  .graph-card-content .flex-content {
+
+    flex-direction: column;
+
+    align-items: stretch;
+  }
 }
 
 
-/*SMALL MOBILE*/
+/* SMALL MOBILE */
 
 @media (max-width: 360px) {
 
@@ -335,5 +510,7 @@
     --graph-card-title-size: 21px;
 
     --graph-card-content-gap: 12px;
+
+    --graph-card-title-content-gap: 16px;
   }
 }

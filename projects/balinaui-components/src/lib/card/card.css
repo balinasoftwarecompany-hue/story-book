@@ -1,15 +1,18 @@
 /*
    BALINA CARD
- */
+*/
 
 :host {
-  /*
-     BALINA UI DESIGN TOKENS
- */
+
+  /* =========================================
+     DESIGN TOKENS
+  ========================================= */
 
   --card-width: 100%;
 
-  --card-height: 280px;
+  --card-height: auto;
+
+  --card-min-height: 280px;
 
   --card-padding: 28px;
 
@@ -18,6 +21,9 @@
   --card-border: 3px solid #dddddd;
 
   --card-radius: 12px;
+
+
+  /* COLORS */
 
   --card-title-color: #000000;
 
@@ -31,6 +37,9 @@
 
   --card-line-color: #b7b7b7;
 
+
+  /* TEXT */
+
   --card-title-size: 38px;
 
   --card-description-size: 20px;
@@ -39,13 +48,39 @@
 
   --card-day-size: 24px;
 
-  --card-font-family: Arial, Helvetica, sans-serif;
+  --card-font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
   --card-font-weight: 600;
 
-  --card-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 
-  --card-hover-transform: translateY(-1px);
+  /* SPACING */
+
+  --card-content-gap: 28px;
+
+  --card-title-content-gap: 36px;
+
+
+  /* DATE */
+
+  --card-date-width: 92px;
+
+  --card-date-height: 96px;
+
+
+  /* EFFECTS */
+
+  --card-hover-shadow:
+    0 4px 12px
+    rgba(0, 0, 0, 0.08);
+
+  --card-hover-transform:
+    translateY(-1px);
+
+
+  /* DISABLED */
 
   --card-disabled-background: #f5f5f5;
 
@@ -53,109 +88,244 @@
 
   --card-disabled-text: #999999;
 
-}
 
-:host .balina-card {
-  /*
-     CARD
- */
+  /* =========================================
+     HOST
+  ========================================= */
+
+  display: block;
 
   width: var(--card-width);
 
-  min-height: var(--card-height);
+  max-width: 100%;
+
+  box-sizing: border-box;
+}
+
+
+/*
+   =========================================
+   CARD
+   =========================================
+*/
+
+:host .balina-card {
+
+  width: 100%;
+
+  min-width: 0;
+
+  min-height: var(--card-min-height);
+
+  height: var(--card-height);
 
   box-sizing: border-box;
 
+
+  /* FLEX */
+
+  display: flex;
+
+  flex-direction: column;
+
+
+  /* SPACING */
+
   padding: var(--card-padding);
 
-  background: var(--card-background);
 
-  border: var(--card-border);
+  /* COLORS */
 
-  border-radius: var(--card-radius);
+  background:
+    var(--card-background);
 
-  font-family: var(--card-font-family);
+  border:
+    var(--card-border);
 
-  font-weight: var(--card-font-weight);
+  border-radius:
+    var(--card-radius);
+
+
+  /* FONT */
+
+  font-family:
+    var(--card-font-family);
+
+  font-weight:
+    var(--card-font-weight);
+
+
+  /* OVERFLOW */
+
+  overflow: hidden;
+
+
+  /* TRANSITION */
 
   transition:
     box-shadow 0.2s ease,
     transform 0.2s ease,
     background-color 0.2s ease,
     border-color 0.2s ease;
-
-  box-sizing: border-box;
 }
 
+
 /*
+   =========================================
    CLICKABLE
- */
+   =========================================
+*/
 
 :host(.card-clickable) .balina-card {
+
   cursor: pointer;
 }
 
+
 /*
+   =========================================
    NOT CLICKABLE
- */
+   =========================================
+*/
 
 :host(:not(.card-clickable)) .balina-card {
+
   cursor: default;
 }
 
+
 /*
+   =========================================
    HOVER
- */
+   =========================================
+*/
 
-:host(.card-clickable) .balina-card:hover {
-  box-shadow: var(--card-hover-shadow);
+:host(.card-clickable)
+.balina-card:hover {
 
-  transform: var(--card-hover-transform);
+  box-shadow:
+    var(--card-hover-shadow);
+
+  transform:
+    var(--card-hover-transform);
 }
 
+
 /*
+   =========================================
    ACTIVE
- */
+   =========================================
+*/
 
-:host(.card-clickable) .balina-card:active {
-  transform: translateY(0);
+:host(.card-clickable)
+.balina-card:active {
+
+  transform:
+    translateY(0);
 }
 
+
 /*
+   =========================================
    TITLE
- */
+   =========================================
+*/
 
 :host .card-title {
+
+  width: 100%;
+
+  min-width: 0;
+
+  flex: 0 0 auto;
+
   margin: 0;
 
-  color: var(--card-title-color);
+  padding: 0;
 
-  font-size: var(--card-title-size);
+
+  color:
+    var(--card-title-color);
+
+  font-size:
+    var(--card-title-size);
 
   font-weight: 700;
 
   line-height: 1.2;
+
+
+  /* Prevent overflow */
+
+  word-break: break-word;
+
+  overflow-wrap: anywhere;
 }
 
+
 /*
+   =========================================
    CONTENT
- */
+   =========================================
+*/
 
 :host .card-content {
+
+  width: 100%;
+
+  min-width: 0;
+
+  flex: 1 1 auto;
+
+
+  /* FLEX */
+
   display: flex;
+
+  flex-direction: row;
+
   align-items: center;
-  gap: 28px;
-  margin-top: 36px;
+
+
+  /* SPACING */
+
+  gap:
+    var(--card-content-gap);
+
+  margin-top:
+    var(--card-title-content-gap);
+
+
+  /* IMPORTANT */
+
+  box-sizing: border-box;
+
+  overflow: hidden;
 }
 
+
 /*
+   =========================================
    DATE
- */
+   =========================================
+*/
 
 :host .card-date {
-  width: 92px;
-  height: 96px;
-  flex-shrink: 0;
+
+  width:
+    var(--card-date-width);
+
+  height:
+    var(--card-date-height);
+
+  min-width:
+    var(--card-date-width);
+
+  flex:
+    0 0 var(--card-date-width);
+
+
+  /* FLEX */
 
   display: flex;
 
@@ -165,162 +335,288 @@
 
   justify-content: center;
 
+
+  /* BOX */
+
   box-sizing: border-box;
 
   padding: 8px;
 
-  background: var(--card-date-background);
+  background:
+    var(--card-date-background);
 
   border-radius: 10px;
+
+
+  /* Prevent shrinking */
+
+  overflow: hidden;
 }
 
+
 /*
+   =========================================
    MONTH
- */
+   =========================================
+*/
 
 :host .card-month {
-  color: var(--card-month-color);
 
-  font-size: var(--card-month-size);
+  max-width: 100%;
+
+  color:
+    var(--card-month-color);
+
+  font-size:
+    var(--card-month-size);
 
   font-weight: 700;
 
   line-height: 1;
+
+  white-space: nowrap;
 }
 
+
 /*
+   =========================================
    LINE
- */
+   =========================================
+*/
 
 :host .card-line {
+
   width: 80%;
+
+  max-width: 80%;
 
   height: 2px;
 
+  flex: 0 0 2px;
+
   margin: 7px 0;
 
-  background: var(--card-line-color);
+  background:
+    var(--card-line-color);
 }
 
+
 /*
+   =========================================
    DAY
- */
+   =========================================
+*/
 
 :host .card-day {
-  color: var(--card-day-color);
 
-  font-size: var(--card-day-size);
+  max-width: 100%;
+
+  color:
+    var(--card-day-color);
+
+  font-size:
+    var(--card-day-size);
 
   font-weight: 600;
 
   line-height: 1;
+
+  white-space: nowrap;
 }
 
+
 /*
+   =========================================
    DESCRIPTION
- */
+   =========================================
+*/
 
 :host .card-description {
-  flex: 1;
 
-  color: var(--card-description-color);
+  flex: 1 1 auto;
 
-  font-size: var(--card-description-size);
+  min-width: 0;
+
+  width: auto;
+
+
+  color:
+    var(--card-description-color);
+
+  font-size:
+    var(--card-description-size);
 
   font-weight: 600;
 
   line-height: 1.4;
+
+
+  /* TEXT FIT */
+
+  word-break: break-word;
+
+  overflow-wrap: anywhere;
 }
 
+
 /*
+   =========================================
    DISABLED
- */
+   =========================================
+*/
 
-:host(.card-disabled) .balina-card {
-  background: var(--card-disabled-background);
+:host(.card-disabled)
+.balina-card {
 
-  border-color: var(--card-disabled-border);
+  background:
+    var(--card-disabled-background);
 
-  color: var(--card-disabled-text);
+  border-color:
+    var(--card-disabled-border);
+
+  color:
+    var(--card-disabled-text);
 
   cursor: not-allowed;
 
   box-shadow: none;
 
   transform: none;
+
+  pointer-events: none;
 }
 
-/* Prevent hover when disabled */
 
-:host(.card-disabled) .balina-card:hover {
+/*
+   =========================================
+   DISABLED HOVER
+   =========================================
+*/
+
+:host(.card-disabled)
+.balina-card:hover {
+
   box-shadow: none;
 
   transform: none;
 }
 
-/*
-   DISABLED CONTENT
- */
 
-:host(.card-disabled) .balina-card .card-title,
-:host(.card-disabled) .balina-card .card-description {
-  color: var(--card-disabled-text);
+/*
+   =========================================
+   DISABLED CONTENT
+   =========================================
+*/
+
+:host(.card-disabled)
+.balina-card .card-title,
+
+:host(.card-disabled)
+.balina-card .card-description {
+
+  color:
+    var(--card-disabled-text);
 }
 
+
 /*
-   RESPONSIVE
- */
+   =========================================
+   TABLET
+   =========================================
+*/
 
 @media (max-width: 768px) {
-  :host .balina-card {
+
+  :host {
+
+    --card-min-height: 250px;
+
+    --card-padding: 22px;
+
     --card-title-size: 30px;
 
     --card-description-size: 17px;
 
-    --card-height: auto;
+    --card-content-gap: 18px;
 
-    padding: 22px;
-  }
+    --card-title-content-gap: 28px;
 
-  :host .card-content {
-    gap: 18px;
+    --card-date-width: 80px;
 
-    margin-top: 28px;
-  }
-
-  :host .card-date {
-    width: 80px;
-
-    height: 88px;
+    --card-date-height: 88px;
   }
 }
 
+
+/*
+   =========================================
+   MOBILE
+   =========================================
+*/
+
 @media (max-width: 480px) {
-  :host .balina-card {
+
+  :host {
+
+    --card-min-height: auto;
+
+    --card-padding: 18px;
+
     --card-title-size: 26px;
 
     --card-description-size: 15px;
 
-    padding: 18px;
+    --card-content-gap: 14px;
+
+    --card-title-content-gap: 22px;
+
+    --card-date-width: 70px;
+
+    --card-date-height: 80px;
   }
+
 
   :host .card-content {
+
     align-items: flex-start;
+  }
+}
 
-    gap: 14px;
+
+/*
+   =========================================
+   VERY SMALL MOBILE
+   =========================================
+*/
+
+@media (max-width: 360px) {
+
+  :host {
+
+    --card-padding: 14px;
+
+    --card-title-size: 22px;
+
+    --card-description-size: 14px;
+
+    --card-content-gap: 10px;
+
+    --card-title-content-gap: 18px;
+
+    --card-date-width: 60px;
+
+    --card-date-height: 72px;
   }
 
-  :host .card-date {
-    width: 70px;
-
-    height: 80px;
-  }
 
   :host .card-month {
-    font-size: 20px;
+
+    font-size: 18px;
   }
 
+
   :host .card-day {
-    font-size: 20px;
+
+    font-size: 18px;
   }
 }

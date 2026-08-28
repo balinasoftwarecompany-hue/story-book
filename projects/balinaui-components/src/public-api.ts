@@ -14,3 +14,4 @@ export * from './lib/graph-card/graph-card';
 export * from './lib/flight-card/flight-card';
 export * from './lib/breadcrumb/breadcrumb';
 export * from './lib/multi-select-dropdown/multi-select-dropdown';
+export * from './lib/checkbox/checkbox';
