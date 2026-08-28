@@ -7,6 +7,8 @@ const meta: Meta<Checkbox> = {
 
   component: Checkbox,
 
+  tags: ['autodocs'],
+  
   parameters: {
     layout: 'centered',
   },

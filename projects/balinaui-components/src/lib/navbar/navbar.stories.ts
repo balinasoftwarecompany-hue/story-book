@@ -5,6 +5,9 @@ import { Navbar } from './navbar';
 const meta: Meta<Navbar> = {
   title: 'Components/Navbar',
   component: Navbar,
+  
+  tags: ['autodocs'],
+
   parameters: {
       layout: 'fullscreen',
     },

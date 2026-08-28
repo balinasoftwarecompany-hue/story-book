@@ -6,6 +6,8 @@ const meta: Meta<MultiSelectDropdown> = {
   title: 'Components/Multi Select Dropdown',
   component: MultiSelectDropdown,
 
+  tags: ['autodocs'],
+
   parameters: {
     layout: 'centered',
   },
